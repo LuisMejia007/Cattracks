@@ -39,8 +39,8 @@ public class GetUserBus extends Fragment {
 
 
 
-//       List<C1> buses = HomeActivity.cattracksDatabase.daoAccess().getStops("GRA", "SAAC");
-        List<C1> buses = HomeActivity.cattracksDatabase.daoAccess().getC1();
+       List<C1> buses = HomeActivity.cattracksDatabase.daoAccess().getStops("GRA", "SAAC");
+//        List<C1> buses = HomeActivity.cattracksDatabase.daoAccess().getC1();
 
         String busInfo = "";
 
@@ -51,6 +51,7 @@ public class GetUserBus extends Fragment {
         for (C1 bus: buses) {
 
             int id = bus.getC1_id();
+            String abbr = bus.getC1_abb();
             String stop1 = bus.getC1_run1().toString();
             String stop2 = bus.getC1_run2().toString();
             String stop3 = bus.getC1_run3().toString();
@@ -60,7 +61,7 @@ public class GetUserBus extends Fragment {
             String stop7 = bus.getC1_run7().toString();
             String stop8 = bus.getC1_run8().toString();
 
-            busInfo = busInfo + "\n\n" + "Bus id: " + id + "\n Stop1: " + stop1 + "\nStop2: " + stop2;
+            busInfo = busInfo + "\n\n" + "Bus id: " + id + "\n Abbr: " + abbr + "\n Stop1: " + stop1 + "\nStop2: " + stop2;
         }
 
         busInfo += "Not Working";

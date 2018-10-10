@@ -61,7 +61,9 @@ public class GetUserBus extends Fragment {
             String stop7 = bus.getC1_run7().toString();
             String stop8 = bus.getC1_run8().toString();
 
-            busInfo = busInfo + "\n\n" + "Bus id: " + id + "\n Abbr: " + abbr + "\n Stop1: " + stop1 + "\nStop2: " + stop2;
+            busInfo = busInfo + "\n\n" + "Bus id: " + id + "\n Abbr: " + abbr + "\n Stop1: " + stop1 + "\nStop2: " + stop2
+            + "\n Stop 3: " + stop3 + "\n Stop 4: " + stop4 + "\n Stop 5: " + stop5 + "\n Stop 6: " + stop6
+            + "\n Stop 7: " + stop7 + "\n Stop 8: " + stop8;
         }
 
         busInfo += "Not Working";

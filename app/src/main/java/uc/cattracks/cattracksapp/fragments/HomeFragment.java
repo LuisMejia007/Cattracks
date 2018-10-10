@@ -44,6 +44,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
 
+        // Once button is clicked, we place this fragment to the backstack (to go back too) and add GetUserBus fragment
         HomeActivity.fragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, new GetUserBus())
                 .addToBackStack(null).commit();

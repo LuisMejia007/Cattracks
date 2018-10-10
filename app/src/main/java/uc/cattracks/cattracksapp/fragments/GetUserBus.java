@@ -35,12 +35,25 @@ public class GetUserBus extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_get_user_bus, container, false);
 
+        // - Setting up a text view to showcase bus info
         textInfo = view.findViewById(R.id.get_bus_info);
 
 
 
+        /* Home Activity has the cattracksDatabase object, which is an instance of our Cattracks Database class.
+         * Cattracks Database class is found under the database folder.
+         * You can see from the cattracksDatabase object we're accessing daoAccess().
+         * CattracksDatabase is an abstract class, which only serves as an interface for the daoAccess class.
+         * The daoAccess class (under dao_interface) is what contains the SQL query functions for our app.
+         * It also serves as an interface for the Room framework (which holds the connection between our DB and Android).
+        */
+
+
+        // - As a test, we're only getting buses that go to SAAC from GRA. Only C1 goes there.
        List<C1> buses = HomeActivity.cattracksDatabase.daoAccess().getStops("GRA", "SAAC");
-//        List<C1> buses = HomeActivity.cattracksDatabase.daoAccess().getC1();
+
+       // - Uncomment this if you want to see all C1 departure times. This was used as a test.
+       //List<C1> buses = HomeActivity.cattracksDatabase.daoAccess().getC1();
 
         String busInfo = "";
 
@@ -66,7 +79,10 @@ public class GetUserBus extends Fragment {
             + "\n Stop 7: " + stop7 + "\n Stop 8: " + stop8;
         }
 
+        // - "Not working" will display by itself if 'buses' did not retrieve anything from our query.
         busInfo += "Not Working";
+
+        // - Set All bus information into our text view to showcase all info retrieved from query.
         textInfo.setText(busInfo);
         return view;
     }

@@ -8,6 +8,10 @@ import java.util.List;
 import uc.cattracks.cattracksapp.models.C1;
 import uc.cattracks.cattracksapp.models.stops;
 
+// The daoAccess class is what touches our database (Cattracks.db).
+// Here we can do all our queries (within @Query annotations)
+// Here is a helpful link in how to do other SQL commands using Room functionality
+// Link: https://developer.android.com/training/data-storage/room/accessing-data
 @Dao
 public interface daoAccess {
 

@@ -13,6 +13,22 @@ import uc.cattracks.cattracksapp.sqlAsset.*;
 import uc.cattracks.cattracksapp.database.CattracksDatabase;
 import uc.cattracks.cattracksapp.fragments.HomeFragment;
 
+
+
+/*
+ Helpful videos/links that helped me get this much done:
+
+ Room Tuts:
+  https://www.youtube.com/watch?v=qTRTwSMgly8&frags=pl%2Cwn (Check out video #24 as well)
+
+ Connecting pre-populated DB with Room:
+  https://stackoverflow.com/questions/44263891/how-to-use-room-persistence-library-with-pre-populated-database
+
+ Getting Started with Room:
+  https://medium.freecodecamp.org/room-sqlite-beginner-tutorial-2e725e47bfab
+
+*/
+
 public class HomeActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
@@ -20,6 +36,7 @@ public class HomeActivity extends AppCompatActivity {
     // Will manage our fragments (basically can think of them as views)
     public static android.support.v4.app.FragmentManager fragmentManager;
 
+    // Look @ line 79 for this object's use.
     public static CattracksDatabase cattracksDatabase;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -53,12 +70,19 @@ public class HomeActivity extends AppCompatActivity {
 
         mTextMessage = (TextView) findViewById(R.id.message);
 
+        /*###### Home Page Instantiation #######*/
+        /*
+         This is where set up our main fragment to be the 'HomeFragment',
+         which will display the buttons for 'Go To School' or 'Go Off-Campus'
+        */
+
         fragmentManager = getSupportFragmentManager();
         if(findViewById(R.id.fragment_container) != null) {
 
             if (savedInstanceState != null) {
                 return;
             }
+
 
             fragmentManager.beginTransaction().add(R.id.fragment_container, new HomeFragment()).commit();
         }
@@ -68,6 +92,12 @@ public class HomeActivity extends AppCompatActivity {
 
 
 
+        /* This is where connect our Cattracks.db file to our CattracksDatabase class.
+        * The CattracksDatabase class will then connect the DB to the daoAccess class (dao_interface/daoAccess)
+        * From the daoAccess class you'll be able to do various SQL commands.
+        * The 'allowMainThreadQueries' command allows us to make SQL queries from Android's main thread of execution ...
+        *  ... probably not the most efficient way of doing things but we'll find a better way later.
+        * */
 
        cattracksDatabase =  Room.databaseBuilder(getApplicationContext(), CattracksDatabase.class, "Cattracks.db")
                .openHelperFactory(new AssetSQLiteOpenHelperFactory())

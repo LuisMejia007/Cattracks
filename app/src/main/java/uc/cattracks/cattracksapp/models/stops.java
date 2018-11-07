@@ -1,6 +1,7 @@
 package uc.cattracks.cattracksapp.models;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
@@ -9,10 +10,14 @@ import java.sql.Time;
 @Entity
 public class stops {
 
+
+
     @PrimaryKey
     @NonNull
-    private String s_abb;
     private String s_name;
+    @Ignore
+    private String s_abb;
+    @Ignore
     private String Comments;
 
     public String getS_abb() {

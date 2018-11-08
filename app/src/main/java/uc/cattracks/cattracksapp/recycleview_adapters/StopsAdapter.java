@@ -8,12 +8,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import uc.cattracks.cattracksapp.HomeActivity;
 import uc.cattracks.cattracksapp.R;
 import uc.cattracks.cattracksapp.models.stops;
+
+import static java.security.AccessController.getContext;
 
 
 // ********************** StopsAdapter Class Information *****************************\\
@@ -78,6 +82,14 @@ public class StopsAdapter extends RecyclerView.Adapter <StopsAdapter.StopsViewHo
 
         stops stop = stopsList.get(position);
         holder.textView.setText(stop.getS_name());
+
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+           
+            }
+        });
     }
 
     @Override

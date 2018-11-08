@@ -19,6 +19,8 @@ import java.util.List;
 import uc.cattracks.cattracksapp.models.stops;
 import uc.cattracks.cattracksapp.recycleview_adapters.StopsAdapter;
 
+
+
 public class LocationsList extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
 
@@ -52,6 +54,9 @@ public class LocationsList extends AppCompatActivity implements SearchView.OnQue
     }
 
 
+
+    // Setting Up Search Filter
+    // Helpful Tutorial on doing a search filter: https://www.youtube.com/watch?v=qzbvDJqXeJs&frags=pl%2Cwn
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 

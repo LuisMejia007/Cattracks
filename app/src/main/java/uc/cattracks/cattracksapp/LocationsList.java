@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,7 @@ public class LocationsList extends AppCompatActivity implements SearchView.OnQue
     private StopsAdapter adapter;
     private RecyclerView.LayoutManager recyclerViewLayoutManager;
     private List<stops> stopLocations;
+    public static Button confirmationButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,9 @@ public class LocationsList extends AppCompatActivity implements SearchView.OnQue
         setSupportActionBar(toolbar);
 
 
+
+        // Reference Confirmation Button
+        confirmationButton = (Button) findViewById(R.id.confirmLocationSelectionButton);
 
         // Adding our RecyclerView To Activity
         stopLocationsRecyclerView = (RecyclerView) findViewById(R.id.stopLocations);
@@ -48,7 +53,7 @@ public class LocationsList extends AppCompatActivity implements SearchView.OnQue
 
         // Set Up Recycler View Adapter To Showcase Stops
         stopLocations = HomeActivity.cattracksDatabase.daoAccess().getStops();
-        adapter = new StopsAdapter(stopLocations);
+        adapter = new StopsAdapter(this, stopLocations);
         stopLocationsRecyclerView.setAdapter(adapter);
 
     }
@@ -90,4 +95,5 @@ public class LocationsList extends AppCompatActivity implements SearchView.OnQue
         adapter.updateList(filteredList);
         return true;
     }
+
 }

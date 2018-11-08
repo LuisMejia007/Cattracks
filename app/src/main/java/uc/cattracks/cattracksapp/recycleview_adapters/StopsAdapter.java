@@ -1,11 +1,14 @@
 package uc.cattracks.cattracksapp.recycleview_adapters;
 
+import android.app.ListActivity;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import uc.cattracks.cattracksapp.HomeActivity;
+import uc.cattracks.cattracksapp.LocationsList;
 import uc.cattracks.cattracksapp.R;
 import uc.cattracks.cattracksapp.models.stops;
 
@@ -33,6 +37,7 @@ public class StopsAdapter extends RecyclerView.Adapter <StopsAdapter.StopsViewHo
 
     private Context stopAdapterContext;
     private static List<stops> stopsList;
+    private LocationsList locationsListActivityReference;
 
 
     public static class StopsViewHolder extends RecyclerView.ViewHolder {
@@ -41,6 +46,7 @@ public class StopsAdapter extends RecyclerView.Adapter <StopsAdapter.StopsViewHo
         TextView textView;
         CheckBox selectLocationCheckBox;
         CheckBox selectDestinationCheckBox;
+        Button confirmLocationSelectionButton;
 
         public StopsViewHolder(View itemView) {
             super(itemView);
@@ -49,15 +55,14 @@ public class StopsAdapter extends RecyclerView.Adapter <StopsAdapter.StopsViewHo
             // Binding views from 'stops_card_view' using their respective ids to our StopsAdapter
             imageView = itemView.findViewById(R.id.stopPicImageView);
             textView = itemView.findViewById(R.id.stopNameTextView);
-            selectLocationCheckBox = (CheckBox) itemView.findViewById(R.id.stop_selected_checkbox);
-            selectDestinationCheckBox = (CheckBox) itemView.findViewById(R.id.destination_selected_checkbox);
 
         }
     }
 
 
-    public StopsAdapter(List<stops> stopsList) {
+    public StopsAdapter(Context c, List<stops> stopsList) {
         this.stopsList = stopsList;
+        stopAdapterContext = c;
     }
 
     @NonNull
@@ -90,20 +95,28 @@ public class StopsAdapter extends RecyclerView.Adapter <StopsAdapter.StopsViewHo
         holder.textView.setText(stop.getS_name());
 
 
-        holder.selectLocationCheckBox.setOnClickListener(new View.OnClickListener() {
+        holder.textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(holder.selectLocationCheckBox.isChecked()) {
-                    for(View myView : holder.selectDestinationCheckBox.getTouchables()) {
-                        myView.findViewById(R.id.destination_selected_checkbox).setVisibility(View.VISIBLE);
-                    }
-                } else {
-                    holder.selectDestinationCheckBox.setVisibility(View.INVISIBLE);
-                }
+                System.out.println("Selected at: " + holder.getLayoutPosition());
+                System.out.println("Stop Selected: " + holder.textView.getText().toString());
+                Toast.makeText(stopAdapterContext, "Stop Selected: " + holder.textView.getText().toString(), Toast.LENGTH_LONG).show();
 
-                System.out.println("Stop Selected: " + stopsList.get(position).getS_name());
+                LocationsList.confirmationButton.setVisibility(View.VISIBLE);
             }
         });
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("Selected at: " + holder.getLayoutPosition());
+                System.out.println("Stop Selected: " + holder.textView.getText().toString());
+                Toast.makeText(stopAdapterContext, "Stop Selected: " + holder.textView.getText().toString(), Toast.LENGTH_LONG).show();
+
+                //confirmationButton.setVisibility(View.INVISIBLE);
+                LocationsList.confirmationButton.setVisibility(View.VISIBLE);
+            }
+        });
+
     }
 
     @Override

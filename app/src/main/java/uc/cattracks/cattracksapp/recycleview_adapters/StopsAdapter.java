@@ -87,7 +87,7 @@ public class StopsAdapter extends RecyclerView.Adapter <StopsAdapter.StopsViewHo
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-           
+
             }
         });
     }

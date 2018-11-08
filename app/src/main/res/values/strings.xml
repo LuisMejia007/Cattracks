@@ -6,4 +6,6 @@
     <string name="nav_map">Map</string>
     <string name="nav_home">Home</string>
     <string name="nav_time">Time</string>
+
+    <string name="title_activity_locations_list">Stop Locations</string>
 </resources>

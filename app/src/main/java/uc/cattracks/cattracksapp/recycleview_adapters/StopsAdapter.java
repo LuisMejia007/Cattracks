@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,6 +39,8 @@ public class StopsAdapter extends RecyclerView.Adapter <StopsAdapter.StopsViewHo
 
         ImageView imageView;
         TextView textView;
+        CheckBox selectLocationCheckBox;
+        CheckBox selectDestinationCheckBox;
 
         public StopsViewHolder(View itemView) {
             super(itemView);
@@ -46,6 +49,9 @@ public class StopsAdapter extends RecyclerView.Adapter <StopsAdapter.StopsViewHo
             // Binding views from 'stops_card_view' using their respective ids to our StopsAdapter
             imageView = itemView.findViewById(R.id.stopPicImageView);
             textView = itemView.findViewById(R.id.stopNameTextView);
+            selectLocationCheckBox = (CheckBox) itemView.findViewById(R.id.stop_selected_checkbox);
+            selectDestinationCheckBox = (CheckBox) itemView.findViewById(R.id.destination_selected_checkbox);
+
         }
     }
 
@@ -84,10 +90,18 @@ public class StopsAdapter extends RecyclerView.Adapter <StopsAdapter.StopsViewHo
         holder.textView.setText(stop.getS_name());
 
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.selectLocationCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(holder.selectLocationCheckBox.isChecked()) {
+                    for(View myView : holder.selectDestinationCheckBox.getTouchables()) {
+                        myView.findViewById(R.id.destination_selected_checkbox).setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    holder.selectDestinationCheckBox.setVisibility(View.INVISIBLE);
+                }
 
+                System.out.println("Stop Selected: " + stopsList.get(position).getS_name());
             }
         });
     }

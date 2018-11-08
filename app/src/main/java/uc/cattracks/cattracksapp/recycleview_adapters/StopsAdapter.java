@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import uc.cattracks.cattracksapp.R;
@@ -82,6 +83,18 @@ public class StopsAdapter extends RecyclerView.Adapter <StopsAdapter.StopsViewHo
     @Override
     public int getItemCount() {
         return stopsList.size();
+    }
+
+    // Method for Search Filtering
+    public void updateList(List<stops> filteredStopsList) {
+
+        // Reset list that is shown inside the RecyclerView
+        stopsList = new ArrayList<>();
+        // Place all items inside filtered list to the list that the RecyclerView showcases
+        stopsList.addAll(filteredStopsList);
+        // Notify the change
+        notifyDataSetChanged();
+
     }
 
 }

@@ -75,6 +75,26 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
          *  ... probably not the most efficient way of doing things but we'll find a better way later.
          * */
 
+
+        System.out.println("SELECT abbrsQuery.stopNames, abbrsQuery.stopAbbrs FROM " +
+                "((" +
+                "SELECT s_abb AS mainStop FROM stops as s WHERE s.s_name = 'Granville Apartments' " +
+                " UNION" +
+                " SELECT c1_abb FROM C1" +
+                " UNION" +
+                " SELECT c2_abb FROM C2" +
+                " UNION " +
+                " SELECT fc_abb FROM FC" +
+                " UNION" +
+                " SELECT g_abb FROM G" +
+                " UNION" +
+                " SELECT h_abb FROM H" +
+                " UNION" +
+                " SELECT hw_abb FROM HW" +
+                ") as stopsQuery, " +
+                "(SELECT s_abb as stopAbbrs, s_name as stopNames FROM stops) as abbrsQuery) " +
+                "WHERE stopsQuery.mainStop = abbrsQuery.stopAbbrs AND abbrsQuery.stopNames <> 'Granville Apartments'");
+
         cattracksDatabase =  Room.databaseBuilder(getApplicationContext(), CattracksDatabase.class, "Cattracks.db")
                 .openHelperFactory(new AssetSQLiteOpenHelperFactory())
                 .allowMainThreadQueries().build();

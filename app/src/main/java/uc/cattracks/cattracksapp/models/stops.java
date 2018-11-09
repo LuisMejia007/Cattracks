@@ -1,5 +1,6 @@
 package uc.cattracks.cattracksapp.models;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
@@ -14,10 +15,13 @@ public class stops {
 
     @PrimaryKey
     @NonNull
+    @ColumnInfo(name = "s_name")
     private String s_name;
-    @Ignore
+
+    @ColumnInfo(name = "s_abb")
     private String s_abb;
-    @Ignore
+
+    @ColumnInfo(name = "Comments")
     private String Comments;
 
     public String getS_abb() {
@@ -29,6 +33,7 @@ public class stops {
     }
 
     public String getS_name() {
+        if (s_name.isEmpty()) { return ""; }
         return s_name;
     }
 

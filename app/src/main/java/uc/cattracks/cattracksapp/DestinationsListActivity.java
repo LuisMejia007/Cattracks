@@ -1,5 +1,6 @@
 package uc.cattracks.cattracksapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -22,7 +23,11 @@ public class DestinationsListActivity extends AppCompatActivity {
         List<stops> stopDestinations = new ArrayList<>();
         TextView textView = (TextView) findViewById(R.id.stop_destinations);
 
-        stopDestinations = HomeActivity.cattracksDatabase.daoAccess().getStops();
+
+        String locationSelectedByUser = getIntent().getStringExtra("Stop Selected: ");
+
+        stopDestinations = HomeActivity.cattracksDatabase.daoAccess().getFilteredDestinations(locationSelectedByUser);
+
         String text = "Stop Selected: " + getIntent().getStringExtra("Stop Selected: ");
         for(stops stop: stopDestinations) {
 

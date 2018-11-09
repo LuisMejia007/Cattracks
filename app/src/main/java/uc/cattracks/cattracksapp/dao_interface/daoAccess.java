@@ -26,31 +26,28 @@ public interface daoAccess {
     @Query("SELECT * FROM C1")
     public List<C1> getC1();
 
-/*
-    @Query("SELECT abbrsQuery.stopNames, abbrsQuery.stopAbbrs\n" +
-            "    FROM \n" +
-            "    (      (\n" +
-            "            SELECT s_abb AS mainStop FROM stops as s WHERE s.s_name = 'Granville Apartments'\n" +
-            "            UNION\n" +
-            "            SELECT c1_abb FROM C1\n" +
-            "            UNION \n" +
-            "            SELECT c2_abb FROM C2\n" +
-            "            UNION\n" +
-            "            SELECT fc_abb FROM FC\n" +
-            "            UNION\n" +
-            "            SELECT g_abb FROM G\n" +
-            "            UNION\n" +
-            "            SELECT h_abb FROM H\n" +
-            "            UNION\n" +
-            "            SELECT hw_abb FROM HW\n" +
-            "            ) as stopsQuery,\n" +
-            "            \n" +
-            "            (SELECT s_abb as stopAbbrs, s_name as stopNames \n" +
-            "             FROM stops) as abbrsQuery\n" +
-            ")\n" +
-            "    WHERE stopsQuery.mainStop = abbrsQuery.stopAbbrs AND abbrsQuery.stopNames <> 'Granville Apartments';\n" +
-            "    \n" +
-            "\n" +
-            "\n")
-    public List<stops> getFilteredDestinations();*/
+
+    @Query("SELECT abbrsQuery.stopNames as s_name FROM" +
+            "(("+
+            " SELECT s_abb AS mainStop FROM stops as s WHERE s.s_name = :userSelectedLocation" +
+            " UNION" +
+            " SELECT c1_abb FROM C1" +
+            " UNION" +
+            " SELECT c2_abb FROM C2" +
+            " UNION " +
+            " SELECT fc_abb FROM FC" +
+            " UNION " +
+            " SELECT g_abb FROM G" +
+            " UNION" +
+            " SELECT h_abb FROM H" +
+            " UNION" +
+            " SELECT hw_abb FROM HW" +
+            " UNION" +
+            " SELECT e1_abb FROM E1" +
+            " UNION" +
+            " SELECT e2_abb FROM E2" +
+            ") as stopsQuery, " +
+            "(SELECT s_abb as stopAbbrs, s_name as stopNames FROM stops) as abbrsQuery) " +
+            "WHERE stopsQuery.mainStop = abbrsQuery.stopAbbrs AND abbrsQuery.stopNames <> :userSelectedLocation")
+    public List<stops> getFilteredDestinations(String userSelectedLocation);
 }

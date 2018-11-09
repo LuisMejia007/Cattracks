@@ -46,9 +46,6 @@ public class StopsAdapter extends RecyclerView.Adapter <StopsAdapter.StopsViewHo
 
         ImageView imageView;
         TextView textView;
-        CheckBox selectLocationCheckBox;
-        CheckBox selectDestinationCheckBox;
-        Button confirmLocationSelectionButton;
 
         public StopsViewHolder(View itemView) {
             super(itemView);

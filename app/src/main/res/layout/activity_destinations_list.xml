@@ -11,4 +11,22 @@
         android:layout_height="match_parent"
         android:id="@+id/stop_destinations"/>
 
+    <Button
+        android:id="@+id/confirmDestinationSelectionButton"
+        android:layout_width="112dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:visibility="invisible"
+        android:text="Finish" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/destinationLocations"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="false"
+        android:scrollbars="vertical">
+
+    </android.support.v7.widget.RecyclerView>
+
 </android.support.constraint.ConstraintLayout>

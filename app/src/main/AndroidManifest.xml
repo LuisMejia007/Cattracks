@@ -21,7 +21,11 @@
         <activity
             android:name=".LocationsList"
             android:label="@string/title_activity_locations_list"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".DestinationsListActivity"
+            android:label="Select Your Destination">
+        </activity>
     </application>
 
 </manifest>

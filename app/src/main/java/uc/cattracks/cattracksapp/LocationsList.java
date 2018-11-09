@@ -1,5 +1,6 @@
 package uc.cattracks.cattracksapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -22,7 +23,7 @@ import uc.cattracks.cattracksapp.recycleview_adapters.StopsAdapter;
 
 
 
-public class LocationsList extends AppCompatActivity implements SearchView.OnQueryTextListener {
+public class LocationsList extends AppCompatActivity implements SearchView.OnQueryTextListener, View.OnClickListener {
 
 
     private RecyclerView stopLocationsRecyclerView;
@@ -40,7 +41,7 @@ public class LocationsList extends AppCompatActivity implements SearchView.OnQue
 
 
 
-        // Reference Confirmation Button
+        // Confirmation Button
         confirmationButton = (Button) findViewById(R.id.confirmLocationSelectionButton);
 
         // Adding our RecyclerView To Activity
@@ -52,7 +53,7 @@ public class LocationsList extends AppCompatActivity implements SearchView.OnQue
         stopLocationsRecyclerView.setLayoutManager(recyclerViewLayoutManager);
 
         // Set Up Recycler View Adapter To Showcase Stops
-        stopLocations = HomeActivity.cattracksDatabase.daoAccess().getStops();
+        stopLocations = HomeActivity.cattracksDatabase.daoAccess().getStops(); //Query For All Stops
         adapter = new StopsAdapter(this, stopLocations);
         stopLocationsRecyclerView.setAdapter(adapter);
 
@@ -96,4 +97,10 @@ public class LocationsList extends AppCompatActivity implements SearchView.OnQue
         return true;
     }
 
+    @Override
+    public void onClick(View view) {
+        System.out.println("CLICKED!!!!!");
+        Intent intent = new Intent(this, DestinationsListActivity.class);
+        startActivity(intent);
+    }
 }

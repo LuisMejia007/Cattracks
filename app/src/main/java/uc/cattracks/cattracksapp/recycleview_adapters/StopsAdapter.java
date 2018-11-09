@@ -2,6 +2,7 @@ package uc.cattracks.cattracksapp.recycleview_adapters;
 
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import uc.cattracks.cattracksapp.DestinationsListActivity;
 import uc.cattracks.cattracksapp.HomeActivity;
 import uc.cattracks.cattracksapp.LocationsList;
 import uc.cattracks.cattracksapp.R;
@@ -103,6 +105,16 @@ public class StopsAdapter extends RecyclerView.Adapter <StopsAdapter.StopsViewHo
                 Toast.makeText(stopAdapterContext, "Stop Selected: " + holder.textView.getText().toString(), Toast.LENGTH_LONG).show();
 
                 LocationsList.confirmationButton.setVisibility(View.VISIBLE);
+
+                // Make Confirmation Button Move To The Next Activity
+                LocationsList.confirmationButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(stopAdapterContext, DestinationsListActivity.class);
+                        intent.putExtra("Stop Selected: " , holder.textView.getText().toString());
+                        stopAdapterContext.startActivity(intent);
+                    }
+                });
             }
         });
         holder.imageView.setOnClickListener(new View.OnClickListener() {
@@ -112,8 +124,18 @@ public class StopsAdapter extends RecyclerView.Adapter <StopsAdapter.StopsViewHo
                 System.out.println("Stop Selected: " + holder.textView.getText().toString());
                 Toast.makeText(stopAdapterContext, "Stop Selected: " + holder.textView.getText().toString(), Toast.LENGTH_LONG).show();
 
-                //confirmationButton.setVisibility(View.INVISIBLE);
+
                 LocationsList.confirmationButton.setVisibility(View.VISIBLE);
+
+                // Make Confirmation Button Move To The Next Activity
+                LocationsList.confirmationButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(stopAdapterContext, DestinationsListActivity.class);
+                        intent.putExtra("Stop Selected: " , holder.textView.getText().toString());
+                        stopAdapterContext.startActivity(intent);
+                    }
+                });
             }
         });
 

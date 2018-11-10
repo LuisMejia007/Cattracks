@@ -1,5 +1,6 @@
 package uc.cattracks.cattracksapp.models;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
@@ -7,7 +8,10 @@ import android.arch.persistence.room.PrimaryKey;
 public class Bus {
 
     @PrimaryKey
+    @ColumnInfo(name = "b_id")
     private int b_id;
+
+    @ColumnInfo(name = "b_name")
     private String b_name;
 
     public Bus() { }

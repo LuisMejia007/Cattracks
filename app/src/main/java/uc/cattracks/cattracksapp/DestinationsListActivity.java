@@ -106,7 +106,6 @@ public class DestinationsListActivity extends AppCompatActivity implements Searc
     @Override
     public void onClick(View view) {
 
-       System.out.println("CLICKED!!!!!");
        Intent intent = new Intent(this, LocationToDestinationBusActivity.class);
        startActivity(intent);
     }

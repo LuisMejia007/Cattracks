@@ -48,6 +48,13 @@ public interface daoAccess {
             " SELECT e2_abb FROM E2" +
             ") as stopsQuery, " +
             "(SELECT s_abb as stopAbbrs, s_name as stopNames FROM stops) as abbrsQuery) " +
-            "WHERE stopsQuery.mainStop = abbrsQuery.stopAbbrs AND abbrsQuery.stopNames <> :userSelectedLocation")
+            "WHERE stopsQuery.mainStop = abbrsQuery.stopAbbrs AND abbrsQuery.stopNames <> :userSelectedLocation" +
+            " ORDER BY s_name ASC;")
     public List<stops> getFilteredDestinations(String userSelectedLocation);
+
+
+    // Get stop abbreviations using stop names
+
+    @Query("SELECT s_abb FROM stops WHERE s_name =:userSelectedLocation OR s_name =:userSelectedDestination;")
+    public List<String> getStopAbbsFromNames(String userSelectedLocation, String userSelectedDestination);
 }

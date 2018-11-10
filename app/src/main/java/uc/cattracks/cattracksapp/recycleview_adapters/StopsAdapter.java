@@ -40,7 +40,7 @@ public class StopsAdapter extends RecyclerView.Adapter <StopsAdapter.StopsViewHo
     private Context stopAdapterContext;
     private static List<stops> stopsList;
     private LocationsList locationsListActivityReference;
-
+    public static Intent intent;
 
     public static class StopsViewHolder extends RecyclerView.ViewHolder {
 
@@ -93,12 +93,11 @@ public class StopsAdapter extends RecyclerView.Adapter <StopsAdapter.StopsViewHo
         stops stop = stopsList.get(position);
         holder.textView.setText(stop.getS_name());
 
+        intent = new Intent(stopAdapterContext, DestinationsListActivity.class);
 
         holder.textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("Selected at: " + holder.getLayoutPosition());
-                System.out.println("Stop Selected: " + holder.textView.getText().toString());
                 Toast.makeText(stopAdapterContext, "Stop Selected: " + holder.textView.getText().toString(), Toast.LENGTH_LONG).show();
 
                 LocationsList.confirmationButton.setVisibility(View.VISIBLE);
@@ -107,7 +106,6 @@ public class StopsAdapter extends RecyclerView.Adapter <StopsAdapter.StopsViewHo
                 LocationsList.confirmationButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(stopAdapterContext, DestinationsListActivity.class);
                         intent.putExtra("Stop Selected: " , holder.textView.getText().toString());
                         stopAdapterContext.startActivity(intent);
                     }
@@ -117,8 +115,7 @@ public class StopsAdapter extends RecyclerView.Adapter <StopsAdapter.StopsViewHo
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("Selected at: " + holder.getLayoutPosition());
-                System.out.println("Stop Selected: " + holder.textView.getText().toString());
+
                 Toast.makeText(stopAdapterContext, "Stop Selected: " + holder.textView.getText().toString(), Toast.LENGTH_LONG).show();
 
 
@@ -128,7 +125,6 @@ public class StopsAdapter extends RecyclerView.Adapter <StopsAdapter.StopsViewHo
                 LocationsList.confirmationButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(stopAdapterContext, DestinationsListActivity.class);
                         intent.putExtra("Stop Selected: " , holder.textView.getText().toString());
                         stopAdapterContext.startActivity(intent);
                     }

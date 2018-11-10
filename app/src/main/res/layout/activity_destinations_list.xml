@@ -13,12 +13,22 @@
 
     <Button
         android:id="@+id/confirmDestinationSelectionButton"
-        android:layout_width="112dp"
-        android:layout_height="wrap_content"
+        android:layout_width="145dp"
+        android:layout_height="49dp"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Finish"
         android:visibility="invisible"
-        android:text="Finish" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/destinationLocations"
+        app:layout_constraintHorizontal_bias="0.968"
+        app:layout_constraintStart_toStartOf="@+id/destinationLocations"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.985" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/destinationLocations"

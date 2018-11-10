@@ -24,8 +24,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".DestinationsListActivity"
-            android:label="Select Your Destination">
-        </activity>
+            android:label="Select Your Destination"></activity>
+        <activity android:name=".LocationToDestinationBusActivity"></activity>
     </application>
 
 </manifest>

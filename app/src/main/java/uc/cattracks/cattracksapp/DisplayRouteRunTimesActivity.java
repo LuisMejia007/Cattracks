@@ -3,6 +3,8 @@ package uc.cattracks.cattracksapp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -17,6 +19,7 @@ import uc.cattracks.cattracksapp.models.FC;
 import uc.cattracks.cattracksapp.models.G;
 import uc.cattracks.cattracksapp.models.H;
 import uc.cattracks.cattracksapp.models.HW;
+import uc.cattracks.cattracksapp.recycleview_adapters.BusRouteStopTimesAdapter;
 
 public class DisplayRouteRunTimesActivity extends AppCompatActivity {
 
@@ -28,6 +31,7 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
     private static List<String> gBusTimes= new ArrayList<>();
     private static List<String> hBusTimes= new ArrayList<>();
     private static List<String> hwBusTimes= new ArrayList<>();
+    private static List<String> busToAdapter = new ArrayList<>();
 
     public static Intent intent;
     public static Bundle extras;
@@ -36,6 +40,11 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
     public static String destinationAbb;
     public static String busAbb;
 
+
+    private static RecyclerView busStopTimesRecyclerView;
+    private static BusRouteStopTimesAdapter adapter;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,15 +52,16 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
 
 
         getAllIntentInformation();
-
-
-        TextView textView = findViewById(R.id.busNameTextView);
-        textView.setText("Bus: " + busName + " Location: " + locationAbb + " Destination: " + destinationAbb);
-
-
         executeQueriesBasedOnIntentInformation();
 
         String temp = "";
+
+        busStopTimesRecyclerView = findViewById(R.id.routesRecyclerView);
+        busStopTimesRecyclerView.setLayoutManager(new GridLayoutManager(this,2 ));
+        adapter = new BusRouteStopTimesAdapter(this, busToAdapter);
+        busStopTimesRecyclerView.setAdapter(adapter);
+
+
 
     }
 
@@ -135,6 +145,7 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
         }
 
 
+        busToAdapter = c1BusTimes;
         for(String c1: c1BusTimes) {
             System.out.println(c1 + " "
             );
@@ -171,6 +182,7 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
             c2BusTimes.add(temp.getC2_run16()); c2BusTimes.add(temp2.getC2_run16());
         }
 
+        busToAdapter = c2BusTimes;
         for(String c2: c2BusTimes) {
             System.out.println(c2 + " "
             );
@@ -200,10 +212,12 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
             e1BusTimes.add(temp.getE1_run9()); e1BusTimes.add(temp2.getE1_run9());
         }
 
+        busToAdapter = e1BusTimes;
         for(String e1: e1BusTimes) {
             System.out.println(e1 + " "
             );
         }
+
     }
 
     public void combineE2Stops() {
@@ -230,6 +244,7 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
             e2BusTimes.add(temp.getE2_run10()); e2BusTimes.add(temp2.getE2_run10());
         }
 
+        busToAdapter = e2BusTimes;
         for(String e2: e2BusTimes) {
             System.out.println(e2 + " "
             );
@@ -264,6 +279,7 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
             fcBusTimes.add(temp.getFc_run15()); fcBusTimes.add(temp2.getFc_run15());
         }
 
+        busToAdapter = fcBusTimes;
         for(String fC: fcBusTimes) {
             System.out.println(fC + " "
             );
@@ -298,6 +314,7 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
             gBusTimes.add(temp.getG_run14()); gBusTimes.add(temp2.getG_run14());
         }
 
+        busToAdapter = gBusTimes;
         for(String g: gBusTimes) {
             System.out.println(g + " "
             );
@@ -379,6 +396,7 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
         }
 
 
+        busToAdapter = hBusTimes;
         for(String h: hBusTimes) {
             System.out.println(h + " "
             );
@@ -422,6 +440,7 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
         }
 
 
+        busToAdapter = hwBusTimes;
         for(String hw: hwBusTimes) {
             System.out.println(hw + " "
             );

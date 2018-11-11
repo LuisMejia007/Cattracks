@@ -79,7 +79,7 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
             case "E2":
                 combineE2Stops();
                 break;
-            case "FC":
+            case "FastCat":
                 combineFastCatStops();
                 break;
             case "G":
@@ -150,11 +150,31 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
         Iterator<C2> c2DestinationIterator = c2DestinationStops.iterator();
 
 
-//        while(c2LocationIterator.hasNext() && c2DestinationIterator.hasNext()) {
-//
-//            c2BusTimes.add(c2LocationIterator.next());
-//            c2BusTimes.add(c2DestinationIterator.next());
-//        }
+        while(c2LocationIterator.hasNext() && c2DestinationIterator.hasNext()) {
+
+            C2 temp = c2LocationIterator.next(); C2 temp2 = c2DestinationIterator.next();
+            c2BusTimes.add(temp.getC2_run1()); c2BusTimes.add(temp2.getC2_run1());
+            c2BusTimes.add(temp.getC2_run2()); c2BusTimes.add(temp2.getC2_run2());
+            c2BusTimes.add(temp.getC2_run3()); c2BusTimes.add(temp2.getC2_run3());
+            c2BusTimes.add(temp.getC2_run4()); c2BusTimes.add(temp2.getC2_run4());
+            c2BusTimes.add(temp.getC2_run5()); c2BusTimes.add(temp2.getC2_run5());
+            c2BusTimes.add(temp.getC2_run6()); c2BusTimes.add(temp2.getC2_run6());
+            c2BusTimes.add(temp.getC2_run7()); c2BusTimes.add(temp2.getC2_run7());
+            c2BusTimes.add(temp.getC2_run8()); c2BusTimes.add(temp2.getC2_run8());
+            c2BusTimes.add(temp.getC2_run9()); c2BusTimes.add(temp2.getC2_run9());
+            c2BusTimes.add(temp.getC2_run10()); c2BusTimes.add(temp2.getC2_run10());
+            c2BusTimes.add(temp.getC2_run11()); c2BusTimes.add(temp2.getC2_run11());
+            c2BusTimes.add(temp.getC2_run12()); c2BusTimes.add(temp2.getC2_run12());
+            c2BusTimes.add(temp.getC2_run13()); c2BusTimes.add(temp2.getC2_run13());
+            c2BusTimes.add(temp.getC2_run14()); c2BusTimes.add(temp2.getC2_run14());
+            c2BusTimes.add(temp.getC2_run15()); c2BusTimes.add(temp2.getC2_run15());
+            c2BusTimes.add(temp.getC2_run16()); c2BusTimes.add(temp2.getC2_run16());
+        }
+
+        for(String c2: c2BusTimes) {
+            System.out.println(c2 + " "
+            );
+        }
     }
 
     public void combineE1Stops() {
@@ -165,11 +185,25 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
         Iterator<E1> e1DestinationIterator = e1DestinationStops.iterator();
 
 
-//        while(e1LocationIterator.hasNext() && e1DestinationIterator.hasNext()) {
-//
-//            e1BusTimes.add(e1LocationIterator.next());
-//            e1BusTimes.add(e1DestinationIterator.next());
-//        }
+        while(e1LocationIterator.hasNext() && e1DestinationIterator.hasNext()) {
+
+            E1 temp = e1LocationIterator.next(); E1 temp2 = e1DestinationIterator.next();
+
+            e1BusTimes.add(temp.getE1_run1()); e1BusTimes.add(temp2.getE1_run1());
+            e1BusTimes.add(temp.getE1_run2()); e1BusTimes.add(temp2.getE1_run2());
+            e1BusTimes.add(temp.getE1_run3()); e1BusTimes.add(temp2.getE1_run3());
+            e1BusTimes.add(temp.getE1_run4()); e1BusTimes.add(temp2.getE1_run4());
+            e1BusTimes.add(temp.getE1_run5()); e1BusTimes.add(temp2.getE1_run5());
+            e1BusTimes.add(temp.getE1_run6()); e1BusTimes.add(temp2.getE1_run6());
+            e1BusTimes.add(temp.getE1_run7()); e1BusTimes.add(temp2.getE1_run7());
+            e1BusTimes.add(temp.getE1_run8()); e1BusTimes.add(temp2.getE1_run8());
+            e1BusTimes.add(temp.getE1_run9()); e1BusTimes.add(temp2.getE1_run9());
+        }
+
+        for(String e1: e1BusTimes) {
+            System.out.println(e1 + " "
+            );
+        }
     }
 
     public void combineE2Stops() {
@@ -180,11 +214,26 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
         Iterator<E2> e2DestinationIterator = e2DestinationStops.iterator();
 
 
-//        while(e2LocationIterator.hasNext() && e2DestinationIterator.hasNext()) {
-//
-//            e2BusTimes.add(e2LocationIterator.next());
-//            e2BusTimes.add(e2DestinationIterator.next());
-//        }
+        while(e2LocationIterator.hasNext() && e2DestinationIterator.hasNext()) {
+
+            E2 temp = e2LocationIterator.next(); E2 temp2 = e2DestinationIterator.next();
+
+            e2BusTimes.add(temp.getE2_run1()); e2BusTimes.add(temp2.getE2_run1());
+            e2BusTimes.add(temp.getE2_run2()); e2BusTimes.add(temp2.getE2_run2());
+            e2BusTimes.add(temp.getE2_run3()); e2BusTimes.add(temp2.getE2_run3());
+            e2BusTimes.add(temp.getE2_run4()); e2BusTimes.add(temp2.getE2_run4());
+            e2BusTimes.add(temp.getE2_run5()); e2BusTimes.add(temp2.getE2_run5());
+            e2BusTimes.add(temp.getE2_run6()); e2BusTimes.add(temp2.getE2_run6());
+            e2BusTimes.add(temp.getE2_run7()); e2BusTimes.add(temp2.getE2_run7());
+            e2BusTimes.add(temp.getE2_run8()); e2BusTimes.add(temp2.getE2_run8());
+            e2BusTimes.add(temp.getE2_run9()); e2BusTimes.add(temp2.getE2_run9());
+            e2BusTimes.add(temp.getE2_run10()); e2BusTimes.add(temp2.getE2_run10());
+        }
+
+        for(String e2: e2BusTimes) {
+            System.out.println(e2 + " "
+            );
+        }
     }
 
     public void combineFastCatStops() {
@@ -194,13 +243,31 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
         Iterator<FC> fastCatLocationIterator = fastCatLocationStops.iterator();
         Iterator<FC> fastCatDestinationIterator = fastCatDestinationStops.iterator();
 
-//
-//        while(fastCatLocationIterator.hasNext() && fastCatDestinationIterator.hasNext()) {
-//
-//            // Combine
-//            fcBusTimes.add(fastCatLocationIterator.next());
-//            fcBusTimes.add(fastCatDestinationIterator.next());
-//        }
+
+        while(fastCatLocationIterator.hasNext() && fastCatDestinationIterator.hasNext()) {
+
+            FC temp = fastCatLocationIterator.next(); FC temp2 = fastCatDestinationIterator.next();
+            fcBusTimes.add(temp.getFc_run1()); fcBusTimes.add(temp2.getFc_run1());
+            fcBusTimes.add(temp.getFc_run2()); fcBusTimes.add(temp2.getFc_run2());
+            fcBusTimes.add(temp.getFc_run3()); fcBusTimes.add(temp2.getFc_run3());
+            fcBusTimes.add(temp.getFc_run4()); fcBusTimes.add(temp2.getFc_run4());
+            fcBusTimes.add(temp.getFc_run5()); fcBusTimes.add(temp2.getFc_run5());
+            fcBusTimes.add(temp.getFc_run6()); fcBusTimes.add(temp2.getFc_run6());
+            fcBusTimes.add(temp.getFc_run7()); fcBusTimes.add(temp2.getFc_run7());
+            fcBusTimes.add(temp.getFc_run8()); fcBusTimes.add(temp2.getFc_run9());
+            fcBusTimes.add(temp.getFc_run9()); fcBusTimes.add(temp2.getFc_run9());
+            fcBusTimes.add(temp.getFc_run10()); fcBusTimes.add(temp2.getFc_run10());
+            fcBusTimes.add(temp.getFc_run11()); fcBusTimes.add(temp2.getFc_run11());
+            fcBusTimes.add(temp.getFc_run12()); fcBusTimes.add(temp2.getFc_run12());
+            fcBusTimes.add(temp.getFc_run13()); fcBusTimes.add(temp2.getFc_run13());
+            fcBusTimes.add(temp.getFc_run14()); fcBusTimes.add(temp2.getFc_run14());
+            fcBusTimes.add(temp.getFc_run15()); fcBusTimes.add(temp2.getFc_run15());
+        }
+
+        for(String fC: fcBusTimes) {
+            System.out.println(fC + " "
+            );
+        }
     }
 
     public void combineGStops() {
@@ -210,12 +277,31 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
         Iterator<G> gLocationIterator = gLocationStops.iterator();
         Iterator<G> gDestinationIterator = gDestinationStops.iterator();
 
-//
-//        while(gLocationIterator.hasNext() && gDestinationIterator.hasNext()) {
-//
-//            gBusTimes.add(gLocationIterator.next());
-//            gBusTimes.add(gDestinationIterator.next());
-//        }
+
+        while(gLocationIterator.hasNext() && gDestinationIterator.hasNext()) {
+
+
+            G temp = gLocationIterator.next(); G temp2 = gDestinationIterator.next();
+            gBusTimes.add(temp.getG_run1()); gBusTimes.add(temp2.getG_run1());
+            gBusTimes.add(temp.getG_run2()); gBusTimes.add(temp2.getG_run2());
+            gBusTimes.add(temp.getG_run3()); gBusTimes.add(temp2.getG_run3());
+            gBusTimes.add(temp.getG_run4()); gBusTimes.add(temp2.getG_run4());
+            gBusTimes.add(temp.getG_run5()); gBusTimes.add(temp2.getG_run5());
+            gBusTimes.add(temp.getG_run6()); gBusTimes.add(temp2.getG_run6());
+            gBusTimes.add(temp.getG_run7()); gBusTimes.add(temp2.getG_run7());
+            gBusTimes.add(temp.getG_run8()); gBusTimes.add(temp2.getG_run8());
+            gBusTimes.add(temp.getG_run9()); gBusTimes.add(temp2.getG_run9());
+            gBusTimes.add(temp.getG_run10()); gBusTimes.add(temp2.getG_run10());
+            gBusTimes.add(temp.getG_run11()); gBusTimes.add(temp2.getG_run11());
+            gBusTimes.add(temp.getG_run12()); gBusTimes.add(temp2.getG_run12());
+            gBusTimes.add(temp.getG_run13()); gBusTimes.add(temp2.getG_run13());
+            gBusTimes.add(temp.getG_run14()); gBusTimes.add(temp2.getG_run14());
+        }
+
+        for(String g: gBusTimes) {
+            System.out.println(g + " "
+            );
+        }
     }
 
 
@@ -227,11 +313,77 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
         Iterator<H> hDestinationIterator = hDestinationStops.iterator();
 
 
-//        while(hLocationIterator.hasNext() && hDestinationIterator.hasNext()) {
-//
-//            hBusTimes.add(hLocationIterator.next());
-//            hBusTimes.add(hDestinationIterator.next());
-//        }
+        while(hLocationIterator.hasNext() && hDestinationIterator.hasNext()) {
+
+            H temp = hLocationIterator.next(); H temp2 = hDestinationIterator.next();
+
+            hBusTimes.add(temp.getH_run1()); hBusTimes.add(temp2.getH_run1());
+            hBusTimes.add(temp.getH_run2()); hBusTimes.add(temp2.getH_run2());
+            hBusTimes.add(temp.getH_run3()); hBusTimes.add(temp2.getH_run3());
+            hBusTimes.add(temp.getH_run4()); hBusTimes.add(temp2.getH_run4());
+            hBusTimes.add(temp.getH_run5()); hBusTimes.add(temp2.getH_run5());
+            hBusTimes.add(temp.getH_run6()); hBusTimes.add(temp2.getH_run6());
+            hBusTimes.add(temp.getH_run7()); hBusTimes.add(temp2.getH_run7());
+            hBusTimes.add(temp.getH_run8()); hBusTimes.add(temp2.getH_run8());
+            hBusTimes.add(temp.getH_run9()); hBusTimes.add(temp2.getH_run9());
+            hBusTimes.add(temp.getH_run10()); hBusTimes.add(temp2.getH_run10());
+            hBusTimes.add(temp.getH_run11()); hBusTimes.add(temp2.getH_run11());
+            hBusTimes.add(temp.getH_run12()); hBusTimes.add(temp2.getH_run12());
+            hBusTimes.add(temp.getH_run13()); hBusTimes.add(temp2.getH_run13());
+            hBusTimes.add(temp.getH_run14()); hBusTimes.add(temp2.getH_run14());
+            hBusTimes.add(temp.getH_run15()); hBusTimes.add(temp2.getH_run15());
+            hBusTimes.add(temp.getH_run16()); hBusTimes.add(temp2.getH_run16());
+            hBusTimes.add(temp.getH_run17()); hBusTimes.add(temp2.getH_run17());
+            hBusTimes.add(temp.getH_run18()); hBusTimes.add(temp2.getH_run18());
+            hBusTimes.add(temp.getH_run19()); hBusTimes.add(temp2.getH_run19());
+            hBusTimes.add(temp.getH_run20()); hBusTimes.add(temp2.getH_run20());
+
+            hBusTimes.add(temp.getH_run21()); hBusTimes.add(temp2.getH_run21());
+            hBusTimes.add(temp.getH_run22()); hBusTimes.add(temp2.getH_run22());
+            hBusTimes.add(temp.getH_run23()); hBusTimes.add(temp2.getH_run23());
+            hBusTimes.add(temp.getH_run24()); hBusTimes.add(temp2.getH_run24());
+            hBusTimes.add(temp.getH_run25()); hBusTimes.add(temp2.getH_run25());
+            hBusTimes.add(temp.getH_run26()); hBusTimes.add(temp2.getH_run26());
+            hBusTimes.add(temp.getH_run27()); hBusTimes.add(temp2.getH_run27());
+            hBusTimes.add(temp.getH_run28()); hBusTimes.add(temp2.getH_run28());
+            hBusTimes.add(temp.getH_run29()); hBusTimes.add(temp2.getH_run29());
+            hBusTimes.add(temp.getH_run30()); hBusTimes.add(temp2.getH_run30());
+            hBusTimes.add(temp.getH_run31()); hBusTimes.add(temp2.getH_run31());
+            hBusTimes.add(temp.getH_run32()); hBusTimes.add(temp2.getH_run32());
+            hBusTimes.add(temp.getH_run33()); hBusTimes.add(temp2.getH_run33());
+            hBusTimes.add(temp.getH_run34()); hBusTimes.add(temp2.getH_run34());
+            hBusTimes.add(temp.getH_run35()); hBusTimes.add(temp2.getH_run35());
+            hBusTimes.add(temp.getH_run36()); hBusTimes.add(temp2.getH_run36());
+            hBusTimes.add(temp.getH_run37()); hBusTimes.add(temp2.getH_run37());
+            hBusTimes.add(temp.getH_run38()); hBusTimes.add(temp2.getH_run38());
+            hBusTimes.add(temp.getH_run39()); hBusTimes.add(temp2.getH_run39());
+            hBusTimes.add(temp.getH_run40()); hBusTimes.add(temp2.getH_run40());
+
+
+            hBusTimes.add(temp.getH_run41()); hBusTimes.add(temp2.getH_run41());
+            hBusTimes.add(temp.getH_run42()); hBusTimes.add(temp2.getH_run42());
+            hBusTimes.add(temp.getH_run43()); hBusTimes.add(temp2.getH_run43());
+            hBusTimes.add(temp.getH_run44()); hBusTimes.add(temp2.getH_run44());
+            hBusTimes.add(temp.getH_run45()); hBusTimes.add(temp2.getH_run45());
+            hBusTimes.add(temp.getH_run46()); hBusTimes.add(temp2.getH_run46());
+            hBusTimes.add(temp.getH_run47()); hBusTimes.add(temp2.getH_run47());
+            hBusTimes.add(temp.getH_run48()); hBusTimes.add(temp2.getH_run48());
+            hBusTimes.add(temp.getH_run49()); hBusTimes.add(temp2.getH_run49());
+            hBusTimes.add(temp.getH_run50()); hBusTimes.add(temp2.getH_run50());
+            hBusTimes.add(temp.getH_run51()); hBusTimes.add(temp2.getH_run51());
+            hBusTimes.add(temp.getH_run52()); hBusTimes.add(temp2.getH_run52());
+            hBusTimes.add(temp.getH_run53()); hBusTimes.add(temp2.getH_run53());
+            hBusTimes.add(temp.getH_run54()); hBusTimes.add(temp2.getH_run54());
+            hBusTimes.add(temp.getH_run55()); hBusTimes.add(temp2.getH_run55());
+            hBusTimes.add(temp.getH_run56()); hBusTimes.add(temp2.getH_run56());
+        }
+
+
+        for(String h: hBusTimes) {
+            System.out.println(h + " "
+            );
+        }
+
     }
 
 
@@ -243,11 +395,37 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
         Iterator<HW> hWDestinationIterator = hWDestinationStops.iterator();
 
 
-//        while(hWLocationIterator.hasNext() && hWDestinationIterator.hasNext()) {
-//
-//            hwBusTimes.add(hWLocationIterator.next());
-//            hwBusTimes.add(hWDestinationIterator.next());
-//        }
+        while(hWLocationIterator.hasNext() && hWDestinationIterator.hasNext()) {
+
+            HW temp = hWLocationIterator.next(); HW temp2 = hWDestinationIterator.next();
+
+            hwBusTimes.add(temp.getHw_run1()); hwBusTimes.add(temp2.getHw_run1());
+            hwBusTimes.add(temp.getHw_run2()); hwBusTimes.add(temp2.getHw_run2());
+            hwBusTimes.add(temp.getHw_run3()); hwBusTimes.add(temp2.getHw_run3());
+            hwBusTimes.add(temp.getHw_run4()); hwBusTimes.add(temp2.getHw_run4());
+            hwBusTimes.add(temp.getHw_run5()); hwBusTimes.add(temp2.getHw_run5());
+            hwBusTimes.add(temp.getHw_run6()); hwBusTimes.add(temp2.getHw_run6());
+            hwBusTimes.add(temp.getHw_run7()); hwBusTimes.add(temp2.getHw_run7());
+            hwBusTimes.add(temp.getHw_run8()); hwBusTimes.add(temp2.getHw_run8());
+            hwBusTimes.add(temp.getHw_run9()); hwBusTimes.add(temp2.getHw_run9());
+            hwBusTimes.add(temp.getHw_run10()); hwBusTimes.add(temp2.getHw_run10());
+            hwBusTimes.add(temp.getHw_run11()); hwBusTimes.add(temp2.getHw_run11());
+            hwBusTimes.add(temp.getHw_run12()); hwBusTimes.add(temp2.getHw_run12());
+            hwBusTimes.add(temp.getHw_run13()); hwBusTimes.add(temp2.getHw_run13());
+            hwBusTimes.add(temp.getHw_run14()); hwBusTimes.add(temp2.getHw_run14());
+            hwBusTimes.add(temp.getHw_run15()); hwBusTimes.add(temp2.getHw_run15());
+            hwBusTimes.add(temp.getHw_run16()); hwBusTimes.add(temp2.getHw_run16());
+            hwBusTimes.add(temp.getHw_run17()); hwBusTimes.add(temp2.getHw_run17());
+            hwBusTimes.add(temp.getHw_run18()); hwBusTimes.add(temp2.getHw_run18());
+            hwBusTimes.add(temp.getHw_run19()); hwBusTimes.add(temp2.getHw_run19());
+            hwBusTimes.add(temp.getHw_run20()); hwBusTimes.add(temp2.getHw_run20());
+        }
+
+
+        for(String hw: hwBusTimes) {
+            System.out.println(hw + " "
+            );
+        }
     }
 
 }

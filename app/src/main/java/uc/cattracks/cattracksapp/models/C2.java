@@ -19,49 +19,49 @@ public class C2 {
     private String c2_run1;
 
 
-    private String c1_run2;
+    private String c2_run2;
 
 
-    private String c1_run3;
+    private String c2_run3;
 
 
-    private String c1_run4;
+    private String c2_run4;
 
 
-    private String c1_run5;
+    private String c2_run5;
 
 
-    private String c1_run6;
+    private String c2_run6;
 
 
-    private String c1_run7;
+    private String c2_run7;
 
 
-    private String c1_run8;
+    private String c2_run8;
 
 
-    private String c1_run9;
+    private String c2_run9;
 
 
-    private String c1_run10;
+    private String c2_run10;
 
 
-    private String c1_run11;
+    private String c2_run11;
 
 
-    private String c1_run12;
+    private String c2_run12;
 
 
-    private String c1_run13;
+    private String c2_run13;
 
 
-    private String c1_run14;
+    private String c2_run14;
 
 
-    private String c1_run15;
+    private String c2_run15;
 
 
-    private String c1_run16;
+    private String c2_run16;
 
     public C2() { }
 
@@ -89,123 +89,123 @@ public class C2 {
         this.c2_run1 = c2_run1;
     }
 
-    public String getC1_run2() {
-        return c1_run2;
+    public String getC2_run2() {
+        return c2_run2;
     }
 
-    public void setC1_run2(String c1_run2) {
-        this.c1_run2 = c1_run2;
+    public void setC2_run2(String c2_run2) {
+        this.c2_run2 = c2_run2;
     }
 
-    public String getC1_run3() {
-        return c1_run3;
+    public String getC2_run3() {
+        return c2_run3;
     }
 
-    public void setC1_run3(String c1_run3) {
-        this.c1_run3 = c1_run3;
+    public void setC2_run3(String c2_run3) {
+        this.c2_run3 = c2_run3;
     }
 
-    public String getC1_run4() {
-        return c1_run4;
+    public String getC2_run4() {
+        return c2_run4;
     }
 
-    public void setC1_run4(String c1_run4) {
-        this.c1_run4 = c1_run4;
+    public void setC2_run4(String c2_run4) {
+        this.c2_run4 = c2_run4;
     }
 
-    public String getC1_run5() {
-        return c1_run5;
+    public String getC2_run5() {
+        return c2_run5;
     }
 
-    public void setC1_run5(String c1_run5) {
-        this.c1_run5 = c1_run5;
+    public void setC2_run5(String c2_run5) {
+        this.c2_run5 = c2_run5;
     }
 
-    public String getC1_run6() {
-        return c1_run6;
+    public String getC2_run6() {
+        return c2_run6;
     }
 
-    public void setC1_run6(String c1_run6) {
-        this.c1_run6 = c1_run6;
+    public void setC2_run6(String c2_run6) {
+        this.c2_run6 = c2_run6;
     }
 
-    public String getC1_run7() {
-        return c1_run7;
+    public String getC2_run7() {
+        return c2_run7;
     }
 
-    public void setC1_run7(String c1_run7) {
-        this.c1_run7 = c1_run7;
+    public void setC2_run7(String c2_run7) {
+        this.c2_run7 = c2_run7;
     }
 
-    public String getC1_run8() {
-        return c1_run8;
+    public String getC2_run8() {
+        return c2_run8;
     }
 
-    public void setC1_run8(String c1_run8) {
-        this.c1_run8 = c1_run8;
+    public void setC2_run8(String c2_run8) {
+        this.c2_run8 = c2_run8;
     }
 
-    public String getC1_run9() {
-        return c1_run9;
+    public String getC2_run9() {
+        return c2_run9;
     }
 
-    public void setC1_run9(String c1_run9) {
-        this.c1_run9 = c1_run9;
+    public void setC2_run9(String c2_run9) {
+        this.c2_run9 = c2_run9;
     }
 
-    public String getC1_run10() {
-        return c1_run10;
+    public String getC2_run10() {
+        return c2_run10;
     }
 
-    public void setC1_run10(String c1_run10) {
-        this.c1_run10 = c1_run10;
+    public void setC2_run10(String c2_run10) {
+        this.c2_run10 = c2_run10;
     }
 
-    public String getC1_run11() {
-        return c1_run11;
+    public String getC2_run11() {
+        return c2_run11;
     }
 
-    public void setC1_run11(String c1_run11) {
-        this.c1_run11 = c1_run11;
+    public void setC2_run11(String c2_run11) {
+        this.c2_run11 = c2_run11;
     }
 
-    public String getC1_run12() {
-        return c1_run12;
+    public String getC2_run12() {
+        return c2_run12;
     }
 
-    public void setC1_run12(String c1_run12) {
-        this.c1_run12 = c1_run12;
+    public void setC2_run12(String c2_run12) {
+        this.c2_run12 = c2_run12;
     }
 
-    public String getC1_run13() {
-        return c1_run13;
+    public String getC2_run13() {
+        return c2_run13;
     }
 
-    public void setC1_run13(String c1_run13) {
-        this.c1_run13 = c1_run13;
+    public void setC2_run13(String c2_run13) {
+        this.c2_run13 = c2_run13;
     }
 
-    public String getC1_run14() {
-        return c1_run14;
+    public String getC2_run14() {
+        return c2_run14;
     }
 
-    public void setC1_run14(String c1_run14) {
-        this.c1_run14 = c1_run14;
+    public void setC2_run14(String c2_run14) {
+        this.c2_run14 = c2_run14;
     }
 
-    public String getC1_run15() {
-        return c1_run15;
+    public String getC2_run15() {
+        return c2_run15;
     }
 
-    public void setC1_run15(String c1_run15) {
-        this.c1_run15 = c1_run15;
+    public void setC2_run15(String c2_run15) {
+        this.c2_run15 = c2_run15;
     }
 
-    public String getC1_run16() {
-        return c1_run16;
+    public String getC2_run16() {
+        return c2_run16;
     }
 
-    public void setC1_run16(String c1_run16) {
-        this.c1_run16 = c1_run16;
+    public void setC2_run16(String c2_run16) {
+        this.c2_run16 = c2_run16;
     }
 }

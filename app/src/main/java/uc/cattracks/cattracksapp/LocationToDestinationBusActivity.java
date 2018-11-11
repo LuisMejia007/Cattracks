@@ -28,9 +28,11 @@ public class LocationToDestinationBusActivity extends AppCompatActivity {
    private static List<Bus> busesFromLocationToDestination;
    private static List<Integer> busIDs;
    private static List<String> userSelectedStopAbbreviations;
-   // From stop names get stop abbreviations
-    // From stop abbreviations get bus IDs
-    // From bus IDs get bus names
+
+
+   public String locationAbb = "";
+   public String destinationAbb = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,10 @@ public class LocationToDestinationBusActivity extends AppCompatActivity {
         String destination= extras.getString("Destination");
         buses = new ArrayList<>();
 
+        // From stop names get stop abbreviations
+        // From stop abbreviations get bus IDs
+        // From bus IDs get bus names
+
         stopAbbreviations = HomeActivity.cattracksDatabase.daoAccess().getStopAbbsFromNames(location, destination);
 
         System.out.println("Location: " + location + " Destination: " + destination);
@@ -61,8 +67,8 @@ public class LocationToDestinationBusActivity extends AppCompatActivity {
             System.out.println(stopAbb + "\n");
         }
 
-        String locationAbb = stopAbbreviations.get(0);
-        String destinationAbb = stopAbbreviations.get(1);
+        locationAbb = stopAbbreviations.get(0).replace("*", "");
+        destinationAbb = stopAbbreviations.get(1).replace("*","");
 
         busIDs = HomeActivity.cattracksDatabase.daoAccess().getBusIDsFromStopAbbs(locationAbb, destinationAbb);
 
@@ -77,9 +83,9 @@ public class LocationToDestinationBusActivity extends AppCompatActivity {
 
 
         if(buses.size() > 1) {
-            welcomeTextView.setText("Buses From " + location + " To " + destination);
+            welcomeTextView.setText(buses.size() + " Buses From " + location + " To " + destination);
         } else if (buses.size() == 1) {
-            welcomeTextView.setText("Bus From " + location + " To " + destination);
+            welcomeTextView.setText(buses.size() + " Bus From " + location + " To " + destination);
         } else {
             welcomeTextView.setText("No Buses Available For Selected Route");
         }
@@ -92,7 +98,7 @@ public class LocationToDestinationBusActivity extends AppCompatActivity {
         availableBusesRecyclerView = findViewById(R.id.availableBusesRecyclerView);
         availableBusesRecyclerView.setHasFixedSize(true);
 
-        // Setting Up RecyclerView Layout Manager
+        // Setting Up RecyclerView Layout Manager with a Horizontal layout
         recyclerViewLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         availableBusesRecyclerView.setLayoutManager(recyclerViewLayoutManager);
 

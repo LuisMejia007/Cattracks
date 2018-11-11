@@ -3,11 +3,19 @@ package uc.cattracks.cattracksapp.dao_interface;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Query;
+import android.text.format.Time;
 
 import java.util.List;
 
 import uc.cattracks.cattracksapp.models.Bus;
 import uc.cattracks.cattracksapp.models.C1;
+import uc.cattracks.cattracksapp.models.C2;
+import uc.cattracks.cattracksapp.models.E1;
+import uc.cattracks.cattracksapp.models.E2;
+import uc.cattracks.cattracksapp.models.FC;
+import uc.cattracks.cattracksapp.models.G;
+import uc.cattracks.cattracksapp.models.H;
+import uc.cattracks.cattracksapp.models.HW;
 import uc.cattracks.cattracksapp.models.stops;
 
 // The daoAccess class is what touches our database (Cattracks.db).
@@ -102,4 +110,104 @@ public interface daoAccess {
     // Get Bus Name From Bus ID
     @Query("SELECT b_name FROM Bus WHERE b_id =:busID;")
    public String getBusNameFromBusID(int busID);
+
+
+
+
+    // Fast Cat Stop Queries
+    @Query("SELECT * " +
+            "FROM FC " +
+            "WHERE (fc_abb LIKE :userDestinationAbb);")
+    public List<FC> getFCTimesToDestination(String userDestinationAbb);
+
+    @Query("SELECT * " +
+            "FROM FC " +
+            "WHERE (fc_abb LIKE :userLocationAbb);")
+    public List<FC> getFCTimesFromLocation(String userLocationAbb);
+
+
+    // C1 Stop Queries
+    @Query("SELECT * " +
+            "FROM C1 " +
+            "WHERE (c1_abb LIKE :userDestinationAbb);")
+    public List<C1> getC1TimesToDestination(String userDestinationAbb);
+
+    @Query("SELECT * " +
+            "FROM C1 " +
+            "WHERE (c1_abb LIKE :userLocationAbb);")
+    public List<C1> getC1TimesFromLocation(String userLocationAbb);
+
+
+
+    // C2 Stop Queries
+    @Query("SELECT * " +
+            "FROM C2 " +
+            "WHERE (c2_abb LIKE :userDestinationAbb);")
+    public List<C2> getC2TimesToDestination(String userDestinationAbb);
+
+    @Query("SELECT * " +
+            "FROM C2 " +
+            "WHERE (c2_abb LIKE :userLocationAbb);")
+    public List<C2> getC2TimesFromLocation(String userLocationAbb);
+
+
+    // E1 Stop Queries
+    @Query("SELECT * " +
+            "FROM E1 " +
+            "WHERE (e1_abb LIKE :userDestinationAbb);")
+    public List<E1> getE1TimesToDestination(String userDestinationAbb);
+
+    @Query("SELECT * " +
+            "FROM E1 " +
+            "WHERE (e1_abb LIKE :userLocationAbb);")
+    public List<E1> getE1TimesFromLocation(String userLocationAbb);
+
+    // E2 Stop Queries
+    @Query("SELECT * " +
+            "FROM E2 " +
+            "WHERE (e2_abb LIKE :userDestinationAbb);")
+    public List<E2> getE2TimesToDestination(String userDestinationAbb);
+
+    @Query("SELECT * " +
+            "FROM E2 " +
+            "WHERE (e2_abb LIKE :userLocationAbb);")
+    public List<E2> getE2TimesFromLocation(String userLocationAbb);
+
+
+    // G Stop Queries
+    @Query("SELECT * " +
+            "FROM G " +
+            "WHERE (g_abb LIKE :userDestinationAbb);")
+    public List<G> getGTimesToDestination(String userDestinationAbb);
+
+    @Query("SELECT * " +
+            "FROM G " +
+            "WHERE (g_abb LIKE :userLocationAbb);")
+    public List<G> getGTimesFromLocation(String userLocationAbb);
+
+
+    // H Stop Queries
+    @Query("SELECT * " +
+            "FROM H " +
+            "WHERE (h_abb LIKE :userDestinationAbb);")
+    public List<H> getHTimesToDestination(String userDestinationAbb);
+
+    @Query("SELECT * " +
+            "FROM H " +
+            "WHERE (h_abb LIKE :userLocationAbb);")
+    public List<H> getHTimesFromLocation(String userLocationAbb);
+
+    // HW Stop Queries
+    @Query("SELECT * " +
+            "FROM HW " +
+            "WHERE (hw_abb LIKE :userDestinationAbb);")
+    public List<HW> getHWTimesToDestination(String userDestinationAbb);
+
+    @Query("SELECT * " +
+            "FROM HW " +
+            "WHERE (hw_abb LIKE :userLocationAbb);")
+    public List<HW> getHWTimesFromLocation(String userLocationAbb);
+
+
+
 }

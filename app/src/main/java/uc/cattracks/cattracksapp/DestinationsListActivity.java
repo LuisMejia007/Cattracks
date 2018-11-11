@@ -37,9 +37,6 @@ public class DestinationsListActivity extends AppCompatActivity implements Searc
         setContentView(R.layout.activity_destinations_list);
 
 
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-
         stopDestinations = new ArrayList<>();
 
         // Connect layout button to our button member confirmDestinationSelectionButton

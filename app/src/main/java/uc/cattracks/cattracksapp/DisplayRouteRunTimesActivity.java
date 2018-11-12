@@ -78,8 +78,8 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
             bus_name.setText(busName);
         }
 
-        location_name.setText("From: " + locationName);
-        destination_name.setText("To: " + destinationName);
+        location_name.setText(locationName);
+        destination_name.setText(destinationName);
 
 
     }

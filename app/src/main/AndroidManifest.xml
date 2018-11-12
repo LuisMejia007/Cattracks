@@ -32,9 +32,11 @@
             android:configChanges="orientation"
             android:screenOrientation="portrait"/>
         <activity android:name=".LocationToDestinationBusActivity"
+            android:label="Choose Your Bus"
             android:configChanges="orientation"
             android:screenOrientation="portrait"/>
         <activity android:name=".DisplayRouteRunTimesActivity"
+            android:label="Arrival &amp; Departure Times"
             android:configChanges="orientation"
             android:screenOrientation="portrait"></activity>
     </application>

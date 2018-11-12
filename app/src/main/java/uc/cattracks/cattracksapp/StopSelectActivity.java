@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
-import uc.cattracks.cattracksapp.models.C1;
+import uc.cattracks.cattracksapp.models.stops;
 
 /*
  * STOP SELECT ACTIVITY
@@ -62,7 +62,7 @@ public class StopSelectActivity extends AppCompatActivity implements View.OnClic
             }
 */
         //String[] selectedStops = HomeActivity.cattracksDatabase.daoAccess().getC1StopNames();
-        List <C1> selectedStops = HomeActivity.cattracksDatabase.daoAccess().getC1StopNames();
+        List <stops> selectedStops = HomeActivity.cattracksDatabase.daoAccess().getC1StopNames();
         //String stopAssign = selectedStops.toString();
 
         //Buttons that are getting stop names from the above query & getting lenght for array

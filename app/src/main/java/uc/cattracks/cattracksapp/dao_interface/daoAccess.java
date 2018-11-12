@@ -37,7 +37,7 @@ public interface daoAccess {
 
     //Retrieves C1 stops
     @Query("SELECT s_name FROM C1, stops WHERE  c1_abb = s_abb")
-    public List<C1> getC1StopNames();
+    public List<stops> getC1StopNames();
 
     //Retrieves C2 stops
     @Query("SELECT s_name FROM C2, stops WHERE  c2_abb = s_abb")

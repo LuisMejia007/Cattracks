@@ -5,6 +5,7 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import java.sql.Blob;
 import java.sql.Time;
 
 @Entity
@@ -19,6 +20,7 @@ public class stops {
     private String s_abb;
     @Ignore
     private String Comments;
+
 
     public String getS_abb() {
         return s_abb;
@@ -43,4 +45,5 @@ public class stops {
     public void setComments(String comments) {
         Comments = comments;
     }
+
 }

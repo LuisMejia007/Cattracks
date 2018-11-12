@@ -1,6 +1,5 @@
 package uc.cattracks.cattracksapp;
 
-import android.app.FragmentManager;
 import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +13,6 @@ import android.widget.TextView;
 import uc.cattracks.cattracksapp.sqlAsset.*;
 
 import uc.cattracks.cattracksapp.database.CattracksDatabase;
-import uc.cattracks.cattracksapp.fragments.HomeFragment;
 
 
 

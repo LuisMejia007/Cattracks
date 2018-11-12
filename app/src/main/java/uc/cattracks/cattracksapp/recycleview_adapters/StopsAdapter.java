@@ -1,19 +1,30 @@
 package uc.cattracks.cattracksapp.recycleview_adapters;
 
+import android.app.ListActivity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import uc.cattracks.cattracksapp.DestinationsListActivity;
+import uc.cattracks.cattracksapp.HomeActivity;
+import uc.cattracks.cattracksapp.LocationsList;
 import uc.cattracks.cattracksapp.R;
 import uc.cattracks.cattracksapp.models.stops;
+
+import static java.security.AccessController.getContext;
 
 
 // ********************** StopsAdapter Class Information *****************************\\
@@ -28,7 +39,8 @@ public class StopsAdapter extends RecyclerView.Adapter <StopsAdapter.StopsViewHo
 
     private Context stopAdapterContext;
     private static List<stops> stopsList;
-
+    private LocationsList locationsListActivityReference;
+    public static Intent intent;
 
     public static class StopsViewHolder extends RecyclerView.ViewHolder {
 
@@ -42,12 +54,14 @@ public class StopsAdapter extends RecyclerView.Adapter <StopsAdapter.StopsViewHo
             // Binding views from 'stops_card_view' using their respective ids to our StopsAdapter
             imageView = itemView.findViewById(R.id.stopPicImageView);
             textView = itemView.findViewById(R.id.stopNameTextView);
+
         }
     }
 
 
-    public StopsAdapter(List<stops> stopsList) {
+    public StopsAdapter(Context c, List<stops> stopsList) {
         this.stopsList = stopsList;
+        stopAdapterContext = c;
     }
 
     @NonNull
@@ -78,6 +92,47 @@ public class StopsAdapter extends RecyclerView.Adapter <StopsAdapter.StopsViewHo
 
         stops stop = stopsList.get(position);
         holder.textView.setText(stop.getS_name());
+
+
+        intent = new Intent(stopAdapterContext, DestinationsListActivity.class);
+
+        holder.textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(stopAdapterContext, "Stop Selected: " + holder.textView.getText().toString(), Toast.LENGTH_LONG).show();
+
+                LocationsList.confirmationButton.setVisibility(View.VISIBLE);
+
+                // Make Confirmation Button Move To The Next Activity
+                LocationsList.confirmationButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        intent.putExtra("Stop Selected: " , holder.textView.getText().toString());
+                        stopAdapterContext.startActivity(intent);
+                    }
+                });
+            }
+        });
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Toast.makeText(stopAdapterContext, "Stop Selected: " + holder.textView.getText().toString(), Toast.LENGTH_LONG).show();
+
+
+                LocationsList.confirmationButton.setVisibility(View.VISIBLE);
+
+                // Make Confirmation Button Move To The Next Activity
+                LocationsList.confirmationButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        intent.putExtra("Stop Selected: " , holder.textView.getText().toString());
+                        stopAdapterContext.startActivity(intent);
+                    }
+                });
+            }
+        });
+
     }
 
     @Override

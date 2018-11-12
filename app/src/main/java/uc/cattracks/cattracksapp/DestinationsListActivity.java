@@ -1,64 +1,68 @@
 package uc.cattracks.cattracksapp;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.RecyclerViewAccessibilityDelegate;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import uc.cattracks.cattracksapp.models.stops;
+import uc.cattracks.cattracksapp.recycleview_adapters.DestinationsAdapter;
 import uc.cattracks.cattracksapp.recycleview_adapters.StopsAdapter;
 
+public class DestinationsListActivity extends AppCompatActivity implements SearchView.OnQueryTextListener, View.OnClickListener {
 
-
-public class LocationsList extends AppCompatActivity implements SearchView.OnQueryTextListener, View.OnClickListener {
-
-
-    private RecyclerView stopLocationsRecyclerView;
-    private StopsAdapter adapter;
+    private RecyclerView destinationsRecyclerView;
     private RecyclerView.LayoutManager recyclerViewLayoutManager;
-    private List<stops> stopLocations;
-    public static Button confirmationButton;
+    private DestinationsAdapter adapter;
+    private List<stops> stopDestinations;
+    public static Button confirmDestinationSelectionButton;
+    private static String locationSelectedByUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_locations_list);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setContentView(R.layout.activity_destinations_list);
+
+
+        stopDestinations = new ArrayList<>();
+
+        // Connect layout button to our button member confirmDestinationSelectionButton
+        confirmDestinationSelectionButton = (Button) findViewById(R.id.confirmDestinationSelectionButton);
+        TextView textView = (TextView) findViewById(R.id.stop_destinations);
 
 
 
-        // Confirmation Button
-        confirmationButton = (Button) findViewById(R.id.confirmLocationSelectionButton);
+        // Getting intent's data that was passed on from previous activity
+         locationSelectedByUser = getIntent().getStringExtra("Stop Selected: ");
+        // Intent's data will be used for database query
+        stopDestinations = HomeActivity.cattracksDatabase.daoAccess().getFilteredDestinations(locationSelectedByUser);
 
-        // Adding our RecyclerView To Activity
-        stopLocationsRecyclerView = (RecyclerView) findViewById(R.id.stopLocations);
-        stopLocationsRecyclerView.setHasFixedSize(true);
+        // Setting up Recycler View
+        destinationsRecyclerView = (RecyclerView) findViewById(R.id.destinationLocations);
+        destinationsRecyclerView.setHasFixedSize(true);
 
         // Set Recycler View Layout
         recyclerViewLayoutManager = new LinearLayoutManager(this);
-        stopLocationsRecyclerView.setLayoutManager(recyclerViewLayoutManager);
+        destinationsRecyclerView.setLayoutManager(recyclerViewLayoutManager);
 
-        // Set Up Recycler View Adapter To Showcase Stops
-        stopLocations = HomeActivity.cattracksDatabase.daoAccess().getStops(); //Query For All Stops
-        adapter = new StopsAdapter(this, stopLocations);
-        stopLocationsRecyclerView.setAdapter(adapter);
+        // Setting up adapter
+        adapter = new DestinationsAdapter(this, stopDestinations);
+        destinationsRecyclerView.setAdapter(adapter);
 
     }
-
 
 
     // Setting Up Search Filter
@@ -76,7 +80,7 @@ public class LocationsList extends AppCompatActivity implements SearchView.OnQue
         return true;
     }
 
-    @Override
+   @Override
     public boolean onQueryTextSubmit(String query) {
         return false;
     }
@@ -87,20 +91,19 @@ public class LocationsList extends AppCompatActivity implements SearchView.OnQue
         String userInput = newText.toLowerCase();
         List<stops> filteredList = new ArrayList<>();
 
-        for(stops stop: stopLocations) {
+        for(stops stop: stopDestinations) {
             if(stop.getS_name().toLowerCase().contains(userInput)) {
                 filteredList.add(stop);
             }
         }
-
         adapter.updateList(filteredList);
         return true;
     }
 
     @Override
     public void onClick(View view) {
-        System.out.println("CLICKED!!!!!");
-        Intent intent = new Intent(this, DestinationsListActivity.class);
-        startActivity(intent);
+
+       Intent intent = new Intent(this, LocationToDestinationBusActivity.class);
+       startActivity(intent);
     }
 }

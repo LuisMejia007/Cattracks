@@ -61,13 +61,14 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
         destinationAbb = "";
 
         getAllIntentInformation();
-        executeQueriesBasedOnIntentInformation();
+
 
         busStopTimesRecyclerView = findViewById(R.id.routesRecyclerView);
         busStopTimesRecyclerView.setLayoutManager(new GridLayoutManager(this,2 ));
-        adapter = new BusRouteStopTimesAdapter(this, busToAdapter);
-        busStopTimesRecyclerView.setAdapter(adapter);
+//        adapter = new BusRouteStopTimesAdapter(this, busToAdapter);
+//        busStopTimesRecyclerView.setAdapter(adapter);
 
+        executeQueriesBasedOnIntentInformation();
         bus_name = findViewById(R.id.bus_name_text_view);
         location_name = findViewById(R.id.location_text_view);
         destination_name = findViewById(R.id.destination_text_view);
@@ -136,6 +137,7 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
         Iterator<C1> c1LocationIterator = c1LocationStops.iterator();
         Iterator<C1> c1DestinationIterator = c1DestinationStops.iterator();
 
+        c1BusTimes.clear();
         while(c1LocationIterator.hasNext() && c1DestinationIterator.hasNext()) {
 
             C1 temp = c1LocationIterator.next(); C1 temp2 = c1DestinationIterator.next();
@@ -167,7 +169,7 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
         }
 
 
-        busToAdapter = c1BusTimes;
+        setUpAdapter(c1BusTimes);
         for(String c1: c1BusTimes) {
             System.out.println(c1 + " "
             );
@@ -182,7 +184,7 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
         Iterator<C2> c2LocationIterator = c2LocationStops.iterator();
         Iterator<C2> c2DestinationIterator = c2DestinationStops.iterator();
 
-
+        c2BusTimes.clear();
         while(c2LocationIterator.hasNext() && c2DestinationIterator.hasNext()) {
 
             C2 temp = c2LocationIterator.next(); C2 temp2 = c2DestinationIterator.next();
@@ -204,11 +206,8 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
             c2BusTimes.add(temp.getC2_run16()); c2BusTimes.add(temp2.getC2_run16());
         }
 
-        busToAdapter = c2BusTimes;
-        for(String c2: c2BusTimes) {
-            System.out.println(c2 + " "
-            );
-        }
+
+        setUpAdapter(c2BusTimes);
     }
 
     public void combineE1Stops() {
@@ -219,6 +218,7 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
         Iterator<E1> e1DestinationIterator = e1DestinationStops.iterator();
 
 
+        e1BusTimes.clear();
         while(e1LocationIterator.hasNext() && e1DestinationIterator.hasNext()) {
 
             E1 temp = e1LocationIterator.next(); E1 temp2 = e1DestinationIterator.next();
@@ -234,7 +234,8 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
             e1BusTimes.add(temp.getE1_run9()); e1BusTimes.add(temp2.getE1_run9());
         }
 
-        busToAdapter = e1BusTimes;
+
+        setUpAdapter(e1BusTimes);
         for(String e1: e1BusTimes) {
             System.out.println(e1 + " "
             );
@@ -250,6 +251,7 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
         Iterator<E2> e2DestinationIterator = e2DestinationStops.iterator();
 
 
+        e2BusTimes.clear();
         while(e2LocationIterator.hasNext() && e2DestinationIterator.hasNext()) {
 
             E2 temp = e2LocationIterator.next(); E2 temp2 = e2DestinationIterator.next();
@@ -266,7 +268,7 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
             e2BusTimes.add(temp.getE2_run10()); e2BusTimes.add(temp2.getE2_run10());
         }
 
-        busToAdapter = e2BusTimes;
+        setUpAdapter(e2BusTimes);
         for(String e2: e2BusTimes) {
             System.out.println(e2 + " "
             );
@@ -282,6 +284,7 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
         Iterator<FC> fastCatDestinationIterator = fastCatDestinationStops.iterator();
 
 
+        fcBusTimes.clear();
         while(fastCatLocationIterator.hasNext() && fastCatDestinationIterator.hasNext()) {
 
             FC temp = fastCatLocationIterator.next(); FC temp2 = fastCatDestinationIterator.next();
@@ -302,7 +305,7 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
             fcBusTimes.add(temp.getFc_run15()); fcBusTimes.add(temp2.getFc_run15());
         }
 
-        busToAdapter = fcBusTimes;
+        setUpAdapter(fcBusTimes);
         for(String fC: fcBusTimes) {
             System.out.println(fC + " "
             );
@@ -317,6 +320,7 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
         Iterator<G> gDestinationIterator = gDestinationStops.iterator();
 
 
+        gBusTimes.clear();
         while(gLocationIterator.hasNext() && gDestinationIterator.hasNext()) {
 
 
@@ -337,7 +341,7 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
             gBusTimes.add(temp.getG_run14()); gBusTimes.add(temp2.getG_run14());
         }
 
-        busToAdapter = gBusTimes;
+        setUpAdapter(gBusTimes);
         for(String g: gBusTimes) {
             System.out.println(g + " "
             );
@@ -353,6 +357,7 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
         Iterator<H> hDestinationIterator = hDestinationStops.iterator();
 
 
+        hBusTimes.clear();
         while(hLocationIterator.hasNext() && hDestinationIterator.hasNext()) {
 
             H temp = hLocationIterator.next(); H temp2 = hDestinationIterator.next();
@@ -419,7 +424,7 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
         }
 
 
-        busToAdapter = hBusTimes;
+        setUpAdapter(hBusTimes);
         for(String h: hBusTimes) {
             System.out.println(h + " "
             );
@@ -436,6 +441,7 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
         Iterator<HW> hWDestinationIterator = hWDestinationStops.iterator();
 
 
+        hwBusTimes.clear();
         while(hWLocationIterator.hasNext() && hWDestinationIterator.hasNext()) {
 
             HW temp = hWLocationIterator.next(); HW temp2 = hWDestinationIterator.next();
@@ -463,11 +469,19 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
         }
 
 
-        busToAdapter = hwBusTimes;
+        setUpAdapter(hwBusTimes);
         for(String hw: hwBusTimes) {
             System.out.println(hw + " "
             );
         }
+    }
+
+
+
+    public void setUpAdapter(List<String> busRoutes) {
+
+        adapter = new BusRouteStopTimesAdapter(this, busRoutes);
+        busStopTimesRecyclerView.setAdapter(adapter);
     }
 
 }

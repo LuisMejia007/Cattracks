@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="379dp"
+            android:layout_height="140dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginBottom="0dp"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:hapticFeedbackEnabled="true"
+
+            >
+
+            <!--<ImageView-->
+                <!--android:id="@+id/stopPicImageView"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="200dp"-->
+                <!--android:background="@color/cardview_dark_background" />-->
+
+            <TextView
+                android:id="@+id/stopNameTextView"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="40dp"
+                android:text="Bellevue/ Arrow Wood"
+                android:textAlignment="center"
+                android:textColor="@android:color/holo_blue_dark"
+                android:textSize="18sp"
+                android:translationY="12dp"
+                app:fontFamily="sans-serif"
+                android:hapticFeedbackEnabled="true"/>
+
+            <TextView
+                android:id="@+id/stopCommentTextView"
+                android:layout_width="match_parent"
+                android:layout_height="39dp"
+                android:layout_marginTop="80dp"
+                android:text="Information"
+                android:textSize="14sp"
+                android:textAlignment="center"
+                android:hapticFeedbackEnabled="true"/>
+
+
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

@@ -1,17 +1,18 @@
 package uc.cattracks.cattracksapp;
 
-import android.app.FragmentManager;
 import android.arch.persistence.room.Room;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import uc.cattracks.cattracksapp.sqlAsset.*;
 
 import uc.cattracks.cattracksapp.database.CattracksDatabase;
-import uc.cattracks.cattracksapp.fragments.HomeFragment;
 
 
 
@@ -29,7 +30,7 @@ import uc.cattracks.cattracksapp.fragments.HomeFragment;
 
 */
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView mTextMessage;
 
@@ -46,13 +47,13 @@ public class HomeActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
+                    mTextMessage.setText(R.string.nav_home);
                     return true;
-                case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
+                case R.id.navigation_map:
+                    mTextMessage.setText(R.string.nav_map);
                     return true;
-                case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
+                case R.id.navigation_time:
+                    mTextMessage.setText(R.string.nav_time);
                     return true;
             }
             return false;
@@ -60,53 +61,43 @@ public class HomeActivity extends AppCompatActivity {
     };
 
 
+    private Button seeLocationsButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        /* This is where connect our Cattracks.db file to our CattracksDatabase class.
+         * The CattracksDatabase class will then connect the DB to the daoAccess class (dao_interface/daoAccess)
+         * From the daoAccess class you'll be able to do various SQL commands.
+         * The 'allowMainThreadQueries' command allows us to make SQL queries from Android's main thread of execution ...
+         *  ... probably not the most efficient way of doing things but we'll find a better way later.
+         * */
+
+        cattracksDatabase =  Room.databaseBuilder(getApplicationContext(), CattracksDatabase.class, "Cattracks.db")
+                .openHelperFactory(new AssetSQLiteOpenHelperFactory())
+                .allowMainThreadQueries().build();
 
 
 
         mTextMessage = (TextView) findViewById(R.id.message);
 
-        /*###### Home Page Instantiation #######*/
-        /*
-         This is where set up our main fragment to be the 'HomeFragment',
-         which will display the buttons for 'Go To School' or 'Go Off-Campus'
-        */
-
-        fragmentManager = getSupportFragmentManager();
-        if(findViewById(R.id.fragment_container) != null) {
-
-            if (savedInstanceState != null) {
-                return;
-            }
-
-
-            fragmentManager.beginTransaction().add(R.id.fragment_container, new HomeFragment()).commit();
-        }
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-
-
-        /* This is where connect our Cattracks.db file to our CattracksDatabase class.
-        * The CattracksDatabase class will then connect the DB to the daoAccess class (dao_interface/daoAccess)
-        * From the daoAccess class you'll be able to do various SQL commands.
-        * The 'allowMainThreadQueries' command allows us to make SQL queries from Android's main thread of execution ...
-        *  ... probably not the most efficient way of doing things but we'll find a better way later.
-        * */
-
-       cattracksDatabase =  Room.databaseBuilder(getApplicationContext(), CattracksDatabase.class, "Cattracks.db")
-               .openHelperFactory(new AssetSQLiteOpenHelperFactory())
-               .allowMainThreadQueries().build();
-
-
-
-
+        seeLocationsButton = findViewById(R.id.showLocationsBtn);
+        seeLocationsButton.setOnClickListener(this);
 
     }
 
+
+    @Override
+    public void onClick(View view) {
+
+        Intent intent = new Intent(this, LocationsList.class);
+        startActivity(intent);
+
+    }
 }

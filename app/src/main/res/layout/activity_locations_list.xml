@@ -21,15 +21,17 @@
     </android.support.design.widget.AppBarLayout>
 
 
-
     <Button
         android:id="@+id/confirmLocationSelectionButton"
         android:layout_width="112dp"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
+        android:background="@android:color/holo_blue_dark"
+        android:text="Next"
+        android:textColor="@color/cardview_light_background"
         android:visibility="invisible"
-        android:text="Confirm" />
+        android:hapticFeedbackEnabled="true"/>
 
     <!-- TODO: Update blank fragment layout -->
     <android.support.v7.widget.RecyclerView

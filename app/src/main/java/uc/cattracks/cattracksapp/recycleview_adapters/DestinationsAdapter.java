@@ -31,15 +31,17 @@ public class DestinationsAdapter extends RecyclerView.Adapter <DestinationsAdapt
 
 
     public static class DestinationsViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageView;
+        //ImageView imageView;
         TextView textView;
+        TextView commentTextView;
 
         public DestinationsViewHolder(View itemView) {
             super(itemView);
 
             // Binding views from 'stops_card_view' using their respective ids to our DestinationsAdapter
-            imageView = itemView.findViewById(R.id.stopPicImageView);
+            //imageView = itemView.findViewById(R.id.stopPicImageView);
             textView = itemView.findViewById(R.id.stopNameTextView);
+            commentTextView = itemView.findViewById(R.id.stopCommentTextView);
         }
     }
 
@@ -64,6 +66,7 @@ public class DestinationsAdapter extends RecyclerView.Adapter <DestinationsAdapt
 
         stops destination = destinations.get(position);
         holder.textView.setText(destination.getS_name());
+        holder.commentTextView.setText(destination.getComments());
 
 
 
@@ -97,7 +100,7 @@ public class DestinationsAdapter extends RecyclerView.Adapter <DestinationsAdapt
             }
         });
 
-
+/*
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -127,7 +130,7 @@ public class DestinationsAdapter extends RecyclerView.Adapter <DestinationsAdapt
                 });
 
             }
-        });
+        });*/
     }
 
     @Override

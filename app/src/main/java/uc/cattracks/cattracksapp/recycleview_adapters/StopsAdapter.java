@@ -3,6 +3,8 @@ package uc.cattracks.cattracksapp.recycleview_adapters;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +17,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,16 +50,18 @@ public class StopsAdapter extends RecyclerView.Adapter <StopsAdapter.StopsViewHo
 
     public static class StopsViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView imageView;
+        //ImageView imageView;
         TextView textView;
+        TextView commentTextView;
 
         public StopsViewHolder(View itemView) {
             super(itemView);
 
 
             // Binding views from 'stops_card_view' using their respective ids to our StopsAdapter
-            imageView = itemView.findViewById(R.id.stopPicImageView);
+           // imageView = itemView.findViewById(R.id.stopPicImageView);
             textView = itemView.findViewById(R.id.stopNameTextView);
+            commentTextView = itemView.findViewById(R.id.stopCommentTextView);
 
         }
     }
@@ -92,7 +100,14 @@ public class StopsAdapter extends RecyclerView.Adapter <StopsAdapter.StopsViewHo
 
         stops stop = stopsList.get(position);
         holder.textView.setText(stop.getS_name());
+        String com = stop.getComments();
+        holder.commentTextView.setText(stop.getComments());
 
+ //******** DO NOT DELETE THIS ! CAN BE USED FOR FINAL PAPER
+//        Resources res = stopAdapterContext.getResources();
+//        int id = R.drawable.mercedamtrak;
+//        Bitmap bm =  BitmapFactory.decodeResource(res,id);
+//        holder.imageView.setImageBitmap(bm);
 
         intent = new Intent(stopAdapterContext, DestinationsListActivity.class);
 
@@ -113,25 +128,25 @@ public class StopsAdapter extends RecyclerView.Adapter <StopsAdapter.StopsViewHo
                 });
             }
         });
-        holder.imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Toast.makeText(stopAdapterContext, "Stop Selected: " + holder.textView.getText().toString(), Toast.LENGTH_LONG).show();
-
-
-                LocationsList.confirmationButton.setVisibility(View.VISIBLE);
-
-                // Make Confirmation Button Move To The Next Activity
-                LocationsList.confirmationButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        intent.putExtra("Stop Selected: " , holder.textView.getText().toString());
-                        stopAdapterContext.startActivity(intent);
-                    }
-                });
-            }
-        });
+//        holder.imageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                Toast.makeText(stopAdapterContext, "Stop Selected: " + holder.textView.getText().toString(), Toast.LENGTH_LONG).show();
+//
+//
+//                LocationsList.confirmationButton.setVisibility(View.VISIBLE);
+//
+//                // Make Confirmation Button Move To The Next Activity
+//                LocationsList.confirmationButton.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        intent.putExtra("Stop Selected: " , holder.textView.getText().toString());
+//                        stopAdapterContext.startActivity(intent);
+//                    }
+//                });
+//            }
+//        });
 
     }
 

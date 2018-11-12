@@ -27,7 +27,7 @@ public interface daoAccess {
 
 
     // Returns Stop Names in ASC order (From A-Z)
-    @Query( "SELECT DISTINCT s_name " +
+    @Query( "SELECT DISTINCT s_name, Comments " +
             "FROM stops " +
             "ORDER BY s_name ASC;")
     public List<stops> getStops();
@@ -36,7 +36,7 @@ public interface daoAccess {
     public List<C1> getC1();
 
 
-    @Query("SELECT abbrsQuery.stopNames as s_name FROM" +
+    @Query("SELECT abbrsQuery.stopNames as s_name, abbrsQuery.comments as Comments FROM" +
             "(("+
             " SELECT s_abb AS mainStop FROM stops as s WHERE s.s_name = :userSelectedLocation" +
             " UNION" +
@@ -56,7 +56,7 @@ public interface daoAccess {
             " UNION" +
             " SELECT e2_abb FROM E2" +
             ") as stopsQuery, " +
-            "(SELECT s_abb as stopAbbrs, s_name as stopNames FROM stops) as abbrsQuery) " +
+            "(SELECT s_abb as stopAbbrs, Comments as comments, s_name as stopNames FROM stops) as abbrsQuery) " +
             "WHERE stopsQuery.mainStop = abbrsQuery.stopAbbrs AND abbrsQuery.stopNames <> :userSelectedLocation" +
             " ORDER BY s_name ASC;")
     public List<stops> getFilteredDestinations(String userSelectedLocation);

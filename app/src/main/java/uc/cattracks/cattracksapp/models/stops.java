@@ -25,6 +25,9 @@ public class stops {
     @ColumnInfo(name = "Comments")
     private String Comments;
 
+    @ColumnInfo(name = "image")
+    private String image;
+
 
     public String getS_abb() {
         return s_abb;
@@ -44,7 +47,7 @@ public class stops {
     }
 
     public String getComments() {
-        return Comments;
+        return this.Comments;
     }
 
     public void setComments(String comments) {
@@ -52,4 +55,11 @@ public class stops {
     }
 
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 }

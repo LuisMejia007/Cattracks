@@ -101,7 +101,7 @@ public class LocationToDestinationBusActivity extends AppCompatActivity {
         availableBusesRecyclerView.setHasFixedSize(true);
 
         // Setting Up RecyclerView Layout Manager with a Horizontal layout
-        recyclerViewLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerViewLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         availableBusesRecyclerView.setLayoutManager(recyclerViewLayoutManager);
 
         // Setting Up RecyclerView Adapter

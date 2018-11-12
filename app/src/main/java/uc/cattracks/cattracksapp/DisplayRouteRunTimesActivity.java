@@ -275,6 +275,7 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
 
     public void combineFastCatStops() {
 
+        System.out.println("Location: " + locationAbb + " Destination: " + destinationAbb);
         List<FC> fastCatLocationStops = HomeActivity.cattracksDatabase.daoAccess().getFCTimesFromLocation(locationAbb);
         List<FC> fastCatDestinationStops = HomeActivity.cattracksDatabase.daoAccess().getFCTimesToDestination(destinationAbb);
         Iterator<FC> fastCatLocationIterator = fastCatLocationStops.iterator();

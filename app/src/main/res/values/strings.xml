@@ -6,4 +6,9 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_table_display">activity_table_display</string>
+    <string name="title_activity_table">TableActivity</string>
+    <string name="title_activity_choose_table">ChooseTableActivity</string>
+    <string name="title_activity_neat_table">NeatTableActivity</string>
+    <string name="title_activity_stop_select">StopSelectActivity</string>
 </resources>

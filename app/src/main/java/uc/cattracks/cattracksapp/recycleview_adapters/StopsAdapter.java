@@ -93,6 +93,7 @@ public class StopsAdapter extends RecyclerView.Adapter <StopsAdapter.StopsViewHo
         stops stop = stopsList.get(position);
         holder.textView.setText(stop.getS_name());
 
+
         intent = new Intent(stopAdapterContext, DestinationsListActivity.class);
 
         holder.textView.setOnClickListener(new View.OnClickListener() {

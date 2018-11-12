@@ -50,11 +50,13 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_route_run_times);
 
+        String temp = "";
+        busName = "";
+        locationAbb = "";
+        destinationAbb = "";
 
         getAllIntentInformation();
         executeQueriesBasedOnIntentInformation();
-
-        String temp = "";
 
         busStopTimesRecyclerView = findViewById(R.id.routesRecyclerView);
         busStopTimesRecyclerView.setLayoutManager(new GridLayoutManager(this,2 ));

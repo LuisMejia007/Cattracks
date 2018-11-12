@@ -3,7 +3,7 @@
     package="uc.cattracks.cattracksapp">
 
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -11,7 +11,9 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".HomeActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -53,6 +55,24 @@
             android:name=".StopSelectActivity"
             android:label="@string/title_activity_stop_select"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:name=".LocationsList"
+            android:label="Select Your Start Location"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".DestinationsListActivity"
+            android:label="Select Your Destination"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".LocationToDestinationBusActivity"
+            android:label="Choose Your Bus"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".DisplayRouteRunTimesActivity"
+            android:label="Arrival &amp; Departure Times"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

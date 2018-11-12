@@ -7,7 +7,7 @@
     tools:context=".DisplayRouteRunTimesActivity">
 
     <TextView
-        android:id="@+id/busNameTextView"
+        android:id="@+id/bus_name_text_view"
         android:layout_width="247dp"
         android:layout_height="49dp"
         android:layout_marginStart="8dp"
@@ -26,7 +26,7 @@
         app:layout_constraintVertical_bias="0.014" />
 
     <TextView
-        android:id="@+id/locationTextView"
+        android:id="@+id/location_text_view"
         android:layout_width="184dp"
         android:layout_height="56dp"
         android:layout_marginStart="8dp"
@@ -42,7 +42,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/destinationTextView"
+        android:id="@+id/destination_text_view"
         android:layout_width="182dp"
         android:layout_height="56dp"
         android:layout_marginStart="8dp"
@@ -57,7 +57,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/locationTextView"
+        app:layout_constraintStart_toEndOf="@+id/location_text_view"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.187" />
 
@@ -74,7 +74,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/locationTextView">
+        app:layout_constraintTop_toTopOf="@+id/location_text_view">
 
     </android.support.v7.widget.RecyclerView>
 </android.support.constraint.ConstraintLayout>

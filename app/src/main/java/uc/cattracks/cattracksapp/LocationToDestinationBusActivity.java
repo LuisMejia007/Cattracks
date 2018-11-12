@@ -32,6 +32,8 @@ public class LocationToDestinationBusActivity extends AppCompatActivity {
 
    public String locationAbb = "";
    public String destinationAbb = "";
+   public String locationName = "";
+   public String destinationName = "";
 
 
     @Override
@@ -49,17 +51,17 @@ public class LocationToDestinationBusActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
-        String location = extras.getString("Location");
-        String destination= extras.getString("Destination");
+        locationName = extras.getString("Location");
+        destinationName = extras.getString("Destination");
         buses = new ArrayList<>();
 
         // From stop names get stop abbreviations
         // From stop abbreviations get bus IDs
         // From bus IDs get bus names
 
-        stopAbbreviations = HomeActivity.cattracksDatabase.daoAccess().getStopAbbsFromNames(location, destination);
+        stopAbbreviations = HomeActivity.cattracksDatabase.daoAccess().getStopAbbsFromNames(locationName, destinationName);
 
-        System.out.println("Location: " + location + " Destination: " + destination);
+
 
         welcomeTextView = findViewById(R.id.availableBusesTextView);
 
@@ -83,9 +85,9 @@ public class LocationToDestinationBusActivity extends AppCompatActivity {
 
 
         if(buses.size() > 1) {
-            welcomeTextView.setText(buses.size() + " Buses From " + location + " To " + destination);
+            welcomeTextView.setText(buses.size() + " Buses From " + locationName + " To " + destinationName);
         } else if (buses.size() == 1) {
-            welcomeTextView.setText(buses.size() + " Bus From " + location + " To " + destination);
+            welcomeTextView.setText(buses.size() + " Bus From " + locationName + " To " + destinationName);
         } else {
             welcomeTextView.setText("No Buses Available For Selected Route");
         }

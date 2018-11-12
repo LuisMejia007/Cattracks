@@ -38,11 +38,16 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
     public static String busName;
     public static String locationAbb;
     public static String destinationAbb;
+    public static String locationName;
+    public static String destinationName;
     public static String busAbb;
 
 
     private static RecyclerView busStopTimesRecyclerView;
     private static BusRouteStopTimesAdapter adapter;
+    private TextView bus_name;
+    private TextView location_name;
+    private TextView destination_name;
 
 
     @Override
@@ -63,6 +68,18 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
         adapter = new BusRouteStopTimesAdapter(this, busToAdapter);
         busStopTimesRecyclerView.setAdapter(adapter);
 
+        bus_name = findViewById(R.id.bus_name_text_view);
+        location_name = findViewById(R.id.location_text_view);
+        destination_name = findViewById(R.id.destination_text_view);
+
+        if (busName =="FC") {
+            bus_name.setText("FastCat");
+        } else {
+            bus_name.setText(busName);
+        }
+
+        location_name.setText("From: " + locationName);
+        destination_name.setText("To: " + destinationName);
 
 
     }
@@ -74,6 +91,9 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
         busName = extras.getString("Bus");
         locationAbb = extras.getString("locationAbb");
         destinationAbb = extras.getString("destinationAbb");
+        locationName = extras.getString("Location");
+        destinationName = extras.getString("Destination");
+
     }
 
     public void executeQueriesBasedOnIntentInformation(){

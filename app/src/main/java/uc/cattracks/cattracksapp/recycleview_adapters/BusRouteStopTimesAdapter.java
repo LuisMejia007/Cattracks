@@ -11,6 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import uc.cattracks.cattracksapp.DisplayRouteRunTimesActivity;
+import uc.cattracks.cattracksapp.LocationToDestinationBusActivity;
 import uc.cattracks.cattracksapp.R;
 
 import static uc.cattracks.cattracksapp.DisplayRouteRunTimesActivity.busName;
@@ -21,6 +22,20 @@ public class BusRouteStopTimesAdapter extends RecyclerView.Adapter<BusRouteStopT
     private static Context busRouteStopContext;
     private static LayoutInflater inflater;
     private static List<String> busTimes;
+
+
+
+    public class BusRouteStopViewHolder extends RecyclerView.ViewHolder {
+
+        TextView busStopTimeTextView;
+
+
+        public BusRouteStopViewHolder(View itemView) {
+            super(itemView);
+
+            busStopTimeTextView = itemView.findViewById(R.id.stop_text_view);
+        }
+    }
 
    public BusRouteStopTimesAdapter(Context c, List<String> busTimes) {
 
@@ -40,12 +55,8 @@ public class BusRouteStopTimesAdapter extends RecyclerView.Adapter<BusRouteStopT
 
     @Override
     public void onBindViewHolder(@NonNull BusRouteStopTimesAdapter.BusRouteStopViewHolder holder, int position) {
-        holder.busStopTimeTextView.setText(busTimes.get(position));
 
-//        String bus = ((DisplayRouteRunTimesActivity)busRouteStopContext).busName;
-//        holder.busName.setText((CharSequence) bus);
-//        holder.location.setText(((DisplayRouteRunTimesActivity)busRouteStopContext).locationAbb);
-//        holder.destination.setText(((DisplayRouteRunTimesActivity) busRouteStopContext).destinationAbb);
+        holder.busStopTimeTextView.setText(busTimes.get(position));
     }
 
     @Override
@@ -53,24 +64,5 @@ public class BusRouteStopTimesAdapter extends RecyclerView.Adapter<BusRouteStopT
         return busTimes.size();
     }
 
-
-
-
-    public class BusRouteStopViewHolder extends RecyclerView.ViewHolder {
-
-       TextView busStopTimeTextView;
-       TextView busName;
-       TextView location;
-       TextView destination;
-
-        public BusRouteStopViewHolder(View itemView) {
-            super(itemView);
-
-            busStopTimeTextView = itemView.findViewById(R.id.stop_text_view);
-            busName = itemView.findViewById(R.id.busNameTextView);
-            location = itemView.findViewById(R.id.locationTextView);
-            destination = itemView.findViewById(R.id.destinationTextView);
-        }
-    }
 
 }

@@ -83,9 +83,13 @@ public class BusNameSelectionAdapter extends RecyclerView.Adapter<BusNameSelecti
                 String busSelected = busName;
                 String locationAbb = ((LocationToDestinationBusActivity)busNameSelectionContext).locationAbb;
                 String destinationAbb = ((LocationToDestinationBusActivity)busNameSelectionContext).destinationAbb;
+                String locationName = ((LocationToDestinationBusActivity) busNameSelectionContext).locationName;
+                String destinationName= ((LocationToDestinationBusActivity) busNameSelectionContext).destinationName;
                 extras.putString("Bus", busSelected);
                 extras.putString("locationAbb", locationAbb);
                 extras.putString("destinationAbb", destinationAbb);
+                extras.putString("Location", locationName);
+                extras.putString("Destination", destinationName);
                 intent.putExtras(extras);
                 busNameSelectionContext.startActivity(intent);
             }

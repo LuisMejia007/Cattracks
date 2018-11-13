@@ -24,7 +24,6 @@ public class LocationToDestinationBusActivity extends AppCompatActivity {
    private static RecyclerView.LayoutManager recyclerViewLayoutManager;
    private static BusNameSelectionAdapter busNameSelectionAdapter;
 
-   private static List<String> stopAbbreviations;
    private static List<String> buses;
    private static List<Bus> busesFromLocationToDestination;
    private static List<Integer> busIDs;
@@ -62,18 +61,14 @@ public class LocationToDestinationBusActivity extends AppCompatActivity {
         // From stop abbreviations get bus IDs
         // From bus IDs get bus names
 
-        stopAbbreviations = HomeActivity.cattracksDatabase.daoAccess().getStopAbbsFromNames(locationName, destinationName);
-
 
 
         welcomeTextView = findViewById(R.id.availableBusesTextView);
+        locationAbb = HomeActivity.cattracksDatabase.daoAccess().getStopAbbFromName(locationName);
+        destinationAbb = HomeActivity.cattracksDatabase.daoAccess().getStopAbbFromName(destinationName);
 
-        for(String stopAbb: stopAbbreviations) {
-            System.out.println(stopAbb + "\n");
-        }
-
-        locationAbb = stopAbbreviations.get(0).replace("*", "");
-        destinationAbb = stopAbbreviations.get(1).replace("*","");
+        locationAbb = locationAbb.replace("*", "");
+        destinationAbb = destinationAbb.replace("*","");
 
         busIDs = HomeActivity.cattracksDatabase.daoAccess().getBusIDsFromStopAbbs(locationAbb, destinationAbb);
 

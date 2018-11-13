@@ -62,12 +62,9 @@ public interface daoAccess {
     public List<stops> getFilteredDestinations(String userSelectedLocation);
 
 
-    // Get stop abbreviations using stop names
-
-    @Query("SELECT s_abb FROM stops WHERE s_name =:userSelectedLocation OR s_name =:userSelectedDestination;")
-    public List<String> getStopAbbsFromNames(String userSelectedLocation, String userSelectedDestination);
-
-
+    // Get stop abbreviation using stop name
+    @Query("SELECT s_abb FROM stops WHERE s_name=:stopName;")
+    public String getStopAbbFromName(String stopName);
 
     // Get Bus IDs based on stop abbreviations
     @Query("SELECT *" +

@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#122648</color>
+	<!--Application's activity bar color-->
+    <color name="colorPrimary">#167DD0</color>
+
+    <!--Application's status bar color-->
+    <!--NOTE: Must match activity bar color-->
     <color name="colorPrimaryDark">#000000</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#000000</color>
+    <color name="app_background_2">#167dd0</color>
 </resources>

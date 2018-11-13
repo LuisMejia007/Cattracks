@@ -57,6 +57,7 @@ public class BusRouteStopTimesAdapter extends RecyclerView.Adapter<BusRouteStopT
     public void onBindViewHolder(@NonNull BusRouteStopTimesAdapter.BusRouteStopViewHolder holder, int position) {
 
         holder.busStopTimeTextView.setText(busTimes.get(position));
+        holder.busStopTimeTextView.setTextSize(20);
     }
 
     @Override

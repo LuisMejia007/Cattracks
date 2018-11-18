@@ -4,11 +4,14 @@ import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import uc.cattracks.cattracksapp.sqlAsset.*;
 
@@ -17,6 +20,7 @@ import uc.cattracks.cattracksapp.database.CattracksDatabase;
 
 
 /*
+ By: Luis Mejia
  Helpful videos/links that helped me get this much done:
 
  Room Tuts:
@@ -30,9 +34,7 @@ import uc.cattracks.cattracksapp.database.CattracksDatabase;
 
 */
 
-public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
-
-    private TextView mTextMessage;
+public class HomeActivity extends AppCompatActivity {
 
     // Will manage our fragments (basically can think of them as views)
     public static android.support.v4.app.FragmentManager fragmentManager;
@@ -40,28 +42,14 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     // Look @ line 79 for this object's use.
     public static CattracksDatabase cattracksDatabase;
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+    // Segue to next activity (Next screen)
+    Intent start_trip_segue;
 
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    mTextMessage.setText(R.string.nav_home);
-                    return true;
-                case R.id.navigation_map:
-                    mTextMessage.setText(R.string.nav_map);
-                    return true;
-                case R.id.navigation_time:
-                    mTextMessage.setText(R.string.nav_time);
-                    return true;
-            }
-            return false;
-        }
-    };
+    // User interface elements
+    ImageButton navigation_button;
 
-
-    private Button seeLocationsButton;
+    LinearLayout navigation_menu;
+    ImageButton plan_trip_button;
 
 
     @Override
@@ -79,25 +67,49 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 .openHelperFactory(new AssetSQLiteOpenHelperFactory())
                 .allowMainThreadQueries().build();
 
+        // Setting up segue to next activity (Next screen)
+        start_trip_segue = new Intent(this, LocationsList.class);
+
+        // Setting up user interface elements
+        // Slide menu (Linear layout)
+        navigation_menu = findViewById(R.id.navigation_menu);
+
+        // Navigation button:
+        navigation_button = findViewById(R.id.navigation_button);
+
+        navigation_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                animate_navigation_menu();
+            }
+        });
+
+        plan_trip_button = findViewById(R.id.plan_trip_button);
+
+        plan_trip_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
 
-        mTextMessage = (TextView) findViewById(R.id.message);
-
-
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
-        seeLocationsButton = findViewById(R.id.showLocationsBtn);
-        seeLocationsButton.setOnClickListener(this);
-
+                startActivity(start_trip_segue);
+                animate_navigation_menu();
+            }
+        });
     }
 
 
-    @Override
-    public void onClick(View view) {
+    public void animate_navigation_menu(){
+        Animation slideUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);
+        Animation slideDown = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down);
 
-        Intent intent = new Intent(this, LocationsList.class);
-        startActivity(intent);
+        if(navigation_menu.getVisibility()==View.INVISIBLE) {
 
+            navigation_menu.startAnimation(slideUp);
+            navigation_menu.setVisibility(View.VISIBLE);
+
+        }else{
+            navigation_menu.startAnimation(slideDown);
+            navigation_menu.setVisibility(View.INVISIBLE);
+        }
     }
 }

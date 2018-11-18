@@ -48,9 +48,8 @@ public class StopsAdapter extends RecyclerView.Adapter <StopsAdapter.StopsViewHo
     private LocationsList locationsListActivityReference;
     public static Intent intent;
 
-    public static class StopsViewHolder extends RecyclerView.ViewHolder {
+    public class StopsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        //ImageView imageView;
         TextView textView;
         TextView commentTextView;
 
@@ -59,9 +58,30 @@ public class StopsAdapter extends RecyclerView.Adapter <StopsAdapter.StopsViewHo
 
 
             // Binding views from 'stops_card_view' using their respective ids to our StopsAdapter
-           // imageView = itemView.findViewById(R.id.stopPicImageView);
             textView = itemView.findViewById(R.id.stopNameTextView);
             commentTextView = itemView.findViewById(R.id.stopCommentTextView);
+            itemView.setOnClickListener(this);
+
+        }
+
+        @Override
+        public void onClick(View view) {
+            System.out.println("CARD VIEW 1 CLICK!: " + textView.getText().toString());
+
+
+            intent = new Intent(stopAdapterContext, DestinationsListActivity.class);
+            Toast.makeText(stopAdapterContext, "Stop Selected: " + textView.getText().toString(), Toast.LENGTH_LONG).show();
+
+            LocationsList.confirmationButton.setVisibility(View.VISIBLE);
+
+            // Make Confirmation Button Move To The Next Activity
+            LocationsList.confirmationButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    intent.putExtra("Stop Selected: " , textView.getText().toString());
+                    stopAdapterContext.startActivity(intent);
+                }
+            });
 
         }
     }
@@ -100,7 +120,6 @@ public class StopsAdapter extends RecyclerView.Adapter <StopsAdapter.StopsViewHo
 
         stops stop = stopsList.get(position);
         holder.textView.setText(stop.getS_name());
-        String com = stop.getComments();
         holder.commentTextView.setText(stop.getComments());
 
  //******** DO NOT DELETE THIS ! CAN BE USED FOR FINAL PAPER
@@ -108,45 +127,6 @@ public class StopsAdapter extends RecyclerView.Adapter <StopsAdapter.StopsViewHo
 //        int id = R.drawable.mercedamtrak;
 //        Bitmap bm =  BitmapFactory.decodeResource(res,id);
 //        holder.imageView.setImageBitmap(bm);
-
-        intent = new Intent(stopAdapterContext, DestinationsListActivity.class);
-
-        holder.textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(stopAdapterContext, "Stop Selected: " + holder.textView.getText().toString(), Toast.LENGTH_LONG).show();
-
-                LocationsList.confirmationButton.setVisibility(View.VISIBLE);
-
-                // Make Confirmation Button Move To The Next Activity
-                LocationsList.confirmationButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        intent.putExtra("Stop Selected: " , holder.textView.getText().toString());
-                        stopAdapterContext.startActivity(intent);
-                    }
-                });
-            }
-        });
-//        holder.imageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                Toast.makeText(stopAdapterContext, "Stop Selected: " + holder.textView.getText().toString(), Toast.LENGTH_LONG).show();
-//
-//
-//                LocationsList.confirmationButton.setVisibility(View.VISIBLE);
-//
-//                // Make Confirmation Button Move To The Next Activity
-//                LocationsList.confirmationButton.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        intent.putExtra("Stop Selected: " , holder.textView.getText().toString());
-//                        stopAdapterContext.startActivity(intent);
-//                    }
-//                });
-//            }
-//        });
 
     }
 

@@ -3,6 +3,7 @@ package uc.cattracks.cattracksapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -18,6 +19,10 @@ import uc.cattracks.cattracksapp.models.stops;
  */
 public class StopSelectActivity extends AppCompatActivity implements View.OnClickListener
 {
+    //Query that selects all stops from particular bus
+    private static List<stops> selectedStops;
+
+    //When buttons are clicked, jump to the OpenTableActivity method with String name
     LinearLayout parent;
     Button btn;
 
@@ -28,11 +33,66 @@ public class StopSelectActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_stop_select);
 
         //Accessing bus selected information from ChooseTableAct.
+        //Not using yet, still trying
         Intent startingIntent = getIntent();
         String busChoice = startingIntent.getStringExtra("busChoice");
 
-        //Query that selects all stops from particular bus
-        //When buttons are clicked, jump to the OpenTableActivity method with String name
+
+        //Figuring out the size of the stops to be used to create particular amount of buttons
+        int btnDisplay = selectedStops.size();
+
+        parent = (LinearLayout)findViewById(R.id.buttonParent);
+
+        //Iterate through the length of the amt of stops & create buttons
+        //Creating the
+        for(int i = 0; i < btnDisplay; i++)
+        {
+            btn = new Button(StopSelectActivity.this);
+            btn.setId(i + 1);
+            //btn.setText(stopNa[i]);
+            btn.setText(selectedStops.get(i).toString());
+            btn.setTag(i);
+            parent.addView(btn);
+            btn.setOnClickListener(StopSelectActivity.this);
+        }
+
+
+        selectedStops = new ArrayList<>();
+
+        System.out.println("HERE!");
+        //ERROR HERE - fack sake -
+        selectedStops = HomeActivity.cattracksDatabase.daoAccess().getC1StopNames(); //Query to get all C1 stops
+
+        String[] selecArr = new String[selectedStops.size()];
+
+        selecArr = selectedStops.toArray(selecArr);
+
+        //Trying to test for input
+        for(String s : selecArr)
+        {
+            Log.d(s, "something");
+        }
+
+    }
+
+    //When user clicks on particular stop(s), jump to next activity with info
+    //Currently was used to check if on click listener works
+    @Override
+    public void onClick(View v)
+    {
+        String str = v.getTag().toString();
+        if(str.equals("0"))
+        {
+            Toast.makeText(getApplicationContext(), "Click Button1", Toast.LENGTH_SHORT).show();
+        }
+        else if(str.equals("1"))
+        {
+            Toast.makeText(getApplicationContext(), "Click Button2", Toast.LENGTH_SHORT).show();
+        }
+    }
+}
+
+
 /*
             switch (busChoice)
             {
@@ -61,41 +121,3 @@ public class StopSelectActivity extends AppCompatActivity implements View.OnClic
                     break;
             }
 */
-        //String[] selectedStops = HomeActivity.cattracksDatabase.daoAccess().getC1StopNames();
-        List <stops> selectedStops = HomeActivity.cattracksDatabase.daoAccess().getC1StopNames();
-        //String stopAssign = selectedStops.toString();
-
-        //Buttons that are getting stop names from the above query & getting lenght for array
-        //List btn_name;
-        //int btnDisplay = btn_name.length;
-        //int btnDisplay = selectedStops.size();
-
-        parent = (LinearLayout)findViewById(R.id.buttonParent);
-
-        //Iterate through the length of the amt of stops & create buttons
-        for(int i = 0; i < selectedStops.size(); i++)
-        {
-            btn = new Button(StopSelectActivity.this);
-            btn.setId(i + 1);
-            //btn.setText(selectedStops.get(i));
-            btn.setTag(i);
-            parent.addView(btn);
-            btn.setOnClickListener(StopSelectActivity.this);
-        }
-    }
-
-    //When user clicks on particular stop(s), jump to next activity with info
-    @Override
-    public void onClick(View v)
-    {
-        String str = v.getTag().toString();
-        if(str.equals("0"))
-        {
-            Toast.makeText(getApplicationContext(), "Click Button1", Toast.LENGTH_SHORT).show();
-        }
-        else if(str.equals("1"))
-        {
-            Toast.makeText(getApplicationContext(), "Click Button2", Toast.LENGTH_SHORT).show();
-        }
-    }
-}

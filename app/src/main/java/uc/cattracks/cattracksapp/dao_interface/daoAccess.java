@@ -5,6 +5,7 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Query;
 import android.text.format.Time;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import uc.cattracks.cattracksapp.models.Bus;
@@ -36,36 +37,36 @@ public interface daoAccess {
     public List<C1> getC1();
 
     //Retrieves C1 stops
-    @Query("SELECT s_name FROM C1, stops WHERE  c1_abb = s_abb")
+    @Query("SELECT DISTINCT s_name FROM C1, stops WHERE c1_abb = s_abb;")
     public List<stops> getC1StopNames();
 
     //Retrieves C2 stops
     @Query("SELECT s_name FROM C2, stops WHERE  c2_abb = s_abb")
-    public String[] getC2StopNames();
+    public List<stops> getC2StopNames();
 
     //Retrieves G stops
     @Query("SELECT s_name FROM G, stops WHERE  g_abb = s_abb")
-    public String[] getGStopNames();
+    public List<stops> getGStopNames();
 
     //Retrieves H stops
     @Query("SELECT s_name FROM H, stops WHERE  h_abb = s_abb")
-    public String[] getHStopNames();
+    public List<stops> getHStopNames();
 
     //Retrieves HW stops
     @Query("SELECT s_name FROM HW, stops WHERE  hw_abb = s_abb")
-    public String[] getHWStopNames();
+    public List<stops> getHWStopNames();
 
     //Retrieves FC stops
     @Query("SELECT s_name FROM FC, stops WHERE  fc_abb = s_abb")
-    public String[] getFCStopNames();
+    public List<stops> getFCStopNames();
 
     //Retrieves E1 stops
     @Query("SELECT s_name FROM E1, stops WHERE  e1_abb = s_abb")
-    public String[] getE1StopNames();
+    public List<stops> getE1StopNames();
 
     //Retrieves E2 stops
     @Query("SELECT s_name FROM E2, stops WHERE  e2_abb = s_abb")
-    public String[] getE2StopNames();
+    public List<stops> getE2StopNames();
 
     @Query("SELECT abbrsQuery.stopNames as s_name, abbrsQuery.comments as Comments FROM" +
             "(("+

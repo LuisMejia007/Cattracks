@@ -21,6 +21,10 @@ public class ChooseTableActivity extends AppCompatActivity implements View.OnCli
         Button heritageButton = findViewById(R.id.heritageBtn);
         heritageButton.setOnClickListener(this);
 
+        //Init button for Heritage Weekend
+        Button heritageWeekendButton = findViewById(R.id.heritageWBtn);
+        heritageWeekendButton.setOnClickListener(this);
+
         //Init button for FastCat
         Button fastCatButton = findViewById(R.id.fastCatBtn);
         fastCatButton.setOnClickListener(this);
@@ -32,6 +36,14 @@ public class ChooseTableActivity extends AppCompatActivity implements View.OnCli
         //Init button for C2
         Button c2Button = findViewById(R.id.c2Btn);
         c2Button.setOnClickListener(this);
+
+        //Init button for E1
+        Button e1button = findViewById(R.id.e1Btn);
+        e1button.setOnClickListener(this);
+
+        //Init button for E2
+        Button e2Button = findViewById(R.id.e2Btn);
+        e2Button.setOnClickListener(this);
 
         //Init button for G
         Button gButton = findViewById(R.id.gBtn);
@@ -49,6 +61,11 @@ public class ChooseTableActivity extends AppCompatActivity implements View.OnCli
                 OpenTableActivity();
                 break;
 
+            case R.id.heritageWBtn:
+                busChoice = "HW";
+                OpenTableActivity();
+                break;
+
             case R.id.fastCatBtn:
                 busChoice = "FC";
                 OpenTableActivity();
@@ -61,6 +78,16 @@ public class ChooseTableActivity extends AppCompatActivity implements View.OnCli
 
             case R.id.c2Btn:
                 busChoice = "C2";
+                OpenTableActivity();
+                break;
+
+            case R.id.e1Btn:
+                busChoice = "E1";
+                OpenTableActivity();
+                break;
+
+            case R.id.e2Btn:
+                busChoice = "E2";
                 OpenTableActivity();
                 break;
 

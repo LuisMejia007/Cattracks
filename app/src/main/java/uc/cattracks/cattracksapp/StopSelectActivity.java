@@ -3,6 +3,7 @@ package uc.cattracks.cattracksapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +12,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 import uc.cattracks.cattracksapp.models.stops;
+import android.support.v7.widget.RecyclerView;
+import uc.cattracks.cattracksapp.recycleview_adapters.StopsAdapter;
 
 /*
  * STOP SELECT ACTIVITY
@@ -19,12 +22,19 @@ import uc.cattracks.cattracksapp.models.stops;
  */
 public class StopSelectActivity extends AppCompatActivity implements View.OnClickListener
 {
+    //Setting up CardView with use of Recycle View
+    private RecyclerView stopSelectRecyclerView;
+    private StopsAdapter adapter;
+    private RecyclerView.LayoutManager recyclerStopViewLayoutManager;
+
     //Query that selects all stops from particular bus
     private static List<stops> selectedStops;
 
+    //Confirming that the user is done choosing stops
+    public static Button confirmStopButton;
+
     //When buttons are clicked, jump to the OpenTableActivity method with String name
     LinearLayout parent;
-    Button btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -32,47 +42,61 @@ public class StopSelectActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stop_select);
 
-        //Accessing bus selected information from ChooseTableAct.
-        //Not using yet, still trying
+        // Accessing bus selected information from ChooseTableAct
         Intent startingIntent = getIntent();
+
+        // The users particular choice will be saved onto varible & used in switch case
         String busChoice = startingIntent.getStringExtra("busChoice");
 
+        confirmStopButton = (Button) findViewById(R.id.confirmLocationSelectionButton);
 
-        //Figuring out the size of the stops to be used to create particular amount of buttons
-        int btnDisplay = selectedStops.size();
-
-        parent = (LinearLayout)findViewById(R.id.buttonParent);
-
-        //Iterate through the length of the amt of stops & create buttons
-        //Creating the
-        for(int i = 0; i < btnDisplay; i++)
+        // Depending on what the user clicked on, grab particular database query & set to variable
+        switch (busChoice)
         {
-            btn = new Button(StopSelectActivity.this);
-            btn.setId(i + 1);
-            //btn.setText(stopNa[i]);
-            btn.setText(selectedStops.get(i).toString());
-            btn.setTag(i);
-            parent.addView(btn);
-            btn.setOnClickListener(StopSelectActivity.this);
+            case "C1":
+                selectedStops = HomeActivity.cattracksDatabase.daoAccess().getC1StopNames();
+                break;
+
+            case "C2":
+                selectedStops = HomeActivity.cattracksDatabase.daoAccess().getC2StopNames();
+                break;
+
+            case "FC":
+                selectedStops = HomeActivity.cattracksDatabase.daoAccess().getFCStopNames();
+                break;
+
+            case "E1":
+                selectedStops = HomeActivity.cattracksDatabase.daoAccess().getE1StopNames();
+                break;
+
+            case "E2":
+                selectedStops = HomeActivity.cattracksDatabase.daoAccess().getE2StopNames();
+                break;
+
+            case "H":
+                selectedStops = HomeActivity.cattracksDatabase.daoAccess().getHStopNames();
+                break;
+
+            case "HW":
+                selectedStops = HomeActivity.cattracksDatabase.daoAccess().getHWStopNames();
+                break;
+
+            case "G":
+                selectedStops = HomeActivity.cattracksDatabase.daoAccess().getGStopNames();
+                break;
         }
 
+        // Adding our RecyclerView To Activity
+        stopSelectRecyclerView = (RecyclerView) findViewById(R.id.selectedStops);
 
-        selectedStops = new ArrayList<>();
+        // Set Recycler View Layout
+        recyclerStopViewLayoutManager = new LinearLayoutManager(this);
+        stopSelectRecyclerView.setLayoutManager(recyclerStopViewLayoutManager);
 
-        System.out.println("HERE!");
-        //ERROR HERE - fack sake -
-        selectedStops = HomeActivity.cattracksDatabase.daoAccess().getC1StopNames(); //Query to get all C1 stops
-
-        String[] selecArr = new String[selectedStops.size()];
-
-        selecArr = selectedStops.toArray(selecArr);
-
-        //Trying to test for input
-        for(String s : selecArr)
-        {
-            Log.d(s, "something");
-        }
-
+        // Set Up Recycler View Adapter To Showcase Stops
+        //selectedStops = HomeActivity.cattracksDatabase.daoAccess().getC1StopNames(); //Query For All Stops
+        adapter = new StopsAdapter(this, selectedStops);
+        stopSelectRecyclerView.setAdapter(adapter);
     }
 
     //When user clicks on particular stop(s), jump to next activity with info
@@ -91,33 +115,3 @@ public class StopSelectActivity extends AppCompatActivity implements View.OnClic
         }
     }
 }
-
-
-/*
-            switch (busChoice)
-            {
-                case "C1":
-                    List <C1> selectedStops = HomeActivity.cattracksDatabase.daoAccess().getC1StopNames();
-                    break;
-
-                case "C2":
-                    List <C2> selectedStops = HomeActivity.cattracksDatabase.daoAccess().getC2StopNames();
-                    break;
-
-                case "FC":
-                    List <FC> selectedStops = HomeActivity.cattracksDatabase.daoAccess().getFCStopNames();
-                    break;
-
-                case "H":
-                    List <H> selectedStops = HomeActivity.cattracksDatabase.daoAccess().getHStopNames();
-                    break;
-
-                case "HW":
-                    List <HW> selectedStops = HomeActivity.cattracksDatabase.daoAccess().getHWStopNames();
-                    break;
-
-                case "G":
-                    List <G> selectedStops = HomeActivity.cattracksDatabase.daoAccess().getGStopNames();
-                    break;
-            }
-*/

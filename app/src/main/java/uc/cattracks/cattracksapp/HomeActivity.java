@@ -45,6 +45,12 @@ public class HomeActivity extends AppCompatActivity {
     // Segue to next activity (Next screen)
     Intent start_trip_segue;
 
+    // Jump to select stop activity
+    Intent open_select_stop;
+
+    // User interface element for select stop
+    ImageButton stop_select_button;
+
     // User interface elements
     ImageButton navigation_button;
 
@@ -70,6 +76,8 @@ public class HomeActivity extends AppCompatActivity {
         // Setting up segue to next activity (Next screen)
         start_trip_segue = new Intent(this, LocationsList.class);
 
+        open_select_stop = new Intent(this, ChooseTableActivity.class);
+
         // Setting up user interface elements
         // Slide menu (Linear layout)
         navigation_menu = findViewById(R.id.navigation_menu);
@@ -79,7 +87,8 @@ public class HomeActivity extends AppCompatActivity {
 
         navigation_button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
                 animate_navigation_menu();
             }
         });
@@ -88,15 +97,23 @@ public class HomeActivity extends AppCompatActivity {
 
         plan_trip_button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-
-
+            public void onClick(View v)
+            {
                 startActivity(start_trip_segue);
                 animate_navigation_menu();
             }
         });
-    }
 
+        //Button has been clicked then jump to ChooseSelectActivity
+        stop_select_button = findViewById(R.id.imageButton4);
+        stop_select_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                startActivity(open_select_stop);
+            }
+        });
+    }
 
     public void animate_navigation_menu(){
         Animation slideUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);

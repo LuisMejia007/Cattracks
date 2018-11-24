@@ -42,14 +42,15 @@ public class HomeActivity extends AppCompatActivity {
     // Look @ line 79 for this object's use.
     public static CattracksDatabase cattracksDatabase;
 
-    // Segue to next activity (Next screen)
-    Intent start_trip_segue;
+    // PATHWAYS TO OTHER ACTIVITIES 
+    Intent plan_trip_segue;
+    Intent bus_alerts_segue;
 
-    // User interface elements
-    ImageButton navigation_button;
-
-    LinearLayout navigation_menu;
-    ImageButton plan_trip_button;
+    // USER INTERFACE ELEMENTS
+    ImageButton navigation_button;   // Navigation menu structure 
+    LinearLayout navigation_menu;    // Opens / closes navigation menu  
+    ImageButton plan_trip_button;    // Opens trip planning activity 
+    ImageButton bus_alerts_button;   // Opens bus alerts Twitter feed activity.
 
 
     @Override
@@ -67,43 +68,47 @@ public class HomeActivity extends AppCompatActivity {
                 .openHelperFactory(new AssetSQLiteOpenHelperFactory())
                 .allowMainThreadQueries().build();
 
-        // Setting up segue to next activity (Next screen)
-        start_trip_segue = new Intent(this, LocationsList.class);
+        // SETTING UP PATHWAYS
+        plan_trip_segue = new Intent(this, LocationsList.class);
+        bus_alerts_segue = new Intent(this, BusAlertsActivity);
 
-        // Setting up user interface elements
-        // Slide menu (Linear layout)
+        // SETTING UP USER INTERFACE ELEMENTS
         navigation_menu = findViewById(R.id.navigation_menu);
-
-        // Navigation button:
+     
         navigation_button = findViewById(R.id.navigation_button);
-
         navigation_button.setOnClickListener(new View.OnClickListener() {
-            @Override
+        	@Override
             public void onClick(View view) {
                 animate_navigation_menu();
             }
         });
 
         plan_trip_button = findViewById(R.id.plan_trip_button);
-
         plan_trip_button.setOnClickListener(new View.OnClickListener() {
-            @Override
+        	@Override
             public void onClick(View v) {
-
-
+				animate_navigation_menu();
                 startActivity(start_trip_segue);
-                animate_navigation_menu();
             }
         });
+     
+       bus_alerts_button = findViewById(R.id.bus_alerts_button);
+       bus_alerts_button.setOnClickListner(new View.OnClickListner() {
+       		@Override 
+            public void onClick(View v) {
+				animate_navigation_menu();
+				startActivity(bus_alerts_segue)l
+			}
+       });  
     }
 
 
+	// USER INTERFACE FUNCTIONALITY 
     public void animate_navigation_menu(){
         Animation slideUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);
         Animation slideDown = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down);
 
         if(navigation_menu.getVisibility()==View.INVISIBLE) {
-
             navigation_menu.startAnimation(slideUp);
             navigation_menu.setVisibility(View.VISIBLE);
 

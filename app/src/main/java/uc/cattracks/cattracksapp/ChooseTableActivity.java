@@ -10,7 +10,7 @@ import android.widget.Button;
 public class ChooseTableActivity extends AppCompatActivity implements View.OnClickListener
 {
     String busChoice; //Variable that is placed into busSelected
-    String busSelected; //Variable that is sent to StopSelectAct
+
  @Override
     protected void onCreate(Bundle savedInstanceState)
     {

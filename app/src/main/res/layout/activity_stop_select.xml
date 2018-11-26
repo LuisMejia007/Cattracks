@@ -14,7 +14,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/confirmStopButton"
+        android:id="@+id/confirmSelButton"
         android:layout_width="112dp"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"

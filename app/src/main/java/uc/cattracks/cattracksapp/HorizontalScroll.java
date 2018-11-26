@@ -4,10 +4,6 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.HorizontalScrollView;
 
-/**
- * Created by shaby on 3/7/2017.
- */
-
 public class HorizontalScroll extends HorizontalScrollView {
 
     private ScrollViewListener scrollViewListener = null;

@@ -36,6 +36,9 @@ public interface daoAccess {
     @Query("SELECT * FROM C1")
     public List<C1> getC1();
 
+    @Query("SELECT s_name FROM stops WHERE s_abb LIKE :stop_abb")
+    public List<stops> getSName(String stop_abb);
+
     //Retrieves C1 stops
     @Query("SELECT DISTINCT s_name, Comments FROM C1, stops WHERE c1_abb = s_abb;")
     public List<stops> getC1StopNames();

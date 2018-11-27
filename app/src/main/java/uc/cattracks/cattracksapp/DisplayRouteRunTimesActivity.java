@@ -7,7 +7,11 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -141,6 +145,8 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
         while(c1LocationIterator.hasNext() && c1DestinationIterator.hasNext()) {
 
             C1 temp = c1LocationIterator.next(); C1 temp2 = c1DestinationIterator.next();
+
+
 
             c1BusTimes.add(temp.getC1_run1()); c1BusTimes.add(temp2.getC1_run1());
             c1BusTimes.add(temp.getC1_run2()); c1BusTimes.add(temp2.getC1_run2());

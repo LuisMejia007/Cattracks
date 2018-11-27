@@ -44,12 +44,14 @@ public class HomeActivity extends AppCompatActivity {
 
     // Segue to next activity (Next screen)
     Intent start_trip_segue;
+    Intent start_map;
 
     // User interface elements
     ImageButton navigation_button;
 
     LinearLayout navigation_menu;
     ImageButton plan_trip_button;
+    ImageButton map_button;
 
 
     @Override
@@ -69,6 +71,8 @@ public class HomeActivity extends AppCompatActivity {
 
         // Setting up segue to next activity (Next screen)
         start_trip_segue = new Intent(this, LocationsList.class);
+
+        start_map = new Intent(this, MapStopsActivity.class);
 
         // Setting up user interface elements
         // Slide menu (Linear layout)
@@ -92,6 +96,17 @@ public class HomeActivity extends AppCompatActivity {
 
 
                 startActivity(start_trip_segue);
+                animate_navigation_menu();
+            }
+        });
+
+        map_button = findViewById(R.id.map_button);
+
+        map_button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                startActivity(start_map);
                 animate_navigation_menu();
             }
         });

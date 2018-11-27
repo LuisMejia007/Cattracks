@@ -98,7 +98,7 @@
     <LinearLayout
         android:id="@+id/navigation_menu"
         android:layout_width="0dp"
-        android:layout_height="120dp"
+        android:layout_height="180dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -114,6 +114,14 @@
 
         <ImageButton
             android:id="@+id/imageButton4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginBottom="1dp"
+            app:srcCompat="@mipmap/bus_schedule_button" />
+
+        <ImageButton
+            android:id="@+id/map_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"

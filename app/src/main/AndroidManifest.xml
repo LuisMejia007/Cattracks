@@ -2,7 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="uc.cattracks.cattracksapp">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="false"
@@ -27,6 +29,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan"/>
+
         <activity
             android:name=".DestinationsListActivity"
             android:configChanges="orientation"
@@ -44,11 +47,29 @@
             android:configChanges="orientation"
             android:label="Arrival &amp; Departure Times"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".BusUpdatesActivity"
             android:configChanges="orientation"
             android:label="Bus Updates"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
+
+
+
+        <activity android:name=".MapActivity"
+            android:label="Stops Map"></activity>
+        <activity android:name=".MapStopsActivity"
+            android:label="Choose Location For Map View"></activity>
+
+
+        <!--<meta-data-->
+            <!--android:name="com.google.android.gms.version"-->
+            <!--android:value="@integer/google_play_services_version"-->
+        <!--/>-->
+
+        <!--<meta-data-->
+            <!--android:name="com.google.android.geo.API_KEY"-->
+            <!--android:value="AIzaSyCplP5_m3iEpXy6_fXwMct356GudRybcWw" />-->
     </application>
 </manifest>

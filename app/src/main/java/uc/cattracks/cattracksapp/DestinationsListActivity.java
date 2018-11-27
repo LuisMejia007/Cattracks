@@ -28,7 +28,7 @@ public class DestinationsListActivity extends AppCompatActivity implements Searc
     // PATHWAYS TO OTHER ACTIVITIES
     Intent plan_trip_segue;
     Intent bus_updates_segue;
-
+    Intent start_map;
 
     // USER INTERFACE ELEMENTS
     Toolbar toolbar;
@@ -36,6 +36,7 @@ public class DestinationsListActivity extends AppCompatActivity implements Searc
     ImageButton navigation_button;   // Navigation menu structure
     ImageButton plan_trip_button;    // Opens trip planning activity
     ImageButton bus_alerts_button;   // Opens bus alerts Twitter feed activity.
+    ImageButton map_button;          // Opens activity where users can select a stop to be showcased on a map (Google Maps)
 
 
     private RecyclerView destinationsRecyclerView;
@@ -120,7 +121,7 @@ public class DestinationsListActivity extends AppCompatActivity implements Searc
         // Setting up pathways to other activities
         plan_trip_segue = new Intent(this, LocationsList.class);
         bus_updates_segue = new Intent(this, BusUpdatesActivity.class);
-
+        start_map = new Intent(this, MapStopsActivity.class);
 
         // Setting up user interface elements
         navigation_menu = findViewById(R.id.navigation_menu);
@@ -139,6 +140,18 @@ public class DestinationsListActivity extends AppCompatActivity implements Searc
         bus_alerts_button.setOnClickListener((View v) -> {
             animate_navigation_menu();
             startActivity(bus_updates_segue);
+        });
+
+
+        // Set intent on MapStopsActivity
+        map_button = findViewById(R.id.map_button);
+        map_button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                startActivity(start_map);
+                animate_navigation_menu();
+            }
         });
     }
 

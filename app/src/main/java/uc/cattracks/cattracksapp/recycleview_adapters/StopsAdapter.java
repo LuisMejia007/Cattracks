@@ -106,9 +106,6 @@ public class StopsAdapter extends RecyclerView.Adapter <StopsAdapter.StopsViewHo
         View view = inflater.inflate(R.layout.stops_card_view, parent, false);
         StopsViewHolder stopsViewHolder = new StopsViewHolder(view);
 
-
-        
-
         return stopsViewHolder;
     }
 

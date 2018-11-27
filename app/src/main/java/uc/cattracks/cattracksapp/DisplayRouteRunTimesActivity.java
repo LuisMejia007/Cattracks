@@ -15,7 +15,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.support.v7.widget.Toolbar;
 
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -33,13 +37,14 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
     // PATHWAYS TO OTHER ACTIVITIES
     Intent plan_trip_segue;
     Intent bus_updates_segue;
-
+    Intent start_map;
 
     // USER INTERFACE ELEMENTS
     ImageButton navigation_button;   // Navigation menu structure
     LinearLayout navigation_menu;    // Opens / closes navigation menu
     ImageButton plan_trip_button;    // Opens trip planning activity
     ImageButton bus_alerts_button;   // Opens bus alerts Twitter feed activity.
+    ImageButton map_button;          // Opens activity where users can select a stop to be showcased on a map (Google Maps)
 
 
     private static List<String> c1BusTimes = new ArrayList<>();
@@ -121,7 +126,7 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
         // Setting up pathways to other activities
         plan_trip_segue = new Intent(this, LocationsList.class);
         bus_updates_segue = new Intent(this, BusUpdatesActivity.class);
-
+        start_map = new Intent(this, MapStopsActivity.class);
 
         // Setting up user interface elements
         navigation_menu = findViewById(R.id.navigation_menu);
@@ -139,6 +144,18 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
         bus_alerts_button.setOnClickListener((View v) -> {
             animate_navigation_menu();
             startActivity(bus_updates_segue);
+        });
+
+
+        // Set intent on MapStopsActivity
+        map_button = findViewById(R.id.map_button);
+        map_button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                startActivity(start_map);
+                animate_navigation_menu();
+            }
         });
     }
 
@@ -248,6 +265,8 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
         while(c1LocationIterator.hasNext() && c1DestinationIterator.hasNext()) {
 
             C1 temp = c1LocationIterator.next(); C1 temp2 = c1DestinationIterator.next();
+
+
 
             c1BusTimes.add(temp.getC1_run1()); c1BusTimes.add(temp2.getC1_run1());
             c1BusTimes.add(temp.getC1_run2()); c1BusTimes.add(temp2.getC1_run2());

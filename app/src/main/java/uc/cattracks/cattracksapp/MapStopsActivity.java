@@ -12,24 +12,24 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import uc.cattracks.cattracksapp.constants.MapStops;
+import uc.cattracks.cattracksapp.constants.mapStopsArraySource;
 import uc.cattracks.cattracksapp.models.stops;
-import uc.cattracks.cattracksapp.recycleview_adapters.StopsAdapter;
+import uc.cattracks.cattracksapp.recycleview_adapters.MapStopsAdapter;
+
+public class MapStopsActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
 
-
-public class LocationsList extends AppCompatActivity implements SearchView.OnQueryTextListener, View.OnClickListener {
     // PATHWAYS TO OTHER ACTIVITIES
     Intent plan_trip_segue;
     Intent bus_updates_segue;
     Intent start_map;
-
 
     // USER INTERFACE ELEMENTS
     Toolbar toolbar;
@@ -39,72 +39,39 @@ public class LocationsList extends AppCompatActivity implements SearchView.OnQue
     ImageButton bus_alerts_button;   // Opens bus alerts Twitter feed activity.
     ImageButton map_button;          // Opens activity where users can select a stop to be showcased on a map (Google Maps)
 
-    private RecyclerView stopLocationsRecyclerView;
-    private StopsAdapter adapter;
-    private RecyclerView.LayoutManager recyclerViewLayoutManager;
-    private List<stops> stopLocations;
-    public static Button confirmationButton;
+
+    private MapStops[] stopLocations;
+    private RecyclerView mapStopsRecyclerView;
+    private RecyclerView.LayoutManager mapStopsRecyclerViewLayoutManager;
+    private MapStopsAdapter mapsAdapter;
+
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_locations_list);
-        
-        // Setting up menu toolbar 
-        setupToolBar();
+        setContentView(R.layout.map_stops_activity_layout);
 
-        // Setting up navigation sliding menu 
+
+
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+
+        //stopLocations = HomeActivity.cattracksDatabase.daoAccess().getStops();
+        stopLocations = mapStopsArraySource.mapStops;
+        mapStopsRecyclerView = (RecyclerView) findViewById(R.id.map_stops_recyclerview);
+        mapStopsRecyclerViewLayoutManager = new LinearLayoutManager(this);
+        mapStopsRecyclerView.setLayoutManager(mapStopsRecyclerViewLayoutManager);
+
+        // Setting up menu toolbar
+        setupToolBar();
         setupNavigationMenu();
 
+        mapsAdapter = new MapStopsAdapter(this, stopLocations);
+        mapStopsRecyclerView.setAdapter(mapsAdapter);
 
-        // Confirmation Button
-        confirmationButton = findViewById(R.id.confirmLocationSelectionButton);
-
-        // Adding our RecyclerView To Activity
-        stopLocationsRecyclerView = findViewById(R.id.stopLocations);
-        stopLocationsRecyclerView.setHasFixedSize(true);
-
-        // Set Recycler View Layout
-        recyclerViewLayoutManager = new LinearLayoutManager(this);
-        stopLocationsRecyclerView.setLayoutManager(recyclerViewLayoutManager);
-
-        // Set Up Recycler View Adapter To Showcase Stops
-        stopLocations = HomeActivity.cattracksDatabase.daoAccess().getStops(); //Query For All Stops
-        adapter = new StopsAdapter(this, stopLocations);
-        stopLocationsRecyclerView.setAdapter(adapter);
 
     }
-
-
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        return false;
-    }
-
-    @Override
-    public boolean onQueryTextChange(String newText) {
-
-        String userInput = newText.toLowerCase();
-        List<stops> filteredList = new ArrayList<>();
-
-        for(stops stop: stopLocations) {
-            if(stop.getS_name().toLowerCase().contains(userInput)) {
-                filteredList.add(stop);
-            }
-        }
-
-        adapter.updateList(filteredList);
-        return true;
-    }
-
-
-
-    @Override
-    public void onClick(View view) {
-        Intent intent = new Intent(this, DestinationsListActivity.class);
-        startActivity(intent);
-    }
-
 
 
     // USER INTERFACE FUNCTIONS
@@ -115,25 +82,12 @@ public class LocationsList extends AppCompatActivity implements SearchView.OnQue
         bus_updates_segue = new Intent(this, BusUpdatesActivity.class);
         start_map = new Intent(this, MapStopsActivity.class);
 
+
         // Setting up user interface elements
         navigation_menu = findViewById(R.id.navigation_menu);
 
 
-        plan_trip_button = findViewById(R.id.plan_trip_button);
-        plan_trip_button.setOnClickListener((View v) -> {
-            animate_navigation_menu();
-            startActivity(plan_trip_segue);
-
-        });
-
-
-
-        bus_alerts_button = findViewById(R.id.bus_updates_button);
-        bus_alerts_button.setOnClickListener((View v) -> {
-            animate_navigation_menu();
-            startActivity(bus_updates_segue);
-        });
-
+        // Set intent on MapStopsActivity
         map_button = findViewById(R.id.map_button);
         map_button.setOnClickListener(new View.OnClickListener() {
 
@@ -143,6 +97,29 @@ public class LocationsList extends AppCompatActivity implements SearchView.OnQue
                 animate_navigation_menu();
             }
         });
+
+        plan_trip_button = findViewById(R.id.plan_trip_button);
+        plan_trip_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+             public void onClick(View view){
+                animate_navigation_menu();
+                startActivity(plan_trip_segue);
+            }
+        });
+
+
+
+        bus_alerts_button = findViewById(R.id.bus_updates_button);
+        bus_alerts_button.setOnClickListener(new View.OnClickListener()  {
+            @Override
+             public void onClick(View view) {
+                animate_navigation_menu();
+                startActivity(bus_updates_segue);
+            }
+
+        });
+
+
     }
 
 
@@ -155,17 +132,12 @@ public class LocationsList extends AppCompatActivity implements SearchView.OnQue
             navigation_menu.startAnimation(slideUp);
             navigation_menu.setVisibility(View.VISIBLE);
 
-            // Hide confirmation menu
-            confirmationButton.setVisibility(View.INVISIBLE);
+
 
         } else {
             navigation_menu.startAnimation(slideDown);
             navigation_menu.setVisibility(View.INVISIBLE);
 
-            // Present confirmation button if applicable
-            if (adapter.bus_stop_selected) {
-                confirmationButton.setVisibility(View.VISIBLE);
-            }
         }
     }
 
@@ -176,7 +148,6 @@ public class LocationsList extends AppCompatActivity implements SearchView.OnQue
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
-
 
 
     @Override
@@ -199,6 +170,28 @@ public class LocationsList extends AppCompatActivity implements SearchView.OnQue
 
 
     @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+
+        String userInput = newText.toLowerCase();
+        List<MapStops> filteredList = new ArrayList<>();
+
+        for(MapStops stop: stopLocations) {
+            if(stop.getStopName().toLowerCase().contains(userInput)) {
+                filteredList.add(stop);
+            }
+        }
+
+        mapsAdapter.updateList(filteredList);
+        return true;
+    }
+
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
@@ -211,4 +204,5 @@ public class LocationsList extends AppCompatActivity implements SearchView.OnQue
                 return super.onOptionsItemSelected(item);
         }
     }
+
 }

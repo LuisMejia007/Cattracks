@@ -41,7 +41,7 @@ import static java.security.AccessController.getContext;
 
 
 public class StopsAdapter extends RecyclerView.Adapter <StopsAdapter.StopsViewHolder> {
-
+    public boolean bus_stop_selected = false;    // Determines if user has selected a stop
 
     private Context stopAdapterContext;
     private static List<stops> stopsList;
@@ -66,8 +66,10 @@ public class StopsAdapter extends RecyclerView.Adapter <StopsAdapter.StopsViewHo
 
         @Override
         public void onClick(View view) {
-            System.out.println("CARD VIEW 1 CLICK!: " + textView.getText().toString());
+            bus_stop_selected = true;
 
+            // Hiding navigation menu in Locations List Activity if applicable
+            LocationsList.navigation_menu.setVisibility(View.INVISIBLE);
 
             intent = new Intent(stopAdapterContext, DestinationsListActivity.class);
             Toast.makeText(stopAdapterContext, "Stop Selected: " + textView.getText().toString(), Toast.LENGTH_LONG).show();
@@ -82,7 +84,6 @@ public class StopsAdapter extends RecyclerView.Adapter <StopsAdapter.StopsViewHo
                     stopAdapterContext.startActivity(intent);
                 }
             });
-
         }
     }
 
@@ -146,5 +147,4 @@ public class StopsAdapter extends RecyclerView.Adapter <StopsAdapter.StopsViewHo
         notifyDataSetChanged();
 
     }
-
 }

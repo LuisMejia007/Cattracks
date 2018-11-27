@@ -35,16 +35,18 @@ import uc.cattracks.cattracksapp.database.CattracksDatabase;
 */
 
 public class HomeActivity extends AppCompatActivity {
-
     // Will manage our fragments (basically can think of them as views)
     public static android.support.v4.app.FragmentManager fragmentManager;
+
 
     // Look @ line 79 for this object's use.
     public static CattracksDatabase cattracksDatabase;
 
+
     // PATHWAYS TO OTHER ACTIVITIES 
     Intent plan_trip_segue;
-    Intent bus_alerts_segue;
+    Intent bus_updates_segue;
+
 
     // USER INTERFACE ELEMENTS
     ImageButton navigation_button;   // Navigation menu structure 
@@ -68,45 +70,49 @@ public class HomeActivity extends AppCompatActivity {
                 .openHelperFactory(new AssetSQLiteOpenHelperFactory())
                 .allowMainThreadQueries().build();
 
-        // SETTING UP PATHWAYS
-        plan_trip_segue = new Intent(this, LocationsList.class);
-        bus_alerts_segue = new Intent(this, BusAlertsActivity);
-
-        // SETTING UP USER INTERFACE ELEMENTS
-        navigation_menu = findViewById(R.id.navigation_menu);
-     
-        navigation_button = findViewById(R.id.navigation_button);
-        navigation_button.setOnClickListener(new View.OnClickListener() {
-        	@Override
-            public void onClick(View view) {
-                animate_navigation_menu();
-            }
-        });
-
-        plan_trip_button = findViewById(R.id.plan_trip_button);
-        plan_trip_button.setOnClickListener(new View.OnClickListener() {
-        	@Override
-            public void onClick(View v) {
-				animate_navigation_menu();
-                startActivity(start_trip_segue);
-            }
-        });
-     
-       bus_alerts_button = findViewById(R.id.bus_alerts_button);
-       bus_alerts_button.setOnClickListner(new View.OnClickListner() {
-       		@Override 
-            public void onClick(View v) {
-				animate_navigation_menu();
-				startActivity(bus_alerts_segue)l
-			}
-       });  
+        // Setup user interface 
+        setupNavigationMenu();
     }
 
 
-	// USER INTERFACE FUNCTIONALITY 
+
+    // USER INTERFACE FUNCTIONS
+    public void setupNavigationMenu(){
+    	// Setting up pathways to other activities 
+        plan_trip_segue = new Intent(this, LocationsList.class);
+        bus_updates_segue = new Intent(this, BusUpdatesActivity.class);
+
+
+    	// Setting up user interface elements
+        navigation_menu = findViewById(R.id.navigation_menu);
+     
+
+        navigation_button = findViewById(R.id.navigation_button);
+        navigation_button.setOnClickListener((View v) -> {
+            animate_navigation_menu();
+        });
+
+
+        plan_trip_button = findViewById(R.id.plan_trip_button);
+        plan_trip_button.setOnClickListener((View v) -> {
+            animate_navigation_menu();
+            startActivity(plan_trip_segue);
+        });
+     
+
+       bus_alerts_button = findViewById(R.id.bus_updates_button);
+       bus_alerts_button.setOnClickListener((View v) -> {
+           animate_navigation_menu();
+           startActivity(bus_updates_segue);
+       });
+    }
+
+
+
     public void animate_navigation_menu(){
         Animation slideUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);
         Animation slideDown = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down);
+
 
         if(navigation_menu.getVisibility()==View.INVISIBLE) {
             navigation_menu.startAnimation(slideUp);

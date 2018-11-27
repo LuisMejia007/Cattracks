@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DestinationsListActivity">
+    tools:context=".BusUpdatesActivity">
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/appBarLayout"
+        android:id="@+id/appBarLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
@@ -18,57 +18,26 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
-
     </android.support.design.widget.AppBarLayout>
 
-    <TextView
+    <!--WebView will display the CatTracks Twitter feed-->
+    <WebView
+        android:id="@+id/twitterFeed"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/stop_destinations"/>
-
-    <Button
-        android:id="@+id/confirmDestinationSelectionButton"
-        android:layout_width="145dp"
-        android:layout_height="49dp"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@android:color/holo_green_light"
-        android:hapticFeedbackEnabled="true"
-        android:text="Get Bus!"
-        android:textColor="@color/cardview_light_background"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/destinationLocations"
-        app:layout_constraintHorizontal_bias="0.968"
-        app:layout_constraintStart_toStartOf="@+id/destinationLocations"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.985" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/destinationLocations"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:animateLayoutChanges="false"
-        android:scrollbars="vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/stop_destinations"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
-
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout2" />
 
     <LinearLayout
         android:id="@+id/navigation_menu"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="180dp"
         android:orientation="vertical"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/stop_destinations"
-        app:layout_constraintStart_toStartOf="@+id/destinationLocations">
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <ImageButton
             android:id="@+id/plan_trip_button"

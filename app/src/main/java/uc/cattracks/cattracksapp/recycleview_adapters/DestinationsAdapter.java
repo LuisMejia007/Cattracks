@@ -18,11 +18,12 @@ import java.util.List;
 
 import uc.cattracks.cattracksapp.DestinationsListActivity;
 import uc.cattracks.cattracksapp.LocationToDestinationBusActivity;
+import uc.cattracks.cattracksapp.LocationsList;
 import uc.cattracks.cattracksapp.R;
 import uc.cattracks.cattracksapp.models.stops;
 
 public class DestinationsAdapter extends RecyclerView.Adapter <DestinationsAdapter.DestinationsViewHolder> {
-
+    public boolean bus_stop_selected = false;    // Determines if user has selected a stop
 
     private Context destinationsAdapterContext;
     private DestinationsListActivity destinationsListActivity;
@@ -49,6 +50,11 @@ public class DestinationsAdapter extends RecyclerView.Adapter <DestinationsAdapt
 
         @Override
         public void onClick(View view) {
+            bus_stop_selected = true;
+
+            // Hiding navigation menu in Locations List Activity if applicable
+            DestinationsListActivity.navigation_menu.setVisibility(View.INVISIBLE);
+
             stops destination = destinations.get(getAdapterPosition());
 
             System.out.println("CARD 2 VIEW CLICKED " + destination.getS_name());

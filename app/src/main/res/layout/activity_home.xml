@@ -104,6 +104,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             app:srcCompat="@mipmap/bus_schedule_button" />
+        
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

@@ -99,7 +99,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            app:srcCompat="@mipmap/bus_schedule_button" />
+            app:srcCompat="@mipmap/stop_locations_button" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

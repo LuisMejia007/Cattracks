@@ -75,13 +75,13 @@ public class TableStopSelectAdapter extends RecyclerView.Adapter <TableStopSelec
 
             System.out.println("CARD VIEW 1 CLICK!: " + textView.getText().toString());
 
-            // Later used for jumping to next activity
-            intent = new Intent(selectStopAdapterContext, NeatTableActivity.class);
-
             // Show the user what they clicked on with a pop up
             Toast.makeText(selectStopAdapterContext, "Stop Selected: " + textView.getText().toString(), Toast.LENGTH_LONG).show();
 
-            //Sending information from what the user clicked
+            // Later used for jumping to next activity
+            intent = new Intent(selectStopAdapterContext, NeatTableActivity.class);
+
+            // Sending information from what the user clicked
             intent.putExtra("busSelected", busSelected);
 
             // Set the string name to stop name
@@ -128,8 +128,6 @@ public class TableStopSelectAdapter extends RecyclerView.Adapter <TableStopSelec
         }
     }
 
-
-    // ?
     public TableStopSelectAdapter(Context c, List<stops> stopsList)
     {
         this.stopsList = stopsList;

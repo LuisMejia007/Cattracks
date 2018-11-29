@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Display;
@@ -35,28 +33,14 @@ public class NeatTableActivity extends AppCompatActivity
     private static List<List<String>> dynaList = new ArrayList<>();
 
     // Inner list that grabs the stops chosen by the user
-    private static List<String> c1BusTimesA = new ArrayList<>();
-    private static List<String> c1BusTimesB = new ArrayList<>();
-    private static List<String> c1BusTimesC = new ArrayList<>();
-    private static List<String> c2BusTimesA= new ArrayList<>();
-    private static List<String> c2BusTimesB = new ArrayList<>();
-    private static List<String> c2BusTimesC = new ArrayList<>();
+    private static List<String> c1BusTimes = new ArrayList<>();
+    private static List<String> c2BusTimes = new ArrayList<>();
     private static List<String> e1BusTimes = new ArrayList<>();
-    private static List<String> e2BusTimesA = new ArrayList<>();
-    private static List<String> e2BusTimesB = new ArrayList<>();
-    private static List<String> e2BusTimesC = new ArrayList<>();
-    private static List<String> hBusTimesA = new ArrayList<>();
-    private static List<String> hBusTimesB = new ArrayList<>();
-    private static List<String> hBusTimesC = new ArrayList<>();
-    private static List<String> hwBusTimesA = new ArrayList<>();
-    private static List<String> hwBusTimesB = new ArrayList<>();
-    private static List<String> hwBusTimesC = new ArrayList<>();
-    private static List<String> fcBusTimesA = new ArrayList<>();
-    private static List<String> fcBusTimesB = new ArrayList<>();
-    private static List<String> fcBusTimesC = new ArrayList<>();
-    private static List<String> gBusTimesA = new ArrayList<>();
-    private static List<String> gBusTimesB = new ArrayList<>();
-    private static List<String> gBusTimesC = new ArrayList<>();
+    private static List<String> e2BusTimes = new ArrayList<>();
+    private static List<String> hBusTimes = new ArrayList<>();
+    private static List<String> hwBusTimes = new ArrayList<>();
+    private static List<String> fcBusTimes = new ArrayList<>();
+    private static List<String> gBusTimes = new ArrayList<>();
 
     private static List<String> busToAdapter = new ArrayList<>();
 
@@ -93,9 +77,6 @@ public class NeatTableActivity extends AppCompatActivity
 
         // Get info & prepare for table creation
         GetMeMyIntents();
-
-        adapter = new BusRouteStopTimesAdapter(this, e1BusTimes);
-        stopTableRecyclerView.setAdapter(adapter);
     }
 
     public void GetMeMyIntents()
@@ -121,34 +102,50 @@ public class NeatTableActivity extends AppCompatActivity
         switch (busSelected)
         {
             case "C1":
+                adapter = new BusRouteStopTimesAdapter(this, c1BusTimes);
+                stopTableRecyclerView.setAdapter(adapter);
                 C1BusRunTimeTabDisp(userChosenStops);
                 break;
 
             case "C2":
+                adapter = new BusRouteStopTimesAdapter(this, c2BusTimes);
+                stopTableRecyclerView.setAdapter(adapter);
                 C2BusRunTimeTabDisp(userChosenStops);
                 break;
 
             case "FC":
+                adapter = new BusRouteStopTimesAdapter(this, fcBusTimes);
+                stopTableRecyclerView.setAdapter(adapter);
                 FastCatBusRunTimeTabDisp(userChosenStops);
                 break;
 
             case "E1":
+                adapter = new BusRouteStopTimesAdapter(this, e1BusTimes);
+                stopTableRecyclerView.setAdapter(adapter);
                 E1BusRunTimeTabDisp(userChosenStops);
                 break;
 
             case "E2":
+                adapter = new BusRouteStopTimesAdapter(this, e2BusTimes);
+                stopTableRecyclerView.setAdapter(adapter);
                 E2BusRunTimeTabDisp(userChosenStops);
                 break;
 
             case "H":
+                adapter = new BusRouteStopTimesAdapter(this, hBusTimes);
+                stopTableRecyclerView.setAdapter(adapter);
                 HBusRunTimeTabDisp(userChosenStops);
                 break;
 
             case "HW":
+                adapter = new BusRouteStopTimesAdapter(this, hwBusTimes);
+                stopTableRecyclerView.setAdapter(adapter);
                 HWBusRunTimeTabDisp(userChosenStops);
                 break;
 
             case "G":
+                adapter = new BusRouteStopTimesAdapter(this, gBusTimes);
+                stopTableRecyclerView.setAdapter(adapter);
                 GBusRunTimeTabDisp(userChosenStops);
                 break;
         }
@@ -174,209 +171,179 @@ public class NeatTableActivity extends AppCompatActivity
      */
     public void C1BusRunTimeTabDisp(ArrayList<String>userChosenStops)
     {
+        System.out.println("SIZE *: " + userChosenStops.size());
+
         System.out.println("C1: " + userChosenStops);
 
-        System.out.println("stop list size:" + userChosenStops.size());
+        // Assigning the users chosen stops one by one (incrementing for loop)
+        String stopStr1 = userChosenStops.get(0);
+        String stopStr2 = userChosenStops.get(1);
+        String stopStr3 = userChosenStops.get(2);
 
-        for(int i = 0; i < userChosenStops.size(); i++)
+        // Grabbing the information
+        List<C1> c1LocationStops1 = HomeActivity.cattracksDatabase.daoAccess().getC1TimesFromLocation(stopStr1);
+        List<C1> c1LocationStops2 = HomeActivity.cattracksDatabase.daoAccess().getC1TimesFromLocation(stopStr2);
+        List<C1> c1LocationStops3 = HomeActivity.cattracksDatabase.daoAccess().getC1TimesFromLocation(stopStr3);
+
+        Iterator<C1> c1LocationIterator1 = c1LocationStops1.iterator();
+        Iterator<C1> c1LocationIterator2 = c1LocationStops2.iterator();
+        Iterator<C1> c1LocationIterator3 = c1LocationStops3.iterator();
+
+        // Grabbing the information from
+        while (c1LocationIterator1.hasNext() && c1LocationIterator2.hasNext() && c1LocationIterator3.hasNext())
         {
-            // Assigning the users chosen stops one by one (incrementing for loop)
-            stopStr = userChosenStops.get(i);
+            C1 temp1 = c1LocationIterator1.next();
+            C1 temp2 = c1LocationIterator2.next();
+            C1 temp3 = c1LocationIterator3.next();
 
-            // Grabbing the information from
-            List<C1> c1LocationStops = HomeActivity.cattracksDatabase.daoAccess().getC1TimesFromLocation(stopStr);
-
-            Iterator<C1> c1LocationIterator = c1LocationStops.iterator();
-
-            C1 temp = c1LocationIterator.next();
-
-            if(i == 0)
-            {
-                c1BusTimesA.add(temp.getC1_run1());
-                c1BusTimesA.add(temp.getC1_run2());
-                c1BusTimesA.add(temp.getC1_run3());
-                c1BusTimesA.add(temp.getC1_run4());
-                c1BusTimesA.add(temp.getC1_run5());
-                c1BusTimesA.add(temp.getC1_run6());
-                c1BusTimesA.add(temp.getC1_run7());
-                c1BusTimesA.add(temp.getC1_run8());
-                c1BusTimesA.add(temp.getC1_run9());
-                c1BusTimesA.add(temp.getC1_run10());
-                c1BusTimesA.add(temp.getC1_run11());
-                c1BusTimesA.add(temp.getC1_run12());
-                c1BusTimesA.add(temp.getC1_run13());
-                c1BusTimesA.add(temp.getC1_run14());
-                c1BusTimesA.add(temp.getC1_run15());
-                c1BusTimesA.add(temp.getC1_run16());
-                c1BusTimesA.add(temp.getC1_run17());
-                c1BusTimesA.add(temp.getC1_run18());
-                c1BusTimesA.add(temp.getC1_run19());
-                c1BusTimesA.add(temp.getC1_run20());
-                c1BusTimesA.add(temp.getC1_run21());
-                c1BusTimesA.add(temp.getC1_run22());
-                c1BusTimesA.add(temp.getC1_run23());
-
-                // Incrementing through our list and adding it to another list
-                dynaList.add(c1BusTimesA);
-            }
-
-            else if (i == 1)
-            {
-                c1BusTimesB.add(temp.getC1_run1());
-                c1BusTimesB.add(temp.getC1_run2());
-                c1BusTimesB.add(temp.getC1_run3());
-                c1BusTimesB.add(temp.getC1_run4());
-                c1BusTimesB.add(temp.getC1_run5());
-                c1BusTimesB.add(temp.getC1_run6());
-                c1BusTimesB.add(temp.getC1_run7());
-                c1BusTimesB.add(temp.getC1_run8());
-                c1BusTimesB.add(temp.getC1_run9());
-                c1BusTimesB.add(temp.getC1_run10());
-                c1BusTimesB.add(temp.getC1_run11());
-                c1BusTimesB.add(temp.getC1_run12());
-                c1BusTimesB.add(temp.getC1_run13());
-                c1BusTimesB.add(temp.getC1_run14());
-                c1BusTimesB.add(temp.getC1_run15());
-                c1BusTimesB.add(temp.getC1_run16());
-                c1BusTimesB.add(temp.getC1_run17());
-                c1BusTimesB.add(temp.getC1_run18());
-                c1BusTimesB.add(temp.getC1_run19());
-                c1BusTimesB.add(temp.getC1_run20());
-                c1BusTimesB.add(temp.getC1_run21());
-                c1BusTimesB.add(temp.getC1_run22());
-                c1BusTimesB.add(temp.getC1_run23());
-
-                // Incrementing through our list and adding it to another list
-                dynaList.add(c1BusTimesB);
-            }
-
-            else if (i == 2)
-            {
-                c1BusTimesC.add(temp.getC1_run1());
-                c1BusTimesC.add(temp.getC1_run2());
-                c1BusTimesC.add(temp.getC1_run3());
-                c1BusTimesC.add(temp.getC1_run4());
-                c1BusTimesC.add(temp.getC1_run5());
-                c1BusTimesC.add(temp.getC1_run6());
-                c1BusTimesC.add(temp.getC1_run7());
-                c1BusTimesC.add(temp.getC1_run8());
-                c1BusTimesC.add(temp.getC1_run9());
-                c1BusTimesC.add(temp.getC1_run10());
-                c1BusTimesC.add(temp.getC1_run11());
-                c1BusTimesC.add(temp.getC1_run12());
-                c1BusTimesC.add(temp.getC1_run13());
-                c1BusTimesC.add(temp.getC1_run14());
-                c1BusTimesC.add(temp.getC1_run15());
-                c1BusTimesC.add(temp.getC1_run16());
-                c1BusTimesC.add(temp.getC1_run17());
-                c1BusTimesC.add(temp.getC1_run18());
-                c1BusTimesC.add(temp.getC1_run19());
-                c1BusTimesC.add(temp.getC1_run20());
-                c1BusTimesC.add(temp.getC1_run21());
-                c1BusTimesC.add(temp.getC1_run22());
-                c1BusTimesC.add(temp.getC1_run23());
-
-                // Incrementing through our list and adding it to another list
-                dynaList.add(c1BusTimesC);
-            }
+            c1BusTimes.add(temp1.getC1_run1());
+            c1BusTimes.add(temp2.getC1_run1());
+            c1BusTimes.add(temp3.getC1_run1());
+            c1BusTimes.add(temp1.getC1_run2());
+            c1BusTimes.add(temp2.getC1_run2());
+            c1BusTimes.add(temp3.getC1_run2());
+            c1BusTimes.add(temp1.getC1_run3());
+            c1BusTimes.add(temp2.getC1_run3());
+            c1BusTimes.add(temp3.getC1_run3());
+            c1BusTimes.add(temp1.getC1_run4());
+            c1BusTimes.add(temp2.getC1_run4());
+            c1BusTimes.add(temp3.getC1_run4());
+            c1BusTimes.add(temp1.getC1_run5());
+            c1BusTimes.add(temp2.getC1_run5());
+            c1BusTimes.add(temp3.getC1_run5());
+            c1BusTimes.add(temp1.getC1_run6());
+            c1BusTimes.add(temp2.getC1_run6());
+            c1BusTimes.add(temp3.getC1_run6());
+            c1BusTimes.add(temp1.getC1_run7());
+            c1BusTimes.add(temp2.getC1_run7());
+            c1BusTimes.add(temp3.getC1_run7());
+            c1BusTimes.add(temp1.getC1_run8());
+            c1BusTimes.add(temp2.getC1_run8());
+            c1BusTimes.add(temp3.getC1_run8());
+            c1BusTimes.add(temp1.getC1_run9());
+            c1BusTimes.add(temp2.getC1_run9());
+            c1BusTimes.add(temp3.getC1_run9());
+            c1BusTimes.add(temp1.getC1_run10());
+            c1BusTimes.add(temp2.getC1_run10());
+            c1BusTimes.add(temp3.getC1_run10());
+            c1BusTimes.add(temp1.getC1_run11());
+            c1BusTimes.add(temp2.getC1_run11());
+            c1BusTimes.add(temp3.getC1_run11());
+            c1BusTimes.add(temp1.getC1_run12());
+            c1BusTimes.add(temp2.getC1_run12());
+            c1BusTimes.add(temp3.getC1_run12());
+            c1BusTimes.add(temp1.getC1_run13());
+            c1BusTimes.add(temp2.getC1_run13());
+            c1BusTimes.add(temp3.getC1_run13());
+            c1BusTimes.add(temp1.getC1_run14());
+            c1BusTimes.add(temp2.getC1_run14());
+            c1BusTimes.add(temp3.getC1_run14());
+            c1BusTimes.add(temp1.getC1_run15());
+            c1BusTimes.add(temp2.getC1_run15());
+            c1BusTimes.add(temp3.getC1_run15());
+            c1BusTimes.add(temp1.getC1_run16());
+            c1BusTimes.add(temp2.getC1_run16());
+            c1BusTimes.add(temp3.getC1_run16());
+            c1BusTimes.add(temp1.getC1_run17());
+            c1BusTimes.add(temp2.getC1_run17());
+            c1BusTimes.add(temp3.getC1_run17());
+            c1BusTimes.add(temp1.getC1_run18());
+            c1BusTimes.add(temp2.getC1_run18());
+            c1BusTimes.add(temp3.getC1_run18());
+            c1BusTimes.add(temp1.getC1_run19());
+            c1BusTimes.add(temp2.getC1_run19());
+            c1BusTimes.add(temp3.getC1_run19());
+            c1BusTimes.add(temp1.getC1_run20());
+            c1BusTimes.add(temp2.getC1_run20());
+            c1BusTimes.add(temp3.getC1_run20());
+            c1BusTimes.add(temp1.getC1_run21());
+            c1BusTimes.add(temp2.getC1_run21());
+            c1BusTimes.add(temp3.getC1_run21());
+            c1BusTimes.add(temp1.getC1_run22());
+            c1BusTimes.add(temp2.getC1_run22());
+            c1BusTimes.add(temp3.getC1_run22());
+            c1BusTimes.add(temp1.getC1_run23());
+            c1BusTimes.add(temp2.getC1_run23());
+            c1BusTimes.add(temp3.getC1_run23());
         }
 
-        System.out.println("C1a: " + dynaList.get(0));
-        System.out.println("C1b: " + dynaList.get(1));
-        System.out.println("C1c: " + dynaList.get(2));
+        //Clear out stops
+        userChosenStops.clear();
     }
 
     public void C2BusRunTimeTabDisp(ArrayList<String>userChosenStops)
     {
         System.out.println("C2: " + userChosenStops);
 
-        System.out.println("stop list size:" + userChosenStops.size());
+        // Assigning the users chosen stops one by one (incrementing for loop)
+        String stopStr1 = userChosenStops.get(0);
+        String stopStr2 = userChosenStops.get(1);
+        String stopStr3 = userChosenStops.get(2);
 
-        for(int i = 0; i < userChosenStops.size(); i++)
+        // Grabbing the information from
+        List<C2> c2LocationStops1 = HomeActivity.cattracksDatabase.daoAccess().getC2TimesFromLocation(stopStr1);
+        List<C2> c2LocationStops2 = HomeActivity.cattracksDatabase.daoAccess().getC2TimesFromLocation(stopStr2);
+        List<C2> c2LocationStops3 = HomeActivity.cattracksDatabase.daoAccess().getC2TimesFromLocation(stopStr3);
+
+        Iterator<C2> c2LocationIterator1 = c2LocationStops1.iterator();
+        Iterator<C2> c2LocationIterator2 = c2LocationStops2.iterator();
+        Iterator<C2> c2LocationIterator3 = c2LocationStops3.iterator();
+
+        while(c2LocationIterator1.hasNext() && c2LocationIterator2.hasNext() && c2LocationIterator3.hasNext())
         {
-            // Assigning the users chosen stops one by one (incrementing for loop)
-            stopStr = userChosenStops.get(i);
+            C2 temp1 = c2LocationIterator1.next();
+            C2 temp2 = c2LocationIterator2.next();
+            C2 temp3 = c2LocationIterator3.next();
 
-            // Grabbing the information from
-            List<C2> c2LocationStops = HomeActivity.cattracksDatabase.daoAccess().getC2TimesFromLocation(stopStr);
-
-            Iterator<C2> c2LocationIterator = c2LocationStops.iterator();
-
-            C2 temp = c2LocationIterator.next();
-
-            if(i == 0)
-            {
-                c2BusTimesA.add(temp.getC2_run1());
-                c2BusTimesA.add(temp.getC2_run2());
-                c2BusTimesA.add(temp.getC2_run3());
-                c2BusTimesA.add(temp.getC2_run4());
-                c2BusTimesA.add(temp.getC2_run5());
-                c2BusTimesA.add(temp.getC2_run6());
-                c2BusTimesA.add(temp.getC2_run7());
-                c2BusTimesA.add(temp.getC2_run8());
-                c2BusTimesA.add(temp.getC2_run9());
-                c2BusTimesA.add(temp.getC2_run10());
-                c2BusTimesA.add(temp.getC2_run11());
-                c2BusTimesA.add(temp.getC2_run12());
-                c2BusTimesA.add(temp.getC2_run13());
-                c2BusTimesA.add(temp.getC2_run14());
-                c2BusTimesA.add(temp.getC2_run15());
-                c2BusTimesA.add(temp.getC2_run16());
-
-                // Incrementing through our list and adding it to another list
-                dynaList.add(c2BusTimesA);
-            }
-
-            else if (i == 1)
-            {
-                c2BusTimesB.add(temp.getC2_run1());
-                c2BusTimesB.add(temp.getC2_run2());
-                c2BusTimesB.add(temp.getC2_run3());
-                c2BusTimesB.add(temp.getC2_run4());
-                c2BusTimesB.add(temp.getC2_run5());
-                c2BusTimesB.add(temp.getC2_run6());
-                c2BusTimesB.add(temp.getC2_run7());
-                c2BusTimesB.add(temp.getC2_run8());
-                c2BusTimesB.add(temp.getC2_run9());
-                c2BusTimesB.add(temp.getC2_run10());
-                c2BusTimesB.add(temp.getC2_run11());
-                c2BusTimesB.add(temp.getC2_run12());
-                c2BusTimesB.add(temp.getC2_run13());
-                c2BusTimesB.add(temp.getC2_run14());
-                c2BusTimesB.add(temp.getC2_run15());
-                c2BusTimesB.add(temp.getC2_run16());
-
-                // Incrementing through our list and adding it to another list
-                dynaList.add(c2BusTimesB);
-            }
-
-            else if (i == 2)
-            {
-                c2BusTimesC.add(temp.getC2_run1());
-                c2BusTimesC.add(temp.getC2_run2());
-                c2BusTimesC.add(temp.getC2_run3());
-                c2BusTimesC.add(temp.getC2_run4());
-                c2BusTimesC.add(temp.getC2_run5());
-                c2BusTimesC.add(temp.getC2_run6());
-                c2BusTimesC.add(temp.getC2_run7());
-                c2BusTimesC.add(temp.getC2_run8());
-                c2BusTimesC.add(temp.getC2_run9());
-                c2BusTimesC.add(temp.getC2_run10());
-                c2BusTimesC.add(temp.getC2_run11());
-                c2BusTimesC.add(temp.getC2_run12());
-                c2BusTimesC.add(temp.getC2_run13());
-                c2BusTimesC.add(temp.getC2_run14());
-                c2BusTimesC.add(temp.getC2_run15());
-                c2BusTimesC.add(temp.getC2_run16());
-
-                // Incrementing through our list and adding it to another list
-                dynaList.add(c2BusTimesC);
-            }
+            c2BusTimes.add(temp1.getC2_run1());
+            c2BusTimes.add(temp2.getC2_run1());
+            c2BusTimes.add(temp3.getC2_run1());
+            c2BusTimes.add(temp1.getC2_run2());
+            c2BusTimes.add(temp2.getC2_run2());
+            c2BusTimes.add(temp3.getC2_run2());
+            c2BusTimes.add(temp1.getC2_run3());
+            c2BusTimes.add(temp2.getC2_run3());
+            c2BusTimes.add(temp3.getC2_run3());
+            c2BusTimes.add(temp1.getC2_run4());
+            c2BusTimes.add(temp2.getC2_run4());
+            c2BusTimes.add(temp3.getC2_run4());
+            c2BusTimes.add(temp1.getC2_run5());
+            c2BusTimes.add(temp2.getC2_run5());
+            c2BusTimes.add(temp3.getC2_run5());
+            c2BusTimes.add(temp1.getC2_run6());
+            c2BusTimes.add(temp2.getC2_run6());
+            c2BusTimes.add(temp3.getC2_run6());
+            c2BusTimes.add(temp1.getC2_run7());
+            c2BusTimes.add(temp2.getC2_run7());
+            c2BusTimes.add(temp3.getC2_run7());
+            c2BusTimes.add(temp1.getC2_run8());
+            c2BusTimes.add(temp2.getC2_run8());
+            c2BusTimes.add(temp3.getC2_run8());
+            c2BusTimes.add(temp1.getC2_run9());
+            c2BusTimes.add(temp2.getC2_run9());
+            c2BusTimes.add(temp3.getC2_run9());
+            c2BusTimes.add(temp1.getC2_run10());
+            c2BusTimes.add(temp2.getC2_run10());
+            c2BusTimes.add(temp3.getC2_run10());
+            c2BusTimes.add(temp1.getC2_run11());
+            c2BusTimes.add(temp2.getC2_run11());
+            c2BusTimes.add(temp3.getC2_run11());
+            c2BusTimes.add(temp1.getC2_run12());
+            c2BusTimes.add(temp2.getC2_run12());
+            c2BusTimes.add(temp3.getC2_run12());
+            c2BusTimes.add(temp1.getC2_run13());
+            c2BusTimes.add(temp2.getC2_run13());
+            c2BusTimes.add(temp3.getC2_run13());
+            c2BusTimes.add(temp1.getC2_run14());
+            c2BusTimes.add(temp2.getC2_run14());
+            c2BusTimes.add(temp3.getC2_run14());
+            c2BusTimes.add(temp1.getC2_run15());
+            c2BusTimes.add(temp2.getC2_run15());
+            c2BusTimes.add(temp3.getC2_run15());
+            c2BusTimes.add(temp1.getC2_run16());
+            c2BusTimes.add(temp2.getC2_run16());
+            c2BusTimes.add(temp3.getC2_run16());
         }
-
-        System.out.println("C2a: " + dynaList.get(0));
-        System.out.println("C2b: " + dynaList.get(1));
-        System.out.println("C2c: " + dynaList.get(2));
     }
 
     public void E1BusRunTimeTabDisp(ArrayList<String>userChosenStops)
@@ -433,488 +400,235 @@ public class NeatTableActivity extends AppCompatActivity
                 e1BusTimes.add(temp2.getE1_run9());
                 e1BusTimes.add(temp3.getE1_run9());
             }
-                // Incrementing through our list and adding it to another list
-
     }
 
     public void E2BusRunTimeTabDisp(ArrayList<String>userChosenStops)
     {
         System.out.println("E2: " + userChosenStops);
 
-        System.out.println("stop list size:" + userChosenStops.size());
+        // Assigning the users chosen stops one by one (incrementing for loop)
+        String stopStr1 = userChosenStops.get(0);
+        String stopStr2 = userChosenStops.get(1);
+        String stopStr3 = userChosenStops.get(2);
 
-        for(int i = 0; i < userChosenStops.size(); i++)
-        {
-            // Assigning the users chosen stops one by one (incrementing for loop)
-            stopStr = userChosenStops.get(i);
+        // Grabbing the information from
+        List<E2> e2LocationStops1 = HomeActivity.cattracksDatabase.daoAccess().getE2TimesFromLocation(stopStr1);
+        List<E2> e2LocationStops2 = HomeActivity.cattracksDatabase.daoAccess().getE2TimesFromLocation(stopStr2);
+        List<E2> e2LocationStops3 = HomeActivity.cattracksDatabase.daoAccess().getE2TimesFromLocation(stopStr3);
 
-            // Grabbing the information from
-            List<E2> e2LocationStops = HomeActivity.cattracksDatabase.daoAccess().getE2TimesFromLocation(stopStr);
+        Iterator<E2> e2LocationIterator1 = e2LocationStops1.iterator();
+        Iterator<E2> e2LocationIterator2 = e2LocationStops2.iterator();
+        Iterator<E2> e2LocationIterator3 = e2LocationStops3.iterator();
 
-            Iterator<E2> e2LocationIterator = e2LocationStops.iterator();
-
-            E2 temp = e2LocationIterator.next();
-
-            if(i == 0)
+            while (e2LocationIterator1.hasNext() && e2LocationIterator2.hasNext() && e2LocationIterator3.hasNext())
             {
-                e2BusTimesA.add(temp.getE2_run1());
-                e2BusTimesA.add(temp.getE2_run2());
-                e2BusTimesA.add(temp.getE2_run3());
-                e2BusTimesA.add(temp.getE2_run4());
-                e2BusTimesA.add(temp.getE2_run5());
-                e2BusTimesA.add(temp.getE2_run6());
-                e2BusTimesA.add(temp.getE2_run7());
-                e2BusTimesA.add(temp.getE2_run8());
-                e2BusTimesA.add(temp.getE2_run9());
-                e2BusTimesA.add(temp.getE2_run10());
+                E2 temp1 = e2LocationIterator1.next();
+                E2 temp2 = e2LocationIterator2.next();
+                E2 temp3 = e2LocationIterator3.next();
 
-                // Incrementing through our list and adding it to another list
-                dynaList.add(e2BusTimesA);
+                e2BusTimes.add(temp1.getE2_run1());
+                e2BusTimes.add(temp2.getE2_run1());
+                e2BusTimes.add(temp3.getE2_run1());
+                e2BusTimes.add(temp1.getE2_run2());
+                e2BusTimes.add(temp2.getE2_run2());
+                e2BusTimes.add(temp3.getE2_run2());
+                e2BusTimes.add(temp1.getE2_run3());
+                e2BusTimes.add(temp2.getE2_run3());
+                e2BusTimes.add(temp3.getE2_run3());
+                e2BusTimes.add(temp1.getE2_run4());
+                e2BusTimes.add(temp2.getE2_run4());
+                e2BusTimes.add(temp3.getE2_run4());
+                e2BusTimes.add(temp1.getE2_run5());
+                e2BusTimes.add(temp2.getE2_run5());
+                e2BusTimes.add(temp3.getE2_run5());
+                e2BusTimes.add(temp1.getE2_run6());
+                e2BusTimes.add(temp2.getE2_run6());
+                e2BusTimes.add(temp3.getE2_run6());
+                e2BusTimes.add(temp1.getE2_run7());
+                e2BusTimes.add(temp2.getE2_run7());
+                e2BusTimes.add(temp3.getE2_run7());
+                e2BusTimes.add(temp1.getE2_run8());
+                e2BusTimes.add(temp2.getE2_run8());
+                e2BusTimes.add(temp3.getE2_run8());
+                e2BusTimes.add(temp1.getE2_run9());
+                e2BusTimes.add(temp2.getE2_run9());
+                e2BusTimes.add(temp3.getE2_run9());
+                e2BusTimes.add(temp1.getE2_run10());
+                e2BusTimes.add(temp2.getE2_run10());
+                e2BusTimes.add(temp3.getE2_run10());
             }
-
-            else if (i == 1)
-            {
-                e2BusTimesB.add(temp.getE2_run1());
-                e2BusTimesB.add(temp.getE2_run2());
-                e2BusTimesB.add(temp.getE2_run3());
-                e2BusTimesB.add(temp.getE2_run4());
-                e2BusTimesB.add(temp.getE2_run5());
-                e2BusTimesB.add(temp.getE2_run6());
-                e2BusTimesB.add(temp.getE2_run7());
-                e2BusTimesB.add(temp.getE2_run8());
-                e2BusTimesB.add(temp.getE2_run9());
-                e2BusTimesB.add(temp.getE2_run10());
-
-                // Incrementing through our list and adding it to another list
-                dynaList.add(e2BusTimesB);
-            }
-
-            else if (i == 2)
-            {
-                e2BusTimesC.add(temp.getE2_run1());
-                e2BusTimesC.add(temp.getE2_run2());
-                e2BusTimesC.add(temp.getE2_run3());
-                e2BusTimesC.add(temp.getE2_run4());
-                e2BusTimesC.add(temp.getE2_run5());
-                e2BusTimesC.add(temp.getE2_run6());
-                e2BusTimesC.add(temp.getE2_run7());
-                e2BusTimesC.add(temp.getE2_run8());
-                e2BusTimesC.add(temp.getE2_run9());
-                e2BusTimesC.add(temp.getE2_run10());
-
-                // Incrementing through our list and adding it to another list
-                dynaList.add(e2BusTimesC);
-            }
-        }
-
-        System.out.println("E2a: " + dynaList.get(0));
-        System.out.println("E2b: " + dynaList.get(1));
-        System.out.println("E2c: " + dynaList.get(2));
     }
 
     public void HBusRunTimeTabDisp(ArrayList<String>userChosenStops)
     {
-
         System.out.println("H: " + userChosenStops);
 
-        System.out.println("stop list size:" + userChosenStops.size());
+        // Assigning the users chosen stops one by one (incrementing for loop)
+        String stopStr1 = userChosenStops.get(0);
+        String stopStr2 = userChosenStops.get(1);
+        String stopStr3 = userChosenStops.get(2);
 
-        for(int i = 0; i < userChosenStops.size(); i++)
+        // Grabbing the information from
+        List<H> hLocationStops1 = HomeActivity.cattracksDatabase.daoAccess().getHTimesFromLocation(stopStr1);
+        List<H> hLocationStops2 = HomeActivity.cattracksDatabase.daoAccess().getHTimesFromLocation(stopStr2);
+        List<H> hLocationStops3 = HomeActivity.cattracksDatabase.daoAccess().getHTimesFromLocation(stopStr3);
+
+        Iterator<H> hLocationIterator1 = hLocationStops1.iterator();
+        Iterator<H> hLocationIterator2 = hLocationStops2.iterator();
+        Iterator<H> hLocationIterator3 = hLocationStops3.iterator();
+
+        while (hLocationIterator1.hasNext() && hLocationIterator2.hasNext() && hLocationIterator3.hasNext())
         {
-            // Assigning the users chosen stops one by one (incrementing for loop)
-            stopStr = userChosenStops.get(i);
+            H temp1 = hLocationIterator1.next();
+            H temp2 = hLocationIterator2.next();
+            H temp3 = hLocationIterator3.next();
 
-            // Grabbing the information from
-            List<H> hLocationStops = HomeActivity.cattracksDatabase.daoAccess().getHTimesFromLocation(stopStr);
-
-            Iterator<H> hLocationIterator = hLocationStops.iterator();
-
-            H temp = hLocationIterator.next();
-
-            if(i == 0)
-            {
-                hBusTimesA.add(temp.getH_run1());
-                hBusTimesA.add(temp.getH_run2());
-                hBusTimesA.add(temp.getH_run3());
-                hBusTimesA.add(temp.getH_run4());
-                hBusTimesA.add(temp.getH_run5());
-                hBusTimesA.add(temp.getH_run6());
-                hBusTimesA.add(temp.getH_run7());
-                hBusTimesA.add(temp.getH_run8());
-                hBusTimesA.add(temp.getH_run9());
-                hBusTimesA.add(temp.getH_run10());
-                hBusTimesA.add(temp.getH_run11());
-                hBusTimesA.add(temp.getH_run12());
-                hBusTimesA.add(temp.getH_run13());
-                hBusTimesA.add(temp.getH_run14());
-                hBusTimesA.add(temp.getH_run15());
-                hBusTimesA.add(temp.getH_run16());
-                hBusTimesA.add(temp.getH_run17());
-                hBusTimesA.add(temp.getH_run18());
-                hBusTimesA.add(temp.getH_run19());
-                hBusTimesA.add(temp.getH_run20());
-                hBusTimesA.add(temp.getH_run21());
-                hBusTimesA.add(temp.getH_run22());
-                hBusTimesA.add(temp.getH_run23());
-                hBusTimesA.add(temp.getH_run24());
-                hBusTimesA.add(temp.getH_run25());
-                hBusTimesA.add(temp.getH_run26());
-                hBusTimesA.add(temp.getH_run27());
-                hBusTimesA.add(temp.getH_run28());
-                hBusTimesA.add(temp.getH_run29());
-                hBusTimesA.add(temp.getH_run30());
-                hBusTimesA.add(temp.getH_run31());
-                hBusTimesA.add(temp.getH_run32());
-                hBusTimesA.add(temp.getH_run33());
-                hBusTimesA.add(temp.getH_run34());
-                hBusTimesA.add(temp.getH_run35());
-                hBusTimesA.add(temp.getH_run36());
-                hBusTimesA.add(temp.getH_run37());
-                hBusTimesA.add(temp.getH_run38());
-                hBusTimesA.add(temp.getH_run39());
-                hBusTimesA.add(temp.getH_run40());
-                hBusTimesA.add(temp.getH_run41());
-                hBusTimesA.add(temp.getH_run42());
-                hBusTimesA.add(temp.getH_run43());
-                hBusTimesA.add(temp.getH_run44());
-                hBusTimesA.add(temp.getH_run45());
-                hBusTimesA.add(temp.getH_run46());
-                hBusTimesA.add(temp.getH_run47());
-                hBusTimesA.add(temp.getH_run48());
-                hBusTimesA.add(temp.getH_run49());
-                hBusTimesA.add(temp.getH_run50());
-                hBusTimesA.add(temp.getH_run51());
-                hBusTimesA.add(temp.getH_run52());
-                hBusTimesA.add(temp.getH_run53());
-                hBusTimesA.add(temp.getH_run54());
-                hBusTimesA.add(temp.getH_run55());
-                hBusTimesA.add(temp.getH_run56());
-
-                // Incrementing through our list and adding it to another list
-                dynaList.add(hBusTimesA);
-            }
-
-            else if (i == 1)
-            {
-                hBusTimesB.add(temp.getH_run1());
-                hBusTimesB.add(temp.getH_run2());
-                hBusTimesB.add(temp.getH_run3());
-                hBusTimesB.add(temp.getH_run4());
-                hBusTimesB.add(temp.getH_run5());
-                hBusTimesB.add(temp.getH_run6());
-                hBusTimesB.add(temp.getH_run7());
-                hBusTimesB.add(temp.getH_run8());
-                hBusTimesB.add(temp.getH_run9());
-                hBusTimesB.add(temp.getH_run10());
-                hBusTimesB.add(temp.getH_run11());
-                hBusTimesB.add(temp.getH_run12());
-                hBusTimesB.add(temp.getH_run13());
-                hBusTimesB.add(temp.getH_run14());
-                hBusTimesB.add(temp.getH_run15());
-                hBusTimesB.add(temp.getH_run16());
-                hBusTimesB.add(temp.getH_run17());
-                hBusTimesB.add(temp.getH_run18());
-                hBusTimesB.add(temp.getH_run19());
-                hBusTimesB.add(temp.getH_run20());
-                hBusTimesB.add(temp.getH_run21());
-                hBusTimesB.add(temp.getH_run22());
-                hBusTimesB.add(temp.getH_run23());
-                hBusTimesB.add(temp.getH_run24());
-                hBusTimesB.add(temp.getH_run25());
-                hBusTimesB.add(temp.getH_run26());
-                hBusTimesB.add(temp.getH_run27());
-                hBusTimesB.add(temp.getH_run28());
-                hBusTimesB.add(temp.getH_run29());
-                hBusTimesB.add(temp.getH_run30());
-                hBusTimesB.add(temp.getH_run31());
-                hBusTimesB.add(temp.getH_run32());
-                hBusTimesB.add(temp.getH_run33());
-                hBusTimesB.add(temp.getH_run34());
-                hBusTimesB.add(temp.getH_run35());
-                hBusTimesB.add(temp.getH_run36());
-                hBusTimesB.add(temp.getH_run37());
-                hBusTimesB.add(temp.getH_run38());
-                hBusTimesB.add(temp.getH_run39());
-                hBusTimesB.add(temp.getH_run40());
-                hBusTimesB.add(temp.getH_run41());
-                hBusTimesB.add(temp.getH_run42());
-                hBusTimesB.add(temp.getH_run43());
-                hBusTimesB.add(temp.getH_run44());
-                hBusTimesB.add(temp.getH_run45());
-                hBusTimesB.add(temp.getH_run46());
-                hBusTimesB.add(temp.getH_run47());
-                hBusTimesB.add(temp.getH_run48());
-                hBusTimesB.add(temp.getH_run49());
-                hBusTimesB.add(temp.getH_run50());
-                hBusTimesB.add(temp.getH_run51());
-                hBusTimesB.add(temp.getH_run52());
-                hBusTimesB.add(temp.getH_run53());
-                hBusTimesB.add(temp.getH_run54());
-                hBusTimesB.add(temp.getH_run55());
-                hBusTimesB.add(temp.getH_run56());
-
-                // Incrementing through our list and adding it to another list
-                dynaList.add(hBusTimesB);
-            }
-
-            else if (i == 2)
-            {
-                hBusTimesC.add(temp.getH_run1());
-                hBusTimesC.add(temp.getH_run2());
-                hBusTimesC.add(temp.getH_run3());
-                hBusTimesC.add(temp.getH_run4());
-                hBusTimesC.add(temp.getH_run5());
-                hBusTimesC.add(temp.getH_run6());
-                hBusTimesC.add(temp.getH_run7());
-                hBusTimesC.add(temp.getH_run8());
-                hBusTimesC.add(temp.getH_run9());
-                hBusTimesC.add(temp.getH_run10());
-                hBusTimesC.add(temp.getH_run11());
-                hBusTimesC.add(temp.getH_run12());
-                hBusTimesC.add(temp.getH_run13());
-                hBusTimesC.add(temp.getH_run14());
-                hBusTimesC.add(temp.getH_run15());
-                hBusTimesC.add(temp.getH_run16());
-                hBusTimesC.add(temp.getH_run17());
-                hBusTimesC.add(temp.getH_run18());
-                hBusTimesC.add(temp.getH_run19());
-                hBusTimesC.add(temp.getH_run20());
-                hBusTimesC.add(temp.getH_run21());
-                hBusTimesC.add(temp.getH_run22());
-                hBusTimesC.add(temp.getH_run23());
-                hBusTimesC.add(temp.getH_run24());
-                hBusTimesC.add(temp.getH_run25());
-                hBusTimesC.add(temp.getH_run26());
-                hBusTimesC.add(temp.getH_run27());
-                hBusTimesC.add(temp.getH_run28());
-                hBusTimesC.add(temp.getH_run29());
-                hBusTimesC.add(temp.getH_run30());
-                hBusTimesC.add(temp.getH_run31());
-                hBusTimesC.add(temp.getH_run32());
-                hBusTimesC.add(temp.getH_run33());
-                hBusTimesC.add(temp.getH_run34());
-                hBusTimesC.add(temp.getH_run35());
-                hBusTimesC.add(temp.getH_run36());
-                hBusTimesC.add(temp.getH_run37());
-                hBusTimesC.add(temp.getH_run38());
-                hBusTimesC.add(temp.getH_run39());
-                hBusTimesC.add(temp.getH_run40());
-                hBusTimesC.add(temp.getH_run41());
-                hBusTimesC.add(temp.getH_run42());
-                hBusTimesC.add(temp.getH_run43());
-                hBusTimesC.add(temp.getH_run44());
-                hBusTimesC.add(temp.getH_run45());
-                hBusTimesC.add(temp.getH_run46());
-                hBusTimesC.add(temp.getH_run47());
-                hBusTimesC.add(temp.getH_run48());
-                hBusTimesC.add(temp.getH_run49());
-                hBusTimesC.add(temp.getH_run50());
-                hBusTimesC.add(temp.getH_run51());
-                hBusTimesC.add(temp.getH_run52());
-                hBusTimesC.add(temp.getH_run53());
-                hBusTimesC.add(temp.getH_run54());
-                hBusTimesC.add(temp.getH_run55());
-                hBusTimesC.add(temp.getH_run56());
-
-                // Incrementing through our list and adding it to another list
-                dynaList.add(hBusTimesC);
-            }
+                hBusTimes.add(temp1.getH_run1());hBusTimes.add(temp2.getH_run1());hBusTimes.add(temp3.getH_run1());
+                hBusTimes.add(temp1.getH_run2());hBusTimes.add(temp2.getH_run2());hBusTimes.add(temp3.getH_run2());
+                hBusTimes.add(temp1.getH_run3());hBusTimes.add(temp2.getH_run3());hBusTimes.add(temp3.getH_run3());
+                hBusTimes.add(temp1.getH_run4());hBusTimes.add(temp2.getH_run4());hBusTimes.add(temp3.getH_run4());
+                hBusTimes.add(temp1.getH_run5());hBusTimes.add(temp2.getH_run5());hBusTimes.add(temp3.getH_run5());
+                hBusTimes.add(temp1.getH_run6());hBusTimes.add(temp2.getH_run6());hBusTimes.add(temp3.getH_run6());
+                hBusTimes.add(temp1.getH_run7());hBusTimes.add(temp2.getH_run7());hBusTimes.add(temp3.getH_run7());
+                hBusTimes.add(temp1.getH_run8());hBusTimes.add(temp2.getH_run8());hBusTimes.add(temp3.getH_run8());
+                hBusTimes.add(temp1.getH_run9());hBusTimes.add(temp2.getH_run9());hBusTimes.add(temp3.getH_run9());
+                hBusTimes.add(temp1.getH_run10());hBusTimes.add(temp2.getH_run10());hBusTimes.add(temp3.getH_run10());
+                hBusTimes.add(temp1.getH_run11());hBusTimes.add(temp2.getH_run11());hBusTimes.add(temp3.getH_run11());
+                hBusTimes.add(temp1.getH_run12());hBusTimes.add(temp2.getH_run12());hBusTimes.add(temp3.getH_run12());
+                hBusTimes.add(temp1.getH_run13());hBusTimes.add(temp2.getH_run13());hBusTimes.add(temp3.getH_run13());
+                hBusTimes.add(temp1.getH_run14());hBusTimes.add(temp2.getH_run14());hBusTimes.add(temp3.getH_run14());
+                hBusTimes.add(temp1.getH_run15());hBusTimes.add(temp2.getH_run15());hBusTimes.add(temp3.getH_run15());
+                hBusTimes.add(temp1.getH_run16());hBusTimes.add(temp2.getH_run16());hBusTimes.add(temp3.getH_run16());
+                hBusTimes.add(temp1.getH_run17());hBusTimes.add(temp2.getH_run17());hBusTimes.add(temp3.getH_run17());
+                hBusTimes.add(temp1.getH_run18());hBusTimes.add(temp2.getH_run18());hBusTimes.add(temp3.getH_run18());
+                hBusTimes.add(temp1.getH_run19());hBusTimes.add(temp2.getH_run19());hBusTimes.add(temp3.getH_run19());
+                hBusTimes.add(temp1.getH_run20());hBusTimes.add(temp2.getH_run20());hBusTimes.add(temp3.getH_run20());
+                hBusTimes.add(temp1.getH_run21());hBusTimes.add(temp2.getH_run21());hBusTimes.add(temp3.getH_run21());
+                hBusTimes.add(temp1.getH_run22());hBusTimes.add(temp2.getH_run22());hBusTimes.add(temp3.getH_run22());
+                hBusTimes.add(temp1.getH_run23());hBusTimes.add(temp2.getH_run23());hBusTimes.add(temp3.getH_run23());
+                hBusTimes.add(temp1.getH_run24());hBusTimes.add(temp2.getH_run24());hBusTimes.add(temp3.getH_run24());
+                hBusTimes.add(temp1.getH_run25());hBusTimes.add(temp2.getH_run25());hBusTimes.add(temp3.getH_run25());
+                hBusTimes.add(temp1.getH_run26());hBusTimes.add(temp2.getH_run26());hBusTimes.add(temp3.getH_run26());
+                hBusTimes.add(temp1.getH_run27());hBusTimes.add(temp2.getH_run27());hBusTimes.add(temp3.getH_run27());
+                hBusTimes.add(temp1.getH_run28());hBusTimes.add(temp2.getH_run28());hBusTimes.add(temp3.getH_run28());
+                hBusTimes.add(temp1.getH_run29());hBusTimes.add(temp2.getH_run29());hBusTimes.add(temp3.getH_run29());
+                hBusTimes.add(temp1.getH_run30());hBusTimes.add(temp2.getH_run30());hBusTimes.add(temp3.getH_run30());
+                hBusTimes.add(temp1.getH_run31());hBusTimes.add(temp2.getH_run31());hBusTimes.add(temp3.getH_run31());
+                hBusTimes.add(temp1.getH_run32());hBusTimes.add(temp2.getH_run32());hBusTimes.add(temp3.getH_run32());
+                hBusTimes.add(temp1.getH_run33());hBusTimes.add(temp2.getH_run33());hBusTimes.add(temp3.getH_run33());
+                hBusTimes.add(temp1.getH_run34());hBusTimes.add(temp2.getH_run34());hBusTimes.add(temp3.getH_run34());
+                hBusTimes.add(temp1.getH_run35());hBusTimes.add(temp2.getH_run35());hBusTimes.add(temp3.getH_run35());
+                hBusTimes.add(temp1.getH_run36());hBusTimes.add(temp2.getH_run36());hBusTimes.add(temp3.getH_run36());
+                hBusTimes.add(temp1.getH_run37());hBusTimes.add(temp2.getH_run37());hBusTimes.add(temp3.getH_run37());
+                hBusTimes.add(temp1.getH_run38());hBusTimes.add(temp2.getH_run38());hBusTimes.add(temp3.getH_run38());
+                hBusTimes.add(temp1.getH_run39());hBusTimes.add(temp2.getH_run39());hBusTimes.add(temp3.getH_run39());
+                hBusTimes.add(temp1.getH_run40());hBusTimes.add(temp2.getH_run40());hBusTimes.add(temp3.getH_run40());
+                hBusTimes.add(temp1.getH_run41());hBusTimes.add(temp2.getH_run41());hBusTimes.add(temp3.getH_run41());
+                hBusTimes.add(temp1.getH_run42());hBusTimes.add(temp2.getH_run42());hBusTimes.add(temp3.getH_run42());
+                hBusTimes.add(temp1.getH_run43());hBusTimes.add(temp2.getH_run43());hBusTimes.add(temp3.getH_run43());
+                hBusTimes.add(temp1.getH_run44());hBusTimes.add(temp2.getH_run44());hBusTimes.add(temp3.getH_run44());
+                hBusTimes.add(temp1.getH_run45());hBusTimes.add(temp2.getH_run45());hBusTimes.add(temp3.getH_run45());
+                hBusTimes.add(temp1.getH_run46());hBusTimes.add(temp2.getH_run46());hBusTimes.add(temp3.getH_run46());
+                hBusTimes.add(temp1.getH_run47());hBusTimes.add(temp2.getH_run47());hBusTimes.add(temp3.getH_run47());
+                hBusTimes.add(temp1.getH_run48());hBusTimes.add(temp2.getH_run48());hBusTimes.add(temp3.getH_run48());
+                hBusTimes.add(temp1.getH_run49());hBusTimes.add(temp2.getH_run49());hBusTimes.add(temp3.getH_run49());
+                hBusTimes.add(temp1.getH_run50());hBusTimes.add(temp2.getH_run50());hBusTimes.add(temp3.getH_run50());
+                hBusTimes.add(temp1.getH_run51());hBusTimes.add(temp2.getH_run51());hBusTimes.add(temp3.getH_run51());
+                hBusTimes.add(temp1.getH_run52());hBusTimes.add(temp2.getH_run52());hBusTimes.add(temp3.getH_run52());
+                hBusTimes.add(temp1.getH_run53());hBusTimes.add(temp2.getH_run53());hBusTimes.add(temp3.getH_run53());
+                hBusTimes.add(temp1.getH_run54());hBusTimes.add(temp2.getH_run54());hBusTimes.add(temp3.getH_run54());
+                hBusTimes.add(temp1.getH_run55());hBusTimes.add(temp2.getH_run55());hBusTimes.add(temp3.getH_run55());
+                hBusTimes.add(temp1.getH_run56());hBusTimes.add(temp2.getH_run56());hBusTimes.add(temp3.getH_run56());
         }
-        System.out.println("Ha: " + dynaList.get(0));
-        System.out.println("Hb: " + dynaList.get(1));
-        System.out.println("HC: " + dynaList.get(2));
     }
 
     public void HWBusRunTimeTabDisp(ArrayList<String>userChosenStops)
     {
         System.out.println("HW: " + userChosenStops);
 
-        System.out.println("stop list size:" + userChosenStops.size());
+        // Assigning the users chosen stops one by one (incrementing for loop)
+        String stopStr1 = userChosenStops.get(0);
+        String stopStr2 = userChosenStops.get(1);
+        String stopStr3 = userChosenStops.get(2);
 
-        for(int i = 0; i < userChosenStops.size(); i++)
+        // Grabbing the information from
+        List<HW> hwLocationStops1 = HomeActivity.cattracksDatabase.daoAccess().getHWTimesFromLocation(stopStr1);
+        List<HW> hwLocationStops2 = HomeActivity.cattracksDatabase.daoAccess().getHWTimesFromLocation(stopStr2);
+        List<HW> hwLocationStops3 = HomeActivity.cattracksDatabase.daoAccess().getHWTimesFromLocation(stopStr3);
+
+        Iterator<HW> hwLocationIterator1 = hwLocationStops1.iterator();
+        Iterator<HW> hwLocationIterator2 = hwLocationStops2.iterator();
+        Iterator<HW> hwLocationIterator3 = hwLocationStops3.iterator();
+
+        while (hwLocationIterator1.hasNext() && hwLocationIterator2.hasNext() && hwLocationIterator3.hasNext())
         {
-            // Assigning the users chosen stops one by one (incrementing for loop)
-            stopStr = userChosenStops.get(i);
+            HW temp1 = hwLocationIterator1.next();
+            HW temp2 = hwLocationIterator2.next();
+            HW temp3 = hwLocationIterator3.next();
 
-            // Grabbing the information from
-            List<HW> hwLocationStops = HomeActivity.cattracksDatabase.daoAccess().getHWTimesFromLocation(stopStr);
-
-            Iterator<HW> hwLocationIterator = hwLocationStops.iterator();
-
-            HW temp = hwLocationIterator.next();
-
-            if(i == 0)
-            {
-                hwBusTimesA.add(temp.getHw_run1());
-                hwBusTimesA.add(temp.getHw_run2());
-                hwBusTimesA.add(temp.getHw_run3());
-                hwBusTimesA.add(temp.getHw_run4());
-                hwBusTimesA.add(temp.getHw_run5());
-                hwBusTimesA.add(temp.getHw_run6());
-                hwBusTimesA.add(temp.getHw_run7());
-                hwBusTimesA.add(temp.getHw_run8());
-                hwBusTimesA.add(temp.getHw_run9());
-                hwBusTimesA.add(temp.getHw_run10());
-                hwBusTimesA.add(temp.getHw_run11());
-                hwBusTimesA.add(temp.getHw_run12());
-                hwBusTimesA.add(temp.getHw_run13());
-                hwBusTimesA.add(temp.getHw_run14());
-                hwBusTimesA.add(temp.getHw_run15());
-                hwBusTimesA.add(temp.getHw_run16());
-                hwBusTimesA.add(temp.getHw_run17());
-                hwBusTimesA.add(temp.getHw_run18());
-                hwBusTimesA.add(temp.getHw_run19());
-                hwBusTimesA.add(temp.getHw_run20());
-
-                // Incrementing through our list and adding it to another list
-                dynaList.add(hwBusTimesA);
-            }
-
-            else if (i == 1)
-            {
-                hwBusTimesB.add(temp.getHw_run1());
-                hwBusTimesB.add(temp.getHw_run2());
-                hwBusTimesB.add(temp.getHw_run3());
-                hwBusTimesB.add(temp.getHw_run4());
-                hwBusTimesB.add(temp.getHw_run5());
-                hwBusTimesB.add(temp.getHw_run6());
-                hwBusTimesB.add(temp.getHw_run7());
-                hwBusTimesB.add(temp.getHw_run8());
-                hwBusTimesB.add(temp.getHw_run9());
-                hwBusTimesB.add(temp.getHw_run10());
-                hwBusTimesB.add(temp.getHw_run11());
-                hwBusTimesB.add(temp.getHw_run12());
-                hwBusTimesB.add(temp.getHw_run13());
-                hwBusTimesB.add(temp.getHw_run14());
-                hwBusTimesB.add(temp.getHw_run15());
-                hwBusTimesB.add(temp.getHw_run16());
-                hwBusTimesB.add(temp.getHw_run17());
-                hwBusTimesB.add(temp.getHw_run18());
-                hwBusTimesB.add(temp.getHw_run19());
-                hwBusTimesB.add(temp.getHw_run20());
-
-                // Incrementing through our list and adding it to another list
-                dynaList.add(hwBusTimesB);
-            }
-
-            else if (i == 2)
-            {
-                hwBusTimesC.add(temp.getHw_run1());
-                hwBusTimesC.add(temp.getHw_run2());
-                hwBusTimesC.add(temp.getHw_run3());
-                hwBusTimesC.add(temp.getHw_run4());
-                hwBusTimesC.add(temp.getHw_run5());
-                hwBusTimesC.add(temp.getHw_run6());
-                hwBusTimesC.add(temp.getHw_run7());
-                hwBusTimesC.add(temp.getHw_run8());
-                hwBusTimesC.add(temp.getHw_run9());
-                hwBusTimesC.add(temp.getHw_run10());
-                hwBusTimesC.add(temp.getHw_run11());
-                hwBusTimesC.add(temp.getHw_run12());
-                hwBusTimesC.add(temp.getHw_run13());
-                hwBusTimesC.add(temp.getHw_run14());
-                hwBusTimesC.add(temp.getHw_run15());
-                hwBusTimesC.add(temp.getHw_run16());
-                hwBusTimesC.add(temp.getHw_run17());
-                hwBusTimesC.add(temp.getHw_run18());
-                hwBusTimesC.add(temp.getHw_run19());
-                hwBusTimesC.add(temp.getHw_run20());
-
-                // Incrementing through our list and adding it to another list
-                dynaList.add(hwBusTimesC);
-            }
+                hwBusTimes.add(temp1.getHw_run1());hwBusTimes.add(temp2.getHw_run1());hwBusTimes.add(temp3.getHw_run1());
+                hwBusTimes.add(temp1.getHw_run2());hwBusTimes.add(temp2.getHw_run2());hwBusTimes.add(temp3.getHw_run2());
+                hwBusTimes.add(temp1.getHw_run3());hwBusTimes.add(temp2.getHw_run3());hwBusTimes.add(temp3.getHw_run3());
+                hwBusTimes.add(temp1.getHw_run4());hwBusTimes.add(temp2.getHw_run4());hwBusTimes.add(temp3.getHw_run4());
+                hwBusTimes.add(temp1.getHw_run5());hwBusTimes.add(temp2.getHw_run5());hwBusTimes.add(temp3.getHw_run5());
+                hwBusTimes.add(temp1.getHw_run6());hwBusTimes.add(temp2.getHw_run6());hwBusTimes.add(temp3.getHw_run6());
+                hwBusTimes.add(temp1.getHw_run7());hwBusTimes.add(temp2.getHw_run7());hwBusTimes.add(temp3.getHw_run7());
+                hwBusTimes.add(temp1.getHw_run8());hwBusTimes.add(temp2.getHw_run8());hwBusTimes.add(temp3.getHw_run8());
+                hwBusTimes.add(temp1.getHw_run9());hwBusTimes.add(temp2.getHw_run9());hwBusTimes.add(temp3.getHw_run9());
+                hwBusTimes.add(temp1.getHw_run10());hwBusTimes.add(temp2.getHw_run10());hwBusTimes.add(temp3.getHw_run10());
+                hwBusTimes.add(temp1.getHw_run11());hwBusTimes.add(temp2.getHw_run11());hwBusTimes.add(temp3.getHw_run11());
+                hwBusTimes.add(temp1.getHw_run12());hwBusTimes.add(temp2.getHw_run12());hwBusTimes.add(temp3.getHw_run12());
+                hwBusTimes.add(temp1.getHw_run13());hwBusTimes.add(temp2.getHw_run13());hwBusTimes.add(temp3.getHw_run13());
+                hwBusTimes.add(temp1.getHw_run14());hwBusTimes.add(temp2.getHw_run14());hwBusTimes.add(temp3.getHw_run14());
+                hwBusTimes.add(temp1.getHw_run15());hwBusTimes.add(temp2.getHw_run15());hwBusTimes.add(temp3.getHw_run15());
+                hwBusTimes.add(temp1.getHw_run16());hwBusTimes.add(temp2.getHw_run16());hwBusTimes.add(temp3.getHw_run16());
+                hwBusTimes.add(temp1.getHw_run17());hwBusTimes.add(temp2.getHw_run17());hwBusTimes.add(temp3.getHw_run17());
+                hwBusTimes.add(temp1.getHw_run18());hwBusTimes.add(temp2.getHw_run18());hwBusTimes.add(temp3.getHw_run18());
+                hwBusTimes.add(temp1.getHw_run19());hwBusTimes.add(temp2.getHw_run19());hwBusTimes.add(temp3.getHw_run19());
+                hwBusTimes.add(temp1.getHw_run20());hwBusTimes.add(temp2.getHw_run20());hwBusTimes.add(temp3.getHw_run20());
         }
-
-        System.out.println("HWa: " + dynaList.get(0));
-        System.out.println("HWb: " + dynaList.get(1));
-        System.out.println("HWc: " + dynaList.get(2));
     }
 
     public void GBusRunTimeTabDisp(ArrayList<String>userChosenStops)
     {
         System.out.println("G: " + userChosenStops);
 
-        System.out.println("stop list size:" + userChosenStops.size());
+        // Assigning the users chosen stops one by one (incrementing for loop)
+        String stopStr1 = userChosenStops.get(0);
+        String stopStr2 = userChosenStops.get(1);
+        String stopStr3 = userChosenStops.get(2);
 
-        for(int i = 0; i < userChosenStops.size(); i++)
+        // Grabbing the information from
+        List<G> gLocationStops1 = HomeActivity.cattracksDatabase.daoAccess().getGTimesFromLocation(stopStr1);
+        List<G> gLocationStops2 = HomeActivity.cattracksDatabase.daoAccess().getGTimesFromLocation(stopStr2);
+        List<G> gLocationStops3 = HomeActivity.cattracksDatabase.daoAccess().getGTimesFromLocation(stopStr3);
+
+        Iterator<G> gLocationIterator1 = gLocationStops1.iterator();
+        Iterator<G> gLocationIterator2 = gLocationStops2.iterator();
+        Iterator<G> gLocationIterator3 = gLocationStops3.iterator();
+
+        while (gLocationIterator1.hasNext() && gLocationIterator2.hasNext() && gLocationIterator3.hasNext())
         {
-            // Assigning the users chosen stops one by one (incrementing for loop)
-            stopStr = userChosenStops.get(i);
+            G temp1 = gLocationIterator1.next();
+            G temp2 = gLocationIterator2.next();
+            G temp3 = gLocationIterator3.next();
 
-            // Grabbing the information from
-            List<G> gLocationStops = HomeActivity.cattracksDatabase.daoAccess().getGTimesFromLocation(stopStr);
-
-            Iterator<G> gLocationIterator = gLocationStops.iterator();
-
-            G temp = gLocationIterator.next();
-
-            if(i == 0)
-            {
-                gBusTimesA.add(temp.getG_run1());
-                gBusTimesA.add(temp.getG_run2());
-                gBusTimesA.add(temp.getG_run3());
-                gBusTimesA.add(temp.getG_run4());
-                gBusTimesA.add(temp.getG_run5());
-                gBusTimesA.add(temp.getG_run6());
-                gBusTimesA.add(temp.getG_run7());
-                gBusTimesA.add(temp.getG_run8());
-                gBusTimesA.add(temp.getG_run9());
-                gBusTimesA.add(temp.getG_run10());
-                gBusTimesA.add(temp.getG_run11());
-                gBusTimesA.add(temp.getG_run12());
-                gBusTimesA.add(temp.getG_run13());
-                gBusTimesA.add(temp.getG_run14());
-
-                // Incrementing through our list and adding it to another list
-                dynaList.add(gBusTimesA);
-            }
-
-            else if (i == 1)
-            {
-                gBusTimesB.add(temp.getG_run1());
-                gBusTimesB.add(temp.getG_run2());
-                gBusTimesB.add(temp.getG_run3());
-                gBusTimesB.add(temp.getG_run4());
-                gBusTimesB.add(temp.getG_run5());
-                gBusTimesB.add(temp.getG_run6());
-                gBusTimesB.add(temp.getG_run7());
-                gBusTimesB.add(temp.getG_run8());
-                gBusTimesB.add(temp.getG_run9());
-                gBusTimesB.add(temp.getG_run10());
-                gBusTimesB.add(temp.getG_run11());
-                gBusTimesB.add(temp.getG_run12());
-                gBusTimesB.add(temp.getG_run13());
-                gBusTimesB.add(temp.getG_run14());
-
-                // Incrementing through our list and adding it to another list
-                dynaList.add(gBusTimesB);
-            }
-
-            else if (i == 2)
-            {
-                gBusTimesC.add(temp.getG_run1());
-                gBusTimesC.add(temp.getG_run2());
-                gBusTimesC.add(temp.getG_run3());
-                gBusTimesC.add(temp.getG_run4());
-                gBusTimesC.add(temp.getG_run5());
-                gBusTimesC.add(temp.getG_run6());
-                gBusTimesC.add(temp.getG_run7());
-                gBusTimesC.add(temp.getG_run8());
-                gBusTimesC.add(temp.getG_run9());
-                gBusTimesC.add(temp.getG_run10());
-                gBusTimesC.add(temp.getG_run11());
-                gBusTimesC.add(temp.getG_run12());
-                gBusTimesC.add(temp.getG_run13());
-                gBusTimesC.add(temp.getG_run14());
-
-                // Incrementing through our list and adding it to another list
-                dynaList.add(gBusTimesC);
-            }
+                gBusTimes.add(temp1.getG_run1());gBusTimes.add(temp2.getG_run1());gBusTimes.add(temp3.getG_run1());
+                gBusTimes.add(temp1.getG_run2());gBusTimes.add(temp2.getG_run2());gBusTimes.add(temp3.getG_run2());
+                gBusTimes.add(temp1.getG_run3());gBusTimes.add(temp2.getG_run3());gBusTimes.add(temp3.getG_run3());
+                gBusTimes.add(temp1.getG_run4());gBusTimes.add(temp2.getG_run4());gBusTimes.add(temp3.getG_run4());
+                gBusTimes.add(temp1.getG_run5());gBusTimes.add(temp2.getG_run5());gBusTimes.add(temp3.getG_run5());
+                gBusTimes.add(temp1.getG_run6());gBusTimes.add(temp2.getG_run6());gBusTimes.add(temp3.getG_run6());
+                gBusTimes.add(temp1.getG_run7());gBusTimes.add(temp2.getG_run7());gBusTimes.add(temp3.getG_run7());
+                gBusTimes.add(temp1.getG_run8());gBusTimes.add(temp2.getG_run8());gBusTimes.add(temp3.getG_run8());
+                gBusTimes.add(temp1.getG_run9());gBusTimes.add(temp2.getG_run9());gBusTimes.add(temp3.getG_run9());
+                gBusTimes.add(temp1.getG_run10());gBusTimes.add(temp2.getG_run10());gBusTimes.add(temp3.getG_run10());
+                gBusTimes.add(temp1.getG_run11());gBusTimes.add(temp2.getG_run11());gBusTimes.add(temp3.getG_run11());
+                gBusTimes.add(temp1.getG_run12());gBusTimes.add(temp2.getG_run12());gBusTimes.add(temp3.getG_run12());
+                gBusTimes.add(temp1.getG_run13());gBusTimes.add(temp2.getG_run13());gBusTimes.add(temp3.getG_run13());
+                gBusTimes.add(temp1.getG_run14());gBusTimes.add(temp2.getG_run14());gBusTimes.add(temp3.getG_run14());
         }
 
-        System.out.println("Ga: " + dynaList.get(0));
-        System.out.println("Gb: " + dynaList.get(1));
-        System.out.println("Gc: " + dynaList.get(2));
     }
 
 
@@ -923,89 +637,41 @@ public class NeatTableActivity extends AppCompatActivity
     {
         System.out.println("FC: " + userChosenStops);
 
-        System.out.println("stop list size:" + userChosenStops.size());
+        // Assigning the users chosen stops one by one (incrementing for loop)
+        String stopStr1 = userChosenStops.get(0);
+        String stopStr2 = userChosenStops.get(1);
+        String stopStr3 = userChosenStops.get(2);
 
-        for(int i = 0; i < userChosenStops.size(); i++)
+        // Grabbing the information from
+        List<FC> fcLocationStops1 = HomeActivity.cattracksDatabase.daoAccess().getFCTimesFromLocation(stopStr1);
+        List<FC> fcLocationStops2 = HomeActivity.cattracksDatabase.daoAccess().getFCTimesFromLocation(stopStr2);
+        List<FC> fcLocationStops3 = HomeActivity.cattracksDatabase.daoAccess().getFCTimesFromLocation(stopStr3);
+
+        Iterator<FC> fcLocationIterator1 = fcLocationStops1.iterator();
+        Iterator<FC> fcLocationIterator2 = fcLocationStops2.iterator();
+        Iterator<FC> fcLocationIterator3 = fcLocationStops3.iterator();
+
+        while (fcLocationIterator1.hasNext() && fcLocationIterator2.hasNext() && fcLocationIterator3.hasNext())
         {
-            // Assigning the users chosen stops one by one (incrementing for loop)
-            stopStr = userChosenStops.get(i);
+            FC temp1 = fcLocationIterator1.next();
+            FC temp2 = fcLocationIterator2.next();
+            FC temp3 = fcLocationIterator3.next();
 
-            // Grabbing the information from
-            List<FC> fcLocationStops = HomeActivity.cattracksDatabase.daoAccess().getFCTimesFromLocation(stopStr);
-
-            Iterator<FC> fcLocationIterator = fcLocationStops.iterator();
-
-            FC temp = fcLocationIterator.next();
-
-            if(i == 0)
-            {
-                fcBusTimesA.add(temp.getFc_run1());
-                fcBusTimesA.add(temp.getFc_run2());
-                fcBusTimesA.add(temp.getFc_run3());
-                fcBusTimesA.add(temp.getFc_run4());
-                fcBusTimesA.add(temp.getFc_run5());
-                fcBusTimesA.add(temp.getFc_run6());
-                fcBusTimesA.add(temp.getFc_run7());
-                fcBusTimesA.add(temp.getFc_run8());
-                fcBusTimesA.add(temp.getFc_run9());
-                fcBusTimesA.add(temp.getFc_run10());
-                fcBusTimesA.add(temp.getFc_run11());
-                fcBusTimesA.add(temp.getFc_run12());
-                fcBusTimesA.add(temp.getFc_run13());
-                fcBusTimesA.add(temp.getFc_run14());
-                fcBusTimesA.add(temp.getFc_run15());
-
-                // Incrementing through our list and adding it to another list
-                dynaList.add(fcBusTimesA);
-            }
-
-            else if (i == 1)
-            {
-                fcBusTimesB.add(temp.getFc_run1());
-                fcBusTimesB.add(temp.getFc_run2());
-                fcBusTimesB.add(temp.getFc_run3());
-                fcBusTimesB.add(temp.getFc_run4());
-                fcBusTimesB.add(temp.getFc_run5());
-                fcBusTimesB.add(temp.getFc_run6());
-                fcBusTimesB.add(temp.getFc_run7());
-                fcBusTimesB.add(temp.getFc_run8());
-                fcBusTimesB.add(temp.getFc_run9());
-                fcBusTimesB.add(temp.getFc_run10());
-                fcBusTimesB.add(temp.getFc_run11());
-                fcBusTimesB.add(temp.getFc_run12());
-                fcBusTimesB.add(temp.getFc_run13());
-                fcBusTimesB.add(temp.getFc_run14());
-                fcBusTimesB.add(temp.getFc_run15());
-
-                // Incrementing through our list and adding it to another list
-                dynaList.add(fcBusTimesB);
-            }
-
-            else if (i == 2)
-            {
-                fcBusTimesC.add(temp.getFc_run1());
-                fcBusTimesC.add(temp.getFc_run2());
-                fcBusTimesC.add(temp.getFc_run3());
-                fcBusTimesC.add(temp.getFc_run4());
-                fcBusTimesC.add(temp.getFc_run5());
-                fcBusTimesC.add(temp.getFc_run6());
-                fcBusTimesC.add(temp.getFc_run7());
-                fcBusTimesC.add(temp.getFc_run8());
-                fcBusTimesC.add(temp.getFc_run9());
-                fcBusTimesC.add(temp.getFc_run10());
-                fcBusTimesC.add(temp.getFc_run11());
-                fcBusTimesC.add(temp.getFc_run12());
-                fcBusTimesC.add(temp.getFc_run13());
-                fcBusTimesC.add(temp.getFc_run14());
-                fcBusTimesC.add(temp.getFc_run15());
-
-                // Incrementing through our list and adding it to another list
-                dynaList.add(fcBusTimesC);
-            }
+            fcBusTimes.add(temp1.getFc_run1());fcBusTimes.add(temp2.getFc_run1());fcBusTimes.add(temp3.getFc_run1());
+            fcBusTimes.add(temp1.getFc_run2());fcBusTimes.add(temp2.getFc_run2());fcBusTimes.add(temp3.getFc_run2());
+            fcBusTimes.add(temp1.getFc_run3());fcBusTimes.add(temp2.getFc_run3());fcBusTimes.add(temp3.getFc_run3());
+            fcBusTimes.add(temp1.getFc_run4());fcBusTimes.add(temp2.getFc_run4());fcBusTimes.add(temp3.getFc_run4());
+            fcBusTimes.add(temp1.getFc_run5());fcBusTimes.add(temp2.getFc_run5());fcBusTimes.add(temp3.getFc_run5());
+            fcBusTimes.add(temp1.getFc_run6());fcBusTimes.add(temp2.getFc_run6());fcBusTimes.add(temp3.getFc_run6());
+            fcBusTimes.add(temp1.getFc_run7());fcBusTimes.add(temp2.getFc_run7());fcBusTimes.add(temp3.getFc_run7());
+            fcBusTimes.add(temp1.getFc_run8());fcBusTimes.add(temp2.getFc_run8());fcBusTimes.add(temp3.getFc_run8());
+            fcBusTimes.add(temp1.getFc_run9());fcBusTimes.add(temp2.getFc_run9());fcBusTimes.add(temp3.getFc_run9());
+            fcBusTimes.add(temp1.getFc_run10());fcBusTimes.add(temp2.getFc_run10());fcBusTimes.add(temp3.getFc_run10());
+            fcBusTimes.add(temp1.getFc_run11());fcBusTimes.add(temp2.getFc_run11());fcBusTimes.add(temp3.getFc_run11());
+            fcBusTimes.add(temp1.getFc_run12());fcBusTimes.add(temp2.getFc_run12());fcBusTimes.add(temp3.getFc_run12());
+            fcBusTimes.add(temp1.getFc_run13());fcBusTimes.add(temp2.getFc_run13());fcBusTimes.add(temp3.getFc_run13());
+            fcBusTimes.add(temp1.getFc_run14());fcBusTimes.add(temp2.getFc_run14());fcBusTimes.add(temp3.getFc_run14());
+            fcBusTimes.add(temp1.getFc_run15());fcBusTimes.add(temp2.getFc_run15());fcBusTimes.add(temp3.getFc_run15());
         }
-
-        System.out.println("FCa: " + dynaList.get(0));
-        System.out.println("FCb: " + dynaList.get(1));
-        System.out.println("FCc: " + dynaList.get(2));
     }
 }

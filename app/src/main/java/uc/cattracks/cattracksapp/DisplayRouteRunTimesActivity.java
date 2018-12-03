@@ -5,9 +5,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.support.v7.widget.Toolbar;
 
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -22,6 +34,18 @@ import uc.cattracks.cattracksapp.models.HW;
 import uc.cattracks.cattracksapp.recycleview_adapters.BusRouteStopTimesAdapter;
 
 public class DisplayRouteRunTimesActivity extends AppCompatActivity {
+    // PATHWAYS TO OTHER ACTIVITIES
+    Intent plan_trip_segue;
+    Intent bus_updates_segue;
+    Intent start_map;
+
+    // USER INTERFACE ELEMENTS
+    ImageButton navigation_button;   // Navigation menu structure
+    LinearLayout navigation_menu;    // Opens / closes navigation menu
+    ImageButton plan_trip_button;    // Opens trip planning activity
+    ImageButton bus_alerts_button;   // Opens bus alerts Twitter feed activity.
+    ImageButton map_button;          // Opens activity where users can select a stop to be showcased on a map (Google Maps)
+
 
     private static List<String> c1BusTimes = new ArrayList<>();
     private static List<String> c2BusTimes= new ArrayList<>();
@@ -55,19 +79,29 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_route_run_times);
 
+        android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        // Setting up toolbar menu
+        setupToolBar();
+
+        // Setting up navigation sliding menu
+        setupNavigationMenu();
+
         String temp = "";
         busName = "";
         locationAbb = "";
         destinationAbb = "";
 
         getAllIntentInformation();
-        executeQueriesBasedOnIntentInformation();
+
 
         busStopTimesRecyclerView = findViewById(R.id.routesRecyclerView);
         busStopTimesRecyclerView.setLayoutManager(new GridLayoutManager(this,2 ));
-        adapter = new BusRouteStopTimesAdapter(this, busToAdapter);
-        busStopTimesRecyclerView.setAdapter(adapter);
+//        adapter = new BusRouteStopTimesAdapter(this, busToAdapter);
+//        busStopTimesRecyclerView.setAdapter(adapter);
 
+        executeQueriesBasedOnIntentInformation();
         bus_name = findViewById(R.id.bus_name_text_view);
         location_name = findViewById(R.id.location_text_view);
         destination_name = findViewById(R.id.destination_text_view);
@@ -82,6 +116,97 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
         destination_name.setText(destinationName);
 
 
+    }
+
+
+
+    // USER INTERFACE FUNCTIONS
+    // Navigation Sliding Menu
+    public void setupNavigationMenu(){
+        // Setting up pathways to other activities
+        plan_trip_segue = new Intent(this, LocationsList.class);
+        bus_updates_segue = new Intent(this, BusUpdatesActivity.class);
+        start_map = new Intent(this, MapStopsActivity.class);
+
+        // Setting up user interface elements
+        navigation_menu = findViewById(R.id.navigation_menu);
+
+
+        plan_trip_button = findViewById(R.id.plan_trip_button);
+        plan_trip_button.setOnClickListener((View v) -> {
+            animate_navigation_menu();
+            startActivity(plan_trip_segue);
+
+        });
+
+
+        bus_alerts_button = findViewById(R.id.bus_updates_button);
+        bus_alerts_button.setOnClickListener((View v) -> {
+            animate_navigation_menu();
+            startActivity(bus_updates_segue);
+        });
+
+
+        // Set intent on MapStopsActivity
+        map_button = findViewById(R.id.map_button);
+        map_button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                startActivity(start_map);
+                animate_navigation_menu();
+            }
+        });
+    }
+
+
+
+    public void animate_navigation_menu(){
+        Animation slideUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);
+        Animation slideDown = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down);
+
+
+        if(navigation_menu.getVisibility()==View.INVISIBLE) {
+            navigation_menu.startAnimation(slideUp);
+            navigation_menu.setVisibility(View.VISIBLE);
+
+        }else{
+            navigation_menu.startAnimation(slideDown);
+            navigation_menu.setVisibility(View.INVISIBLE);
+        }
+    }
+
+
+
+    // Menu Toolbar
+    public void setupToolBar(){
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+    }
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Setting up toolbar structure
+        getMenuInflater().inflate(R.menu.toolbar_menu_2, menu);
+
+        return true;
+    }
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.navigation_button:
+                animate_navigation_menu();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 
@@ -136,9 +261,12 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
         Iterator<C1> c1LocationIterator = c1LocationStops.iterator();
         Iterator<C1> c1DestinationIterator = c1DestinationStops.iterator();
 
+        c1BusTimes.clear();
         while(c1LocationIterator.hasNext() && c1DestinationIterator.hasNext()) {
 
             C1 temp = c1LocationIterator.next(); C1 temp2 = c1DestinationIterator.next();
+
+
 
             c1BusTimes.add(temp.getC1_run1()); c1BusTimes.add(temp2.getC1_run1());
             c1BusTimes.add(temp.getC1_run2()); c1BusTimes.add(temp2.getC1_run2());
@@ -167,7 +295,7 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
         }
 
 
-        busToAdapter = c1BusTimes;
+        setUpAdapter(c1BusTimes);
         for(String c1: c1BusTimes) {
             System.out.println(c1 + " "
             );
@@ -182,7 +310,7 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
         Iterator<C2> c2LocationIterator = c2LocationStops.iterator();
         Iterator<C2> c2DestinationIterator = c2DestinationStops.iterator();
 
-
+        c2BusTimes.clear();
         while(c2LocationIterator.hasNext() && c2DestinationIterator.hasNext()) {
 
             C2 temp = c2LocationIterator.next(); C2 temp2 = c2DestinationIterator.next();
@@ -204,11 +332,8 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
             c2BusTimes.add(temp.getC2_run16()); c2BusTimes.add(temp2.getC2_run16());
         }
 
-        busToAdapter = c2BusTimes;
-        for(String c2: c2BusTimes) {
-            System.out.println(c2 + " "
-            );
-        }
+
+        setUpAdapter(c2BusTimes);
     }
 
     public void combineE1Stops() {
@@ -219,6 +344,7 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
         Iterator<E1> e1DestinationIterator = e1DestinationStops.iterator();
 
 
+        e1BusTimes.clear();
         while(e1LocationIterator.hasNext() && e1DestinationIterator.hasNext()) {
 
             E1 temp = e1LocationIterator.next(); E1 temp2 = e1DestinationIterator.next();
@@ -234,7 +360,8 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
             e1BusTimes.add(temp.getE1_run9()); e1BusTimes.add(temp2.getE1_run9());
         }
 
-        busToAdapter = e1BusTimes;
+
+        setUpAdapter(e1BusTimes);
         for(String e1: e1BusTimes) {
             System.out.println(e1 + " "
             );
@@ -250,6 +377,7 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
         Iterator<E2> e2DestinationIterator = e2DestinationStops.iterator();
 
 
+        e2BusTimes.clear();
         while(e2LocationIterator.hasNext() && e2DestinationIterator.hasNext()) {
 
             E2 temp = e2LocationIterator.next(); E2 temp2 = e2DestinationIterator.next();
@@ -266,7 +394,7 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
             e2BusTimes.add(temp.getE2_run10()); e2BusTimes.add(temp2.getE2_run10());
         }
 
-        busToAdapter = e2BusTimes;
+        setUpAdapter(e2BusTimes);
         for(String e2: e2BusTimes) {
             System.out.println(e2 + " "
             );
@@ -275,12 +403,14 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
 
     public void combineFastCatStops() {
 
+        System.out.println("Location: " + locationAbb + " Destination: " + destinationAbb);
         List<FC> fastCatLocationStops = HomeActivity.cattracksDatabase.daoAccess().getFCTimesFromLocation(locationAbb);
         List<FC> fastCatDestinationStops = HomeActivity.cattracksDatabase.daoAccess().getFCTimesToDestination(destinationAbb);
         Iterator<FC> fastCatLocationIterator = fastCatLocationStops.iterator();
         Iterator<FC> fastCatDestinationIterator = fastCatDestinationStops.iterator();
 
 
+        fcBusTimes.clear();
         while(fastCatLocationIterator.hasNext() && fastCatDestinationIterator.hasNext()) {
 
             FC temp = fastCatLocationIterator.next(); FC temp2 = fastCatDestinationIterator.next();
@@ -301,7 +431,7 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
             fcBusTimes.add(temp.getFc_run15()); fcBusTimes.add(temp2.getFc_run15());
         }
 
-        busToAdapter = fcBusTimes;
+        setUpAdapter(fcBusTimes);
         for(String fC: fcBusTimes) {
             System.out.println(fC + " "
             );
@@ -316,6 +446,7 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
         Iterator<G> gDestinationIterator = gDestinationStops.iterator();
 
 
+        gBusTimes.clear();
         while(gLocationIterator.hasNext() && gDestinationIterator.hasNext()) {
 
 
@@ -336,7 +467,7 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
             gBusTimes.add(temp.getG_run14()); gBusTimes.add(temp2.getG_run14());
         }
 
-        busToAdapter = gBusTimes;
+        setUpAdapter(gBusTimes);
         for(String g: gBusTimes) {
             System.out.println(g + " "
             );
@@ -352,6 +483,7 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
         Iterator<H> hDestinationIterator = hDestinationStops.iterator();
 
 
+        hBusTimes.clear();
         while(hLocationIterator.hasNext() && hDestinationIterator.hasNext()) {
 
             H temp = hLocationIterator.next(); H temp2 = hDestinationIterator.next();
@@ -418,7 +550,7 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
         }
 
 
-        busToAdapter = hBusTimes;
+        setUpAdapter(hBusTimes);
         for(String h: hBusTimes) {
             System.out.println(h + " "
             );
@@ -435,6 +567,7 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
         Iterator<HW> hWDestinationIterator = hWDestinationStops.iterator();
 
 
+        hwBusTimes.clear();
         while(hWLocationIterator.hasNext() && hWDestinationIterator.hasNext()) {
 
             HW temp = hWLocationIterator.next(); HW temp2 = hWDestinationIterator.next();
@@ -462,11 +595,19 @@ public class DisplayRouteRunTimesActivity extends AppCompatActivity {
         }
 
 
-        busToAdapter = hwBusTimes;
+        setUpAdapter(hwBusTimes);
         for(String hw: hwBusTimes) {
             System.out.println(hw + " "
             );
         }
+    }
+
+
+
+    public void setUpAdapter(List<String> busRoutes) {
+
+        adapter = new BusRouteStopTimesAdapter(this, busRoutes);
+        busStopTimesRecyclerView.setAdapter(adapter);
     }
 
 }

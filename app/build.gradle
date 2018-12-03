@@ -14,6 +14,8 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            resValue "string", "google_maps_key",
+                    (project.findProperty("GOOGLE_MAPS_API_KEY") ?: "")
         }
     }
     compileOptions {
@@ -36,4 +38,6 @@ dependencies {
     annotationProcessor 'android.arch.persistence.room:compiler:1.0.0'
     implementation 'com.android.support:recyclerview-v7:27.1.1'
     implementation 'com.android.support:cardview-v7:27.1.1'
+    implementation 'com.google.android.gms:play-services:12.0.1'
+    implementation 'org.jsoup:jsoup:1.11.3'
 }

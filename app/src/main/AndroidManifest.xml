@@ -2,29 +2,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="uc.cattracks.cattracksapp">
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="false"
-        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".HomeActivity"
-            android:label="@string/app_name"
+            android:name=".SplashScreenActivity"
             android:configChanges="orientation"
+            android:label="@string/app_name"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".TableActivity"
-            android:label="@string/title_activity_table"
-            android:screenOrientation="landscape"
-            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -55,24 +45,47 @@
             android:name=".StopSelectActivity"
             android:label="@string/title_activity_stop_select"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-            android:name=".LocationsList"
-            android:label="Select Your Start Location"
-            android:theme="@style/AppTheme.NoActionBar"
+        <activity
+            android:name=".HomeActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
+            android:label="Select Your Start Location"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".LocationsList"
+            android:configChanges="orientation"
+            android:label="Select Your Start Location"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".DestinationsListActivity"
+            android:configChanges="orientation"
             android:label="Select Your Destination"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".LocationToDestinationBusActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".LocationToDestinationBusActivity"
             android:label="Choose Your Bus"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".DisplayRouteRunTimesActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".DisplayRouteRunTimesActivity"
             android:label="Arrival &amp; Departure Times"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".BusUpdatesActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"></activity>
+            android:label="Bus Updates"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MapActivity"
+            android:label="Stops Map" />
+        <activity
+            android:name=".MapStopsActivity"
+            android:label="Choose Location For Map View" />
     </application>
 
 </manifest>

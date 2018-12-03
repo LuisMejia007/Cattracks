@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -17,43 +16,41 @@
             android:layout_marginLeft="14dp"
             android:layout_marginTop="14dp"
             android:layout_marginRight="14dp"
-            android:layout_marginBottom="0dp"
-            android:clickable="true"
+            android:layout_marginBottom="5dp"
             android:foreground="?android:attr/selectableItemBackground"
             android:hapticFeedbackEnabled="true"
-
+            android:id="@+id/stops_card_view">
+            app:cardBackgroundColor="@color/cardview_light_background"
+            app:cardCornerRadius="20dp"
             >
 
             <!--<ImageView-->
-                <!--android:id="@+id/stopPicImageView"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="200dp"-->
-                <!--android:background="@color/cardview_dark_background" />-->
+            <!--android:id="@+id/stopPicImageView"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="200dp"-->
+            <!--android:background="@color/cardview_dark_background" />-->
 
             <TextView
                 android:id="@+id/stopNameTextView"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginRight="40dp"
-                android:text="Bellevue/ Arrow Wood"
+                android:layout_height="wrap_content"
+                android:hapticFeedbackEnabled="true"
+                android:text="Bus_Stop_Name"
                 android:textAlignment="center"
                 android:textColor="@android:color/holo_blue_dark"
                 android:textSize="18sp"
                 android:translationY="12dp"
-                app:fontFamily="sans-serif"
-                android:hapticFeedbackEnabled="true"/>
+                app:fontFamily="sans-serif" />
 
             <TextView
                 android:id="@+id/stopCommentTextView"
                 android:layout_width="match_parent"
-                android:layout_height="39dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="80dp"
-                android:text="Information"
-                android:textSize="14sp"
+                android:hapticFeedbackEnabled="true"
+                android:text="Bus Stop Description"
                 android:textAlignment="center"
-                android:hapticFeedbackEnabled="true"/>
+                android:textSize="14sp" />
 
 
         </android.support.v7.widget.CardView>

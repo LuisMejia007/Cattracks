@@ -16,7 +16,7 @@
             android:layout_width="191dp"
             android:layout_height="match_parent"
             android:layout_marginTop="50dp"
-            android:background="#021f54"
+            android:background="#167dd0"
             android:textColor="@android:color/white"
             android:text="C1" />
 
@@ -25,7 +25,7 @@
             android:layout_width="191dp"
             android:layout_height="match_parent"
             android:layout_marginTop="50dp"
-            android:background="#021f54"
+            android:background="#167dd0"
             android:textColor="@android:color/white"
             android:text="C2" />
 
@@ -34,7 +34,7 @@
             android:layout_width="191dp"
             android:layout_height="match_parent"
             android:layout_marginTop="50dp"
-            android:background="#021f54"
+            android:background="#167dd0"
             android:textColor="@android:color/white"
             android:text="E1" />
 
@@ -43,7 +43,7 @@
             android:layout_width="191dp"
             android:layout_height="match_parent"
             android:layout_marginTop="50dp"
-            android:background="#021f54"
+            android:background="#167dd0"
             android:textColor="@android:color/white"
             android:text="E2" />
 
@@ -52,7 +52,7 @@
             android:layout_width="191dp"
             android:layout_height="match_parent"
             android:layout_marginTop="50dp"
-            android:background="#021f54"
+            android:background="#167dd0"
             android:textColor="@android:color/white"
             android:text="G" />
 
@@ -61,7 +61,7 @@
             android:layout_width="191dp"
             android:layout_height="match_parent"
             android:layout_marginTop="50dp"
-            android:background="#021f54"
+            android:background="#167dd0"
             android:textColor="@android:color/white"
             android:text="Fast Cat" />
 
@@ -70,7 +70,7 @@
             android:layout_width="191dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
-            android:background="#021f54"
+            android:background="#167dd0"
             android:textColor="@android:color/white"
             android:text="Heritage" />
 
@@ -79,7 +79,7 @@
             android:layout_width="191dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
-            android:background="#021f54"
+            android:background="#167dd0"
             android:textColor="@android:color/white"
             android:text="Heritage Weekend" />
 

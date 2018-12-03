@@ -4,9 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import java.util.ArrayList;
@@ -20,7 +27,7 @@ import uc.cattracks.cattracksapp.recycleview_adapters.TableStopSelectAdapter;
  * This activity creates the buttons with the users particular bus stops & prepares to communicate
  * the selected stops to NeatTableActivity to create the landscape row display
  */
-public class StopSelectActivity extends AppCompatActivity //implements View.OnClickListener
+public class StopSelectActivity extends AppCompatActivity implements SearchView.OnQueryTextListener
 {
     //Setting up CardView with use of Recycle View
     private RecyclerView stopSelectRecyclerView;
@@ -47,11 +54,34 @@ public class StopSelectActivity extends AppCompatActivity //implements View.OnCl
     //When buttons are clicked, jump to the OpenTableActivity method with String name
     LinearLayout parent;
 
+    // Jump to select stop activity
+    Intent open_select_stop;
+
+    // User interface element for select stop
+    ImageButton stop_select_button;
+
+    // PATHWAYS TO OTHER ACTIVITIES
+    Intent plan_trip_segue;
+    Intent bus_updates_segue;
+    Intent start_map;
+
+
+    // USER INTERFACE ELEMENTS
+    Toolbar toolbar;
+    ImageButton navigation_button;   // Navigation menu structure
+    LinearLayout navigation_menu;    // Opens / closes navigation menu
+    ImageButton plan_trip_button;    // Opens trip planning activity
+    ImageButton bus_alerts_button;   // Opens bus alerts Twitter feed activity.
+    ImageButton map_button;          // Opens activity where users can select a stop to be showcased on a map (Google Maps)
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stop_select);
+
+        setupToolBar();
+        setupNavigationMenu();
 
         // Accessing bus selected information from ChooseTableAct
         Intent startingIntent = getIntent();
@@ -119,4 +149,141 @@ public class StopSelectActivity extends AppCompatActivity //implements View.OnCl
         adapter = new TableStopSelectAdapter(this, selectedStops);
         stopSelectRecyclerView.setAdapter(adapter);
     }
+
+    // USER INTERFACE FUNCTIONS
+    public void setupNavigationMenu(){
+        // Setting up pathways to other activities
+        plan_trip_segue = new Intent(this, LocationsList.class);
+        bus_updates_segue = new Intent(this, BusUpdatesActivity.class);
+        start_map = new Intent(this, MapStopsActivity.class);
+        open_select_stop = new Intent(this, ChooseTableActivity.class);
+        // Setting up user interface elements
+
+        navigation_menu = findViewById(R.id.navigation_menu);
+
+        navigation_button = findViewById(R.id.navigation_button);
+
+        navigation_button.setOnClickListener((View v) -> {
+            animate_navigation_menu();
+
+        });
+
+
+        // Set intent on LocationsList Activity
+        plan_trip_button = findViewById(R.id.plan_trip_button);
+        plan_trip_button.setOnClickListener((View v) -> {
+            animate_navigation_menu();
+            startActivity(plan_trip_segue);
+        });
+
+
+        // Set intent on BusUpdates Activity
+        bus_alerts_button = findViewById(R.id.bus_updates_button);
+        bus_alerts_button.setOnClickListener((View v) -> {
+            animate_navigation_menu();
+            startActivity(bus_updates_segue);
+        });
+
+
+        // Set intent on MapStopsActivity
+        map_button = findViewById(R.id.map_button);
+        map_button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                startActivity(start_map);
+                animate_navigation_menu();
+            }
+        });
+
+        //Button has been clicked then jump to ChooseSelectActivity
+        stop_select_button = findViewById(R.id.imageButton);
+        stop_select_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                startActivity(open_select_stop);
+            }
+        });
+    }
+
+
+    public void animate_navigation_menu(){
+        Animation slideUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);
+        Animation slideDown = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down);
+
+
+        if(navigation_menu.getVisibility()==View.INVISIBLE) {
+            navigation_menu.startAnimation(slideUp);
+            navigation_menu.setVisibility(View.VISIBLE);
+
+        }else{
+            navigation_menu.startAnimation(slideDown);
+            navigation_menu.setVisibility(View.INVISIBLE);
+        }
+    }
+
+
+    // Menu Toolbar
+    public void setupToolBar(){
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+    }
+
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+
+        String userInput = newText.toLowerCase();
+        List<stops> filteredList = new ArrayList<>();
+
+        for(stops stop: selectedStops) {
+            if(stop.getS_name().toLowerCase().contains(userInput)) {
+                filteredList.add(stop);
+            }
+        }
+
+        adapter.updateList(filteredList);
+        return true;
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Setting up toolbar structure
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+
+        // Setting up the search filters functionality
+        MenuItem menuItem = menu.findItem(R.id.stopLocationsSearchFilter);
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setOnQueryTextListener(this);
+        searchView.setOnSearchClickListener((View) -> {
+            // Hide navigation menu if applicable
+            navigation_menu.setVisibility(android.view.View.INVISIBLE);
+        });
+
+        return true;
+    }
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.navigation_button:
+                toolbar.collapseActionView();
+                animate_navigation_menu();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 }

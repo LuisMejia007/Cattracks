@@ -35,15 +35,12 @@ import uc.cattracks.cattracksapp.database.CattracksDatabase;
 */
 
 public class HomeActivity extends AppCompatActivity {
-
     // Will manage our fragments (basically can think of them as views)
     public static android.support.v4.app.FragmentManager fragmentManager;
 
+
     // Look @ line 79 for this object's use.
     public static CattracksDatabase cattracksDatabase;
-
-    // Segue to next activity (Next screen)
-    Intent start_trip_segue;
 
     // Jump to select stop activity
     Intent open_select_stop;
@@ -51,11 +48,19 @@ public class HomeActivity extends AppCompatActivity {
     // User interface element for select stop
     ImageButton stop_select_button;
 
-    // User interface elements
-    ImageButton navigation_button;
+    // PATHWAYS TO OTHER ACTIVITIES 
+    Intent plan_trip_segue;
+    Intent bus_updates_segue;
+    Intent start_map;
 
-    LinearLayout navigation_menu;
-    ImageButton plan_trip_button;
+
+    // USER INTERFACE ELEMENTS
+    ImageButton navigation_button;   // Navigation menu structure 
+    LinearLayout navigation_menu;    // Opens / closes navigation menu  
+    ImageButton plan_trip_button;    // Opens trip planning activity 
+    ImageButton bus_alerts_button;   // Opens bus alerts Twitter feed activity.
+    ImageButton map_button;          // Opens activity where users can select a stop to be showcased on a map (Google Maps)
+
 
 
     @Override
@@ -73,39 +78,64 @@ public class HomeActivity extends AppCompatActivity {
                 .openHelperFactory(new AssetSQLiteOpenHelperFactory())
                 .allowMainThreadQueries().build();
 
-        // Setting up segue to next activity (Next screen)
-        start_trip_segue = new Intent(this, LocationsList.class);
+        // Setup user interface 
+        setupNavigationMenu();
+    }
 
-        open_select_stop = new Intent(this, ChooseTableActivity.class);
+
+
 
         // Setting up user interface elements
         // Slide menu (Linear layout)
+
+    // USER INTERFACE FUNCTIONS
+    public void setupNavigationMenu(){
+    	// Setting up pathways to other activities 
+        plan_trip_segue = new Intent(this, LocationsList.class);
+        bus_updates_segue = new Intent(this, BusUpdatesActivity.class);
+        start_map = new Intent(this, MapStopsActivity.class);
+        open_select_stop = new Intent(this, ChooseTableActivity.class);
+    	// Setting up user interface elements
+
         navigation_menu = findViewById(R.id.navigation_menu);
 
-        // Navigation button:
         navigation_button = findViewById(R.id.navigation_button);
 
-        navigation_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view)
-            {
-                animate_navigation_menu();
-            }
+        navigation_button.setOnClickListener((View v) -> {
+            animate_navigation_menu();
+
         });
 
-        plan_trip_button = findViewById(R.id.plan_trip_button);
 
-        plan_trip_button.setOnClickListener(new View.OnClickListener() {
+        // Set intent on LocationsList Activity
+        plan_trip_button = findViewById(R.id.plan_trip_button);
+        plan_trip_button.setOnClickListener((View v) -> {
+            animate_navigation_menu();
+            startActivity(plan_trip_segue);
+        });
+
+
+        // Set intent on BusUpdates Activity
+       bus_alerts_button = findViewById(R.id.bus_updates_button);
+       bus_alerts_button.setOnClickListener((View v) -> {
+           animate_navigation_menu();
+           startActivity(bus_updates_segue);
+       });
+
+
+       // Set intent on MapStopsActivity
+        map_button = findViewById(R.id.map_button);
+        map_button.setOnClickListener(new View.OnClickListener() {
+
             @Override
-            public void onClick(View v)
-            {
-                startActivity(start_trip_segue);
+            public void onClick(View view) {
+                startActivity(start_map);
                 animate_navigation_menu();
             }
         });
 
         //Button has been clicked then jump to ChooseSelectActivity
-        stop_select_button = findViewById(R.id.imageButton4);
+        stop_select_button = findViewById(R.id.imageButton);
         stop_select_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
@@ -115,12 +145,13 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
+
     public void animate_navigation_menu(){
         Animation slideUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up);
         Animation slideDown = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down);
 
-        if(navigation_menu.getVisibility()==View.INVISIBLE) {
 
+        if(navigation_menu.getVisibility()==View.INVISIBLE) {
             navigation_menu.startAnimation(slideUp);
             navigation_menu.setVisibility(View.VISIBLE);
 

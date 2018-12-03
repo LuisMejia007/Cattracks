@@ -3,16 +3,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
-
     <item
-        android:title="search"
         android:id="@+id/stopLocationsSearchFilter"
-        android:icon="@mipmap/search_icon"
-        app:showAsAction="ifRoom|collapseActionView"
+        android:icon="@mipmap/search_icon_2"
+        android:title="search"
         app:actionViewClass="android.support.v7.widget.SearchView"
-        />
+        app:showAsAction="ifRoom|collapseActionView" />
     <item
-        android:icon="@mipmap/navigation_icon"
+        android:id="@+id/navigation_button"
+        android:icon="@mipmap/navigation_icon_2"
         android:title="navigation"
         app:showAsAction="always" />
 </menu>

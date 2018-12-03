@@ -166,4 +166,16 @@ public class TableStopSelectAdapter extends RecyclerView.Adapter <TableStopSelec
     {
         return stopsList.size();
     }
+
+    // Method for Search Filtering
+    public void updateList(List<stops> filteredStopsList) {
+
+        // Reset list that is shown inside the RecyclerView
+        stopsList = new ArrayList<>();
+        // Place all items inside filtered list to the list that the RecyclerView showcases
+        stopsList.addAll(filteredStopsList);
+        // Notify the change
+        notifyDataSetChanged();
+
+    }
 }

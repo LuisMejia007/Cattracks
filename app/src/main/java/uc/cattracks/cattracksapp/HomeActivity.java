@@ -42,7 +42,11 @@ public class HomeActivity extends AppCompatActivity {
     // Look @ line 79 for this object's use.
     public static CattracksDatabase cattracksDatabase;
 
+    // Jump to select stop activity
+    Intent open_select_stop;
 
+    // User interface element for select stop
+    ImageButton stop_select_button;
 
     // PATHWAYS TO OTHER ACTIVITIES 
     Intent plan_trip_segue;
@@ -81,7 +85,8 @@ public class HomeActivity extends AppCompatActivity {
 
 
 
-
+        // Setting up user interface elements
+        // Slide menu (Linear layout)
 
     // USER INTERFACE FUNCTIONS
     public void setupNavigationMenu(){
@@ -89,14 +94,16 @@ public class HomeActivity extends AppCompatActivity {
         plan_trip_segue = new Intent(this, LocationsList.class);
         bus_updates_segue = new Intent(this, BusUpdatesActivity.class);
         start_map = new Intent(this, MapStopsActivity.class);
-
+        open_select_stop = new Intent(this, ChooseTableActivity.class);
     	// Setting up user interface elements
+
         navigation_menu = findViewById(R.id.navigation_menu);
-     
 
         navigation_button = findViewById(R.id.navigation_button);
+
         navigation_button.setOnClickListener((View v) -> {
             animate_navigation_menu();
+
         });
 
 
@@ -126,8 +133,17 @@ public class HomeActivity extends AppCompatActivity {
                 animate_navigation_menu();
             }
         });
-    }
 
+        //Button has been clicked then jump to ChooseSelectActivity
+        stop_select_button = findViewById(R.id.imageButton);
+        stop_select_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                startActivity(open_select_stop);
+            }
+        });
+    }
 
 
     public void animate_navigation_menu(){

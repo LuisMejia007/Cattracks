@@ -12,29 +12,11 @@
         android:visibility="visible">
 
         <Button
-            android:id="@+id/heritageBtn"
-            android:layout_width="191dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:background="#021f54"
-            android:textColor="@android:color/white"
-            android:text="Heritage" />
-
-        <Button
-            android:id="@+id/fastCatBtn"
-            android:layout_width="191dp"
-            android:layout_height="match_parent"
-            android:layout_marginTop="50dp"
-            android:background="#021f54"
-            android:textColor="@android:color/white"
-            android:text="Fast Cat" />
-
-        <Button
             android:id="@+id/c1Btn"
             android:layout_width="191dp"
             android:layout_height="match_parent"
             android:layout_marginTop="50dp"
-            android:background="#021f54"
+            android:background="#167dd0"
             android:textColor="@android:color/white"
             android:text="C1" />
 
@@ -43,18 +25,63 @@
             android:layout_width="191dp"
             android:layout_height="match_parent"
             android:layout_marginTop="50dp"
-            android:background="#021f54"
+            android:background="#167dd0"
             android:textColor="@android:color/white"
             android:text="C2" />
+
+        <Button
+            android:id="@+id/e1Btn"
+            android:layout_width="191dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="50dp"
+            android:background="#167dd0"
+            android:textColor="@android:color/white"
+            android:text="E1" />
+
+        <Button
+            android:id="@+id/e2Btn"
+            android:layout_width="191dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="50dp"
+            android:background="#167dd0"
+            android:textColor="@android:color/white"
+            android:text="E2" />
 
         <Button
             android:id="@+id/gBtn"
             android:layout_width="191dp"
             android:layout_height="match_parent"
             android:layout_marginTop="50dp"
-            android:background="#021f54"
+            android:background="#167dd0"
             android:textColor="@android:color/white"
             android:text="G" />
+
+        <Button
+            android:id="@+id/fastCatBtn"
+            android:layout_width="191dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="50dp"
+            android:background="#167dd0"
+            android:textColor="@android:color/white"
+            android:text="Fast Cat" />
+
+        <Button
+            android:id="@+id/heritageBtn"
+            android:layout_width="191dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:background="#167dd0"
+            android:textColor="@android:color/white"
+            android:text="Heritage" />
+
+        <Button
+            android:id="@+id/heritageWBtn"
+            android:layout_width="191dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:background="#167dd0"
+            android:textColor="@android:color/white"
+            android:text="Heritage Weekend" />
 
     </LinearLayout>
 </ScrollView>

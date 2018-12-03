@@ -6,9 +6,6 @@
     <!--Application's status bar color-->
     <!--NOTE: Must match activity bar color-->
     <color name="colorPrimaryDark">#000000</color>
-
-    <color name="colorToGet">#00FF00</color>
-    <color name="colorToPay">#ff0000</color>
     <color name="colorSecondary">#64b5f6</color>
     <color name="darkBlue">#021f54</color>
     <color name="lightBlue">#0844a4</color>

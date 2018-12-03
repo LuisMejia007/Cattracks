@@ -24,33 +24,30 @@
         <activity
             android:name=".ChooseTableActivity"
             android:label="@string/title_activity_choose_table"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".NeatTableActivity"
             android:label="@string/title_activity_neat_table"
+            android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".StopSelectActivity"
-            android:label="@string/title_activity_stop_select"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:label="Select Three Stops"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
         <activity
             android:name=".HomeActivity"
             android:configChanges="orientation"
             android:label="Select Your Start Location"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
+
         <activity
             android:name=".LocationsList"
             android:configChanges="orientation"
@@ -87,5 +84,4 @@
             android:name=".MapStopsActivity"
             android:label="Choose Location For Map View" />
     </application>
-
 </manifest>

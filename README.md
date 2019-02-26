@@ -5,5 +5,22 @@ CatTracks is an application designed for the University of California Merced's b
 
 __Features:__
 <br>
-* Home screen and features navigation bar
-<img src = "CatTracks_Images/CatTracks_Shot1.png" height = "393" width = "200">
+<img src = "CatTracks_Images/CatTracks_Shot1.png" height = "491" width = "250">
+
+* Trip planing
+<p float = "left">
+<img src = "CatTracks_Images/CatTracks_Shot2.png" height = "491" width = "250">
+<img src = "CatTracks_Images/CatTacks_Shot3.png" height = "491" width = "250">
+</p>
+
+* Bus stop directions
+<p float = "left">
+<img src = "CatTracks_Images/CatTacks_Shot4.png" height = "491" width = "250">
+<img src = "CatTracks_Images/CatTracks_Shot5.png" height = "491" width = "250">
+</p>
+
+* Bus updates Twitter feed
+<img src = "CatTracks_Images/CatTracks_Shot6.png" height = "491" width = "250">
+
+* Comprehensive bus schedules
+<img src = "CatTracks_Images/CatTracks_Shot7.png" height = "250" width = "491">
